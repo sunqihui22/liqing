@@ -42,6 +42,13 @@ public class StringUtils {
         }
     };
 
+    public static String IsNull(String value) {
+        if ("".equals(value) || null == value)
+            return "0";
+        else
+            return value;
+    }
+
     /**
      * 将字符串转位日期类型
      *

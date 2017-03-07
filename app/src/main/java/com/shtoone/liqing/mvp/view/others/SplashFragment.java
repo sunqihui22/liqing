@@ -1,5 +1,6 @@
 package com.shtoone.liqing.mvp.view.others;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,8 +12,8 @@ import android.view.ViewGroup;
 import com.shtoone.liqing.BaseApplication;
 import com.shtoone.liqing.R;
 import com.shtoone.liqing.common.Constants;
-import com.shtoone.liqing.mvp.contract.SplashContract;
-import com.shtoone.liqing.mvp.presenter.SplashPresenter;
+import com.shtoone.liqing.mvp.contract.others.SplashContract;
+import com.shtoone.liqing.mvp.presenter.others.SplashPresenter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
 import com.shtoone.liqing.utils.SharedPreferencesUtils;
 import com.shtoone.liqing.widget.CircleTextProgressbar;
@@ -70,7 +71,10 @@ public class SplashFragment extends BaseFragment<SplashContract.Presenter> imple
             @Override
             public void onProgress(int what, int progress) {
                 if (((int) (progress % temp)) == 0) {
-                    ctpSkip.setText((--intTime) + "s");
+
+                    if (ctpSkip != null) {
+                        ctpSkip.setText((--intTime) + "s");
+                    }
                 }
             }
         });
@@ -82,6 +86,7 @@ public class SplashFragment extends BaseFragment<SplashContract.Presenter> imple
         isFirstentry = (boolean) SharedPreferencesUtils.get(BaseApplication.mContext, Constants.ISFIRSTENTRY, true);
         //严格按照流程来，Presenter层的代码应该在View层代码的必要数据加载完成之后才调用
         mPresenter.checkLogin();
+        mPresenter.checkUpdate();
     }
 
     @OnClick(R.id.ctp_skip)
@@ -100,7 +105,7 @@ public class SplashFragment extends BaseFragment<SplashContract.Presenter> imple
 //            _mActivity.startActivity(new Intent(_mActivity, MainActivity.class));
 
         } else {
-            start(LoginFragment.newInstance());
+            start(LoginFragment.newInstance(Constants.FROM_SPLASH));
 //            _mActivity.startActivity(new Intent(_mActivity, MainActivity.class));
 
         }
@@ -111,12 +116,34 @@ public class SplashFragment extends BaseFragment<SplashContract.Presenter> imple
         if (isExit) {
             return;
         }
-        start(MainFragment.newInstance());
+        _mActivity.startActivity(new Intent(_mActivity, MainActivity.class));
+        //start(MainFragment.newInstance());
+        _mActivity.finish();
     }
 
     @Override
     public void onDestroy() {
         isExit = true;
         super.onDestroy();
+    }
+
+    @Override
+    public void showContent() {
+
+    }
+
+    @Override
+    public void showError(Throwable t) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showEmpty() {
+
     }
 }

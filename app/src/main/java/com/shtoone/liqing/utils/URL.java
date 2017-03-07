@@ -12,6 +12,9 @@ public class URL {
 
     public static final String TAG = "URL";
 
+
+
+
     /**
      * 常用接口、url
      */
@@ -31,9 +34,12 @@ public class URL {
 //    public static final String BaseURL = "http://120.27.146.66:8083/nxsy/";
 //    public static final String BaseURL = "http://192.168.11.102:8080/qms/";
 //    public static final String BaseURL = "http://192.168.1.105:8080/zgjjqms/";
-    public static final String BaseURL = "http://192.168.11.128:8080/zgjjqms/";
+    public static final String BaseURL = "http://192.168.11.108:8081/qhttqms/";
 
-
+    /**
+     * 沥青待处置超标详情处置提交
+     */
+    public static final String LIQING_CHAOBIAO_DETAIL_CHUZHI_SUBMIT_URL = BaseURL + "lqChaoBiaoChuZhiController.do?appLqChaobiaoChuzhi&xxid=%1&chaobiaoyuanyin=%2&chuzhifangshi=%3&chuzhijieguo=%4&chuzhiren=%5&chuzhishijian=%6";
     /**
      * 登录地址
      */
@@ -557,5 +563,33 @@ public class URL {
             return null;
         }
         return url;
+    }
+
+    /**
+     * 沥青总生产量url
+     */
+    public static final String Liqing_Lingdao_Tongji = BaseURL + "lqChaoBiaoController.do?lqChaoBiaoCount&userGroupId=%1&startTime=%2&endTime=%3";
+
+    /**
+     * 沥青总生产量
+     *
+     * @param userGroupID 组织ID
+     * @param startTime   查询的起始时间
+     * @param endTime     查询的结束时间
+     * @return 返回拼凑后的url
+     */
+    public static String getTotalProductData(String userGroupID, String startTime, String endTime) {
+        startTime = DateUtils.ChangeTimeToLong(startTime);
+        endTime = DateUtils.ChangeTimeToLong(endTime);
+        //如果开始时间大于结束时间，返回null
+        if (Integer.valueOf(startTime) <= Integer.valueOf(endTime)) {
+            String url = Liqing_Lingdao_Tongji.replace("%1", userGroupID).replace("%2", startTime).replace("%3", endTime);
+            KLog.e(TAG, "沥青主界面URL :" + url);
+            if (TextUtils.isEmpty(url)) {
+                return null;
+            }
+            return url;
+        }
+        return null;
     }
 }

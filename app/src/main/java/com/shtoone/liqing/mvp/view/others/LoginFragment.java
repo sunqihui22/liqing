@@ -1,36 +1,45 @@
 package com.shtoone.liqing.mvp.view.others;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.shtoone.liqing.R;
 import com.shtoone.liqing.common.Constants;
-import com.shtoone.liqing.mvp.contract.LoginContract;
-import com.shtoone.liqing.mvp.presenter.LoginPresenter;
-import com.shtoone.liqing.mvp.view.MainActivity;
+import com.shtoone.liqing.mvp.contract.others.LoginContract;
+import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
+import com.shtoone.liqing.mvp.presenter.others.LoginPresenter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
 import com.shtoone.liqing.utils.AESCryptUtils;
-import com.shtoone.liqing.utils.AnimationUtils;
 import com.shtoone.liqing.utils.KeyBoardUtils;
-import com.shtoone.liqing.utils.NetworkUtils;
 import com.shtoone.liqing.utils.SharedPreferencesUtils;
 import com.shtoone.liqing.widget.processbutton.iml.ActionProcessButton;
 
+import org.json.JSONException;
+
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.security.GeneralSecurityException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.adapter.rxjava.HttpException;
 
 /**
  * Author：leguang on 2016/10/9 0009 15:49
@@ -39,25 +48,37 @@ import butterknife.OnClick;
 public class LoginFragment extends BaseFragment<LoginContract.Presenter> implements LoginContract.View {
 
     private static final String TAG = LoginFragment.class.getSimpleName();
-    @BindView(R.id.ll_login_fragment)
-    LinearLayout ll;
     @BindView(R.id.et_username_login_fragment)
     TextInputLayout etUsername;
     @BindView(R.id.et_password_login_fragment)
     TextInputLayout etPassword;
     @BindView(R.id.bt_login_fragment)
     ActionProcessButton btLogin;
+    @BindView(R.id.cl_login_fragment)
+    CoordinatorLayout cl;
+
 
     private String username;
     private String password;
+    private int fromTo;
 
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
+    public static LoginFragment newInstance(int fromTo) {
+        Bundle args = new Bundle();
+        args.putInt(Constants.FROM_TO, fromTo);
+
+        LoginFragment fragment = new LoginFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            fromTo = args.getInt(Constants.FROM_TO);
+        }
+        Log.i("LoginFragment","--LoginFragment--");
     }
 
     @NonNull
@@ -70,9 +91,11 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getFragmentManager().beginTransaction()
-                .show(getPreFragment())
-                .commit();
+        if (fromTo == Constants.FROM_SPLASH) {
+            getFragmentManager().beginTransaction()
+                    .show(getPreFragment())
+                    .commit();
+        }
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -81,17 +104,13 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ll.post(new Runnable() {
-            @Override
-            public void run() {
-                AnimationUtils.show(ll);
-            }
-        });
+        //进场动画
+//        revealShow();
         initData();
     }
 
     private void initData() {
+
         etUsername.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -138,8 +157,6 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
 
             }
         });
-
-
     }
 
     @OnClick(R.id.bt_login_fragment)
@@ -163,27 +180,25 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
     }
 
     @Override
-    public void savaData() {
+    public void savaData(UserInfoBean mUserInfoBean) {
         try {
             String usernameEncrypted = AESCryptUtils.encrypt(Constants.ENCRYPT_KEY, username);
             String passwordEncrypted = AESCryptUtils.encrypt(Constants.ENCRYPT_KEY, password);
+//            String userIdEncrypted = AESCryptUtils.encrypt(Constants.ENCRYPT_KEY, mUserInfoBean.getUserId());
+
             SharedPreferencesUtils.put(_mActivity, Constants.USERNAME, usernameEncrypted);
             SharedPreferencesUtils.put(_mActivity, Constants.PASSWORD, passwordEncrypted);
+//            SharedPreferencesUtils.put(_mActivity, Constants.USER_ID, userIdEncrypted);
+
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
     }
 
+
     @Override
     public void setErrorMessage(String message) {
-        //提示网络数据异常。1.可能是本机网络机场。2.可能是服务器异常。
-        if (!NetworkUtils.isConnected(_mActivity)) {
-            //提示网络异常
-            btLogin.setErrorText("网络异常");
-        } else {
-            //服务器异常
-            btLogin.setErrorText(message);
-        }
+        btLogin.setErrorText(message);
         btLogin.setProgress(-1);
     }
 
@@ -201,7 +216,45 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
                 _mActivity.startActivity(new Intent(_mActivity, MainActivity.class));
             }
         }, 300);
+
+        _mActivity.finish();
+    }
+
+
+
+    @Override
+    public void showContent() {
+
+    }
+
+
+    @Override
+    public void showError(Throwable t) {
+        if (t instanceof ConnectException) {
+            setErrorMessage("网络异常");
+        } else if (t instanceof HttpException) {
+            setErrorMessage("服务器异常");
+        } else if (t instanceof SocketTimeoutException) {
+            setErrorMessage("连接超时");
+        } else if (t instanceof JSONException) {
+            setErrorMessage("解析异常");
+        } else {
+            setErrorMessage("数据异常");
+        }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showEmpty() {
+
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        return true;//消费掉事件
     }
 }
-
-

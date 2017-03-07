@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_item_recyclerview_concrete_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/card_Corner_Radius"
+    app:cardElevation="3dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="9"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <!-- 第1行 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="7dp"
+            android:orientation="horizontal">"
+
+            <!-- 日期  -->
+            <TextView
+                android:id="@+id/txtRichanliangDate"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_weight="1.3" />
+
+            <!-- 施工桩号文字  -->
+            <TextView
+                android:text="@string/richanliang_shigongzhuanghao"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/txtRichanliangShigongzhuanghao"
+                android:singleLine="true"
+                android:layout_width="0dp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <!-- 第2行 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="7dp"
+            android:orientation="horizontal">
+
+            <!-- 采集产量  -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:textSize="13sp"
+                android:text="@string/richanliang_caijichanliang" />
+
+            <TextView
+                android:id="@+id/txtRichanliangCaijichanliang"
+                android:layout_width="0dp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_weight="0.3" />
+
+            <!-- 盘数  -->
+            <TextView
+                android:text="@string/richanliang_panshu"
+                android:layout_width="0dp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_weight="0.3" />
+
+            <TextView
+                android:id="@+id/txtRichanliangPanshu"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_weight="0.2" />
+        </LinearLayout>
+
+        <!-- 第3行 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="7dp"
+            android:orientation="horizontal">
+
+            <!-- 修正产量  -->
+            <TextView
+                android:layout_width="0dp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:textSize="13sp"
+                android:text="@string/richanliang_xiuzhengchanliang" />
+
+            <TextView
+                android:id="@+id/txtRichanliangXiuzhengchanliang"
+                android:layout_width="0dp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_weight="0.3" />
+
+            <!-- 密度  -->
+            <TextView
+                android:text="@string/richanliang_midu"
+                android:layout_width="0dp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_weight="0.3" />
+
+            <TextView
+                android:id="@+id/txtRichanliangMidu"
+                android:layout_width="0dp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_weight="0.2" />
+        </LinearLayout>
+
+        <!-- 第4行 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="7dp"
+            android:orientation="horizontal">
+
+            <!-- 长  -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:textSize="13sp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:text="@string/richanliang_chang" />
+
+            <TextView
+                android:id="@+id/txtRichanliangChang"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_weight="0.3" />
+
+            <!-- 宽  -->
+            <TextView
+                android:text="@string/richanliang_kuan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_weight="0.3" />
+
+            <TextView
+                android:id="@+id/txtRichanliangKuan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_weight="0.2" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="7dp"
+        android:orientation="horizontal">
+
+            <!-- 厚  -->
+            <TextView
+                android:text="@string/richanliang_hou"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/txtRichanliangHou"
+                android:layout_width="wrap_content"
+                style="@style/RecyclerViewItemTextTheme"
+
+                android:gravity="left"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

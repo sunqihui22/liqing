@@ -1,25 +1,28 @@
 package com.shtoone.liqing.mvp.model;
 
-import com.shtoone.liqing.BaseApplication;
+import android.text.TextUtils;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.internal.bind.TypeAdapters;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 import com.shtoone.liqing.BuildConfig;
 import com.shtoone.liqing.common.Constants;
-import com.shtoone.liqing.utils.NetworkUtils;
-import com.socks.library.KLog;
+import com.shtoone.liqing.utils.Configuration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.CacheControl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Author：leguang on 2016/10/9 0009 15:49
@@ -61,62 +64,12 @@ public class HttpHelper {
                 builder.interceptors().clear();
             }
 
-            File cacheFile = new File(Constants.PATH_CACHE);
+            File cacheFile = new File(Constants.PATH_NET_CACHE);
             Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
 
-            Interceptor cacheInterceptor = new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request request = chain.request();
-
-                    //打印url信息
-                    KLog.e(request.toString());
-
-                    if (!NetworkUtils.isConnected(BaseApplication.mContext)) {
-                        request = request.newBuilder()
-                                .cacheControl(CacheControl.FORCE_CACHE)
-                                .build();
-                    }
-                    int tryCount = 0;
-
-                    Response response = chain.proceed(request);
-
-                    KLog.e(response.toString());
-                    KLog.json(response.body().string());
-
-                    while (!response.isSuccessful() && tryCount < 3) {
-
-                        KLog.e("interceptRequest is not successful - :{}", tryCount);
-
-                        tryCount++;
-
-                        // retry the request
-                        response = chain.proceed(request);
-                    }
-
-                    if (NetworkUtils.isConnected(BaseApplication.mContext)) {
-                        int maxAge = 0;
-                        // 有网络时, 不缓存, 最大保存时长为0
-                        response.newBuilder()
-                                .header("Cache-Control", "public, max-age=" + maxAge)
-                                .removeHeader("Pragma")
-                                .build();
-                    } else {
-                        // 无网络时，设置超时为4周
-                        int maxStale = 60 * 60 * 24 * 28;
-                        response.newBuilder()
-                                .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                                .removeHeader("Pragma")
-                                .build();
-                    }
-                    return response;
-                }
-            };
 
             //设置缓存
-            //设置缓存后各种问题
-//            builder.addInterceptor(cacheInterceptor);
-            builder.cache(cache);
+//            builder.cache(cache);
             //设置超时
             builder.connectTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
             builder.readTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
@@ -124,11 +77,17 @@ public class HttpHelper {
             //错误重连
             builder.retryOnConnectionFailure(true);
 
-            //DEBUG模式下配Log
+            //DEBUG模式下配Log拦截器
             if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                 builder.addInterceptor(loggingInterceptor);
+            }
+
+//            builder.addNetworkInterceptor();
+
+            if (Configuration.isShowNetworkParams()) {
+                builder.addInterceptor(new LoggingInterceptor());
             }
             mOkHttpClient = builder.build();
         }
@@ -137,10 +96,83 @@ public class HttpHelper {
     private void initRetrofit() {
         if (null == mRetrofit) {
             initOkHttpClient();
+
+            GsonBuilder gsonBuilder = new GsonBuilder();
+
+            // Gson double类型转换, 避免空字符串解析出错
+            final TypeAdapter<Number> DOUBLE = new TypeAdapter<Number>() {
+                @Override
+                public Number read(JsonReader in) throws IOException {
+                    if (in.peek() == JsonToken.NULL) {
+                        in.nextNull();
+                        return null;
+                    }
+                    if (in.peek() == JsonToken.STRING) {
+                        String tmp = in.nextString();
+                        if (TextUtils.isEmpty(tmp)) tmp = "0";
+                        return Double.parseDouble(tmp);
+                    }
+                    return in.nextDouble();
+                }
+
+                @Override
+                public void write(JsonWriter out, Number value) throws IOException {
+                    out.value(value);
+                }
+            };
+
+            // Gson long类型转换, 避免空字符串解析出错
+            final TypeAdapter<Number> LONG = new TypeAdapter<Number>() {
+                @Override
+                public Number read(JsonReader in) throws IOException {
+                    if (in.peek() == JsonToken.NULL) {
+                        in.nextNull();
+                        return null;
+                    }
+                    if (in.peek() == JsonToken.STRING) {
+                        String tmp = in.nextString();
+                        if (TextUtils.isEmpty(tmp)) tmp = "0";
+                        return Long.parseLong(tmp);
+                    }
+                    return in.nextLong();
+                }
+
+                @Override
+                public void write(JsonWriter out, Number value) throws IOException {
+                    out.value(value);
+                }
+            };
+
+            // Gson int类型转换, 避免空字符串解析出错
+            final TypeAdapter<Number> INT = new TypeAdapter<Number>() {
+                @Override
+                public Number read(JsonReader in) throws IOException {
+                    if (in.peek() == JsonToken.NULL) {
+                        in.nextNull();
+                        return null;
+                    }
+                    if (in.peek() == JsonToken.STRING) {
+                        String tmp = in.nextString();
+                        if (TextUtils.isEmpty(tmp)) tmp = "0";
+                        return Integer.parseInt(tmp);
+                    }
+                    return in.nextInt();
+                }
+
+                @Override
+                public void write(JsonWriter out, Number value) throws IOException {
+                    out.value(value);
+                }
+            };
+
+            gsonBuilder.registerTypeAdapterFactory(TypeAdapters.newFactory(double.class, Double.class, DOUBLE));
+            gsonBuilder.registerTypeAdapterFactory(TypeAdapters.newFactory(long.class, Long.class, LONG));
+            gsonBuilder.registerTypeAdapterFactory(TypeAdapters.newFactory(int.class, Integer.class, INT));
+
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(mOkHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
         }

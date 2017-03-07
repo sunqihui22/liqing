@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!-- 沥青站名称 -->
+
+    <LinearLayout
+        android:id="@+id/sc_richanliang_shebeis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp" />
+
+    <TextView
+        android:id="@+id/richanliang_title_pageNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:textColor="@color/green" />
+
+    <!-- 两个时间选择框 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1" />
+
+        <EditText
+            android:id="@+id/total_product_first_choice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:editable="false"
+            android:inputType="datetime"
+            android:singleLine="true"
+            android:text="2015-06-01"
+            android:background="@color/base_color"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:gravity="center_horizontal"
+            android:text="~"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/total_product_second_choice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.5"
+            android:editable="false"
+            android:inputType="datetime"
+            android:singleLine="true"
+            android:text="2015-06-30"
+            android:background="@color/base_color"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0." />
+
+        <TextView
+            android:id="@+id/total_product_chaxun_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:paddingBottom="2sp"
+            android:paddingLeft="5sp"
+            android:paddingTop="2sp"
+            android:text="@string/select"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="headers">
+        <item>处置</item>
+        <item>全部</item>
+    </string-array>
+
+    <string-array name="handle_status">
+        <item>已处置</item>
+        <item>未处置</item>
+    </string-array>
+
+    <string-array name="level_type">
+        <item>全部</item>
+        <item>低级</item>
+        <item>中级</item>
+        <item>高级</item>
+    </string-array>
+
+    <string-array name="route_type">
+        <item>闭合</item>
+        <item>附合</item>
+    </string-array>
+
+    <string-array name="observe_type">
+        <item>aBFFB</item>
+        <item>aFBBF</item>
+        <item>BFFB</item>
+        <item>aBF</item>
+        <item>BF</item>
+    </string-array>
+
+    <string-array name="weather">
+        <item>晴</item>
+        <item>阴</item>
+        <item>雨</item>
+        <item>雪</item>
+        <item>风</item>
+        <item>其他</item>
+    </string-array>
+</resources>

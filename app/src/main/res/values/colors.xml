@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="blue">#ff33b5e5</color>
     <color name="colorPrimary">#4CAF50</color>
     <color name="colorPrimaryDark">#4CAF50</color>
     <color name="colorAccent">#4CAF50</color>
     <color name="fab_background_color">@color/colorAccent</color>
     <color name="dialog_background_color">#fafafa</color>
+    <color name="blueText">#6699ff</color> <!--文字蓝色-->
     <!-- 常用颜色值 -->
     <color name="base_color">#4CAF50</color>
     <color name="white">#FFF</color>
@@ -371,5 +374,18 @@
     <color name="black_38_percent_alpha">#4c000000</color>
     <!-- 12% black (foreground) -->
     <color name="black_12_percent_alpha">#1f000000</color>
+
+
+    <color name="mdtp_dark_gray">#323232</color>
+
+    <color name="material_login_login_color">#3F51B5</color>
+    <color name="material_login_register_color">#3F51B5</color>
+    <color name="material_login_login_error_color">#FF00</color>
+    <color name="material_login_register_error_color">#FF00</color>
+    <color name="material_login_login_text_color">#000</color>
+    <color name="material_login_register_text_color">#000</color>
+    <color name="login_register_background">#C000</color>
+    <color name="login_reveal">#8842bd41</color>
+
 
 </resources>

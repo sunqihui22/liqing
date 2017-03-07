@@ -115,7 +115,8 @@ public class GuideFragment extends BaseFragment {
     public void onClick() {
         SharedPreferencesUtils.put(_mActivity, Constants.ISFIRSTENTRY, false);
         // 页面跳转
-        start(LoginFragment.newInstance());
+        start(LoginFragment.newInstance(Constants.FROM_GUIDE));
+//        startActivity(new Intent(_mActivity, MainActivity.class));
     }
 
     class GuideViewPagerAdapter extends PagerAdapter {

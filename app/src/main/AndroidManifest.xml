@@ -48,8 +48,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".mvp.view.LaunchActivity"
+            android:name=".mvp.view.others.LaunchActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.LaunchTheme">
             <intent-filter>
@@ -59,9 +60,30 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".mvp.view.pitch.PitchDetailActivity"/>
+
+        <activity android:name=".mvp.view.pitch.ProduceDataQueryDetailActivity"/>
+
+        <activity android:name=".mvp.view.pitch.PendingTreatDetailActivity"
+                  android:windowSoftInputMode="adjustPan"/>
+
         <activity
-            android:name=".mvp.view.MainActivity"
+            android:name=".mvp.view.others.MainActivity"
+            android:launchMode="singleTop" >
+
+        </activity>
+
+        <activity
+            android:name=".mvp.view.others.DrawerActivity"
+            android:theme="@style/AppTheme.Transparent"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".mvp.view.others.RegisterActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Register" />
+
+        <activity android:name=".mvp.view.pitch.DayProduceAmountDetailActivity"/>
+
     </application>
 
 </manifest>

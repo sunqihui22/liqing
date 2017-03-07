@@ -10,6 +10,8 @@ import com.socks.library.KLog;
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
+import rx.Subscriber;
+
 /**
  * Author：leguang on 2016/10/9 0009 10:31
  * Email：langmanleguang@qq.com
@@ -46,5 +48,39 @@ public abstract class BasePresenter<V extends BaseContract.View> {
             KLog.e("detachView");
             mViewReference = null;
         }
+    }
+
+    public abstract class RxSubscriber<T> extends Subscriber<T> {
+
+        @Override
+        public void onCompleted() {
+            KLog.e("onCompleted");
+            getView().showContent();
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            KLog.e("onStart");
+            getView().showLoading();
+        }
+
+
+        @Override
+        public void onNext(T t) {
+            KLog.e("onNext");
+            _onNext(t);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            e.printStackTrace();
+            //此处不考虑错误类型，笼统的以错误来介绍
+            KLog.e("onError::" + e);
+            getView().showError(e);
+        }
+
+        public abstract void _onNext(T t);
+
     }
 }

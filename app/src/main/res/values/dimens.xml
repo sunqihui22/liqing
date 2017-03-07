@@ -11,5 +11,7 @@
     <dimen name="corner_radius">2dp</dimen>
     <dimen name="layer_padding">3dp</dimen>
 
+    <!--登陆模块-->
+    <dimen name="login_register_editview_text_size">16sp</dimen>
 
 </resources>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_container_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_blue_200">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/et_starttime_login_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColorHint="#808080">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_bg_edit"
+                android:hint="@string/select_start_time"
+                android:inputType="textPersonName"
+                android:paddingBottom="2dp"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/bg_input_cursor"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/et_endtime_login_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColorHint="#808080">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_bg_edit"
+                android:hint="@string/select_end_time"
+                android:inputType="textPersonName"
+                android:paddingBottom="2dp"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/bg_input_cursor"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/ms_select_equipment_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ms_baseColor="@color/black"
+            app:ms_enableErrorLabel="false"
+            app:ms_floatingLabelColor="@color/black"
+            app:ms_highlightColor="@color/material_grey_400"
+            app:ms_hintColor="@color/white"
+            app:ms_multiline="true"
+            app:ms_arrowSize="13dp"
+            app:ms_alignLabels="true"
+            android:visibility="gone"/>
+
+        <RadioGroup
+            android:id="@+id/rg_qualify_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/rb_all_equalify_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/rb_not_qualify_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="合格" />
+
+            <RadioButton
+                android:id="@+id/rb_qualify_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="不合格" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rg_handle_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/rb_all_handle_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/rb_not_handle_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="未处置" />
+
+            <RadioButton
+                android:id="@+id/rb_handled_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="已处置" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rg_level_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/rb_all_level_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/rb_low_level_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="低级" />
+
+            <RadioButton
+                android:id="@+id/rb_middle_level_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="中级" />
+
+            <RadioButton
+                android:id="@+id/rb_high_level_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="高级" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rg_examine_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/rb_all_examine_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/rb_not_examine_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="未审批" />
+
+            <RadioButton
+                android:id="@+id/rb_examined_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="已审批" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rg_time_type_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/rb_ji_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="季" />
+
+            <RadioButton
+                android:id="@+id/rb_month_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="月" />
+
+            <RadioButton
+                android:id="@+id/rb_week_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="周" />
+
+            <RadioButton
+                android:id="@+id/rb_day_dialog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="日" />
+        </RadioGroup>
+
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/bt_search_dialog"
+            android:layout_width="100dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/cpb_white"
+            android:textSize="15sp"
+            app:cpb_cornerRadius="20dp"
+            app:cpb_iconComplete="@drawable/ic_action_accept"
+            app:cpb_textIdle="查询" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -100,4 +100,13 @@ public class DateUtils {
         return day;
     }
 
+
+    public static String subTime(String time) {
+        if (time.length() > 19) {
+            return time.substring(0, 19);
+        } else {
+            return time;
+        }
+    }
+
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/material_grey_50"
     android:gravity="center">
-    <com.shtoone.shtw.ui.LoadingDrawable.LoadingView
+    <com.shtoone.liqing.widget.LoadingDrawable.LoadingView
         android:id="@+id/loadingView"
         android:layout_width="80dp"
         android:layout_height="80dp"
