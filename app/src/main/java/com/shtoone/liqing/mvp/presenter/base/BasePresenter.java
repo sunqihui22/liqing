@@ -9,6 +9,7 @@ import com.socks.library.KLog;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
+import java.util.logging.Handler;
 
 import rx.Subscriber;
 
@@ -17,7 +18,7 @@ import rx.Subscriber;
  * Email：langmanleguang@qq.com
  */
 public abstract class BasePresenter<V extends BaseContract.View> {
-    public Reference<V> mViewReference;
+    public Reference<V> mViewReference; //
 
     //每一套mvp应该拥有一个独立的RxManager
     public RxManager mRxManager = new RxManager();
@@ -31,8 +32,10 @@ public abstract class BasePresenter<V extends BaseContract.View> {
     }
 
     public V getView() {
+
         return mViewReference == null ? null : mViewReference.get();
     }
+
 
     @UiThread
     public boolean isViewAttached() {

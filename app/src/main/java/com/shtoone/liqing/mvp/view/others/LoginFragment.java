@@ -214,10 +214,10 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
             @Override
             public void run() {
                 _mActivity.startActivity(new Intent(_mActivity, MainActivity.class));
+                _mActivity.finish();
             }
         }, 300);
 
-        _mActivity.finish();
     }
 
 

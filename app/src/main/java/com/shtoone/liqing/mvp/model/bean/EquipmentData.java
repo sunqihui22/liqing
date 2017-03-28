@@ -9,17 +9,11 @@ public class EquipmentData {
 
 
     /**
-     * data : [{"banhezhanminchen":"G345线玛久1标1号沥青拌合机","departid":"f89b12c25636af3701563c5e51ed001b","gprsbianhao":"G345lq0101"},{"banhezhanminchen":"211221","departid":"f89b12c25636af3701563c5e51ed001b","gprsbianhao":"gb21121"}]
+     * data : [{"banhezhanminchen":"LM1标水稳1#机","biaoduanid":"1","gprsbianhao":"nhgssw0101","id":"1","jianchen":"1标1#机","shebeileixin":"6","xiangmubuid":"1"},{"banhezhanminchen":"LM1标水稳2#机","biaoduanid":"1","gprsbianhao":"nhgssw0102","id":"2","jianchen":"1标2#机","shebeileixin":"6","xiangmubuid":"1"}]
      * success : true
      */
 
     private boolean success;
-    /**
-     * banhezhanminchen : G345线玛久1标1号沥青拌合机
-     * departid : f89b12c25636af3701563c5e51ed001b
-     * gprsbianhao : G345lq0101
-     */
-
     private List<DataEntity> data;
 
     public boolean isSuccess() {
@@ -39,9 +33,23 @@ public class EquipmentData {
     }
 
     public static class DataEntity {
+        /**
+         * banhezhanminchen : LM1标水稳1#机
+         * biaoduanid : 1
+         * gprsbianhao : nhgssw0101
+         * id : 1
+         * jianchen : 1标1#机
+         * shebeileixin : 6
+         * xiangmubuid : 1
+         */
+
         private String banhezhanminchen;
-        private String departid;
+        private String biaoduanid;
         private String gprsbianhao;
+        private String id;
+        private String jianchen;
+        private String shebeileixin;
+        private String xiangmubuid;
 
         public String getBanhezhanminchen() {
             return banhezhanminchen;
@@ -51,12 +59,12 @@ public class EquipmentData {
             this.banhezhanminchen = banhezhanminchen;
         }
 
-        public String getDepartid() {
-            return departid;
+        public String getBiaoduanid() {
+            return biaoduanid;
         }
 
-        public void setDepartid(String departid) {
-            this.departid = departid;
+        public void setBiaoduanid(String biaoduanid) {
+            this.biaoduanid = biaoduanid;
         }
 
         public String getGprsbianhao() {
@@ -65,6 +73,38 @@ public class EquipmentData {
 
         public void setGprsbianhao(String gprsbianhao) {
             this.gprsbianhao = gprsbianhao;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getJianchen() {
+            return jianchen;
+        }
+
+        public void setJianchen(String jianchen) {
+            this.jianchen = jianchen;
+        }
+
+        public String getShebeileixin() {
+            return shebeileixin;
+        }
+
+        public void setShebeileixin(String shebeileixin) {
+            this.shebeileixin = shebeileixin;
+        }
+
+        public String getXiangmubuid() {
+            return xiangmubuid;
+        }
+
+        public void setXiangmubuid(String xiangmubuid) {
+            this.xiangmubuid = xiangmubuid;
         }
     }
 }

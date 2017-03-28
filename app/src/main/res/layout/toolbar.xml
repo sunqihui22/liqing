@@ -8,8 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:fitsSystemWindows="true"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
         app:titleTextAppearance="@style/ToolbarTextAppearance"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title="toolbar" />

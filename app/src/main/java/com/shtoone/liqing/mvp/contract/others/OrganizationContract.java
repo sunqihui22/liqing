@@ -3,6 +3,8 @@ package com.shtoone.liqing.mvp.contract.others;
 import com.shtoone.liqing.mvp.contract.base.BaseContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.OrganizationBean;
+import com.shtoone.liqing.mvp.model.bean.OrganizationNode;
+import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
 
 import java.util.List;
 
@@ -12,11 +14,11 @@ import java.util.List;
 public interface OrganizationContract {
     interface View extends BaseContract.View {
 
-      void   responseOrganization(List<OrganizationBean> treeNodes);
+        void responseOrganization(List<OrganizationNode> list);
     }
 
     interface Presenter extends BaseContract.Presenter {
-       void requestOrganization(DepartmentBean mdepartmentData);
+        void requestOrganization(DepartmentBean departmentBean);
 
     }
 

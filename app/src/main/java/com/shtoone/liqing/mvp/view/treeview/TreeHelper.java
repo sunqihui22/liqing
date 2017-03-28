@@ -3,6 +3,7 @@ package com.shtoone.liqing.mvp.view.treeview;
 import android.util.Log;
 
 import com.shtoone.liqing.R;
+import com.shtoone.liqing.mvp.view.treeview.annotation.TreeNodeEquipmentId;
 import com.shtoone.liqing.mvp.view.treeview.annotation.TreeNodeId;
 import com.shtoone.liqing.mvp.view.treeview.annotation.TreeNodeLabel;
 import com.shtoone.liqing.mvp.view.treeview.annotation.TreeNodePid;
@@ -28,7 +29,7 @@ public class TreeHelper {
             String id = null;
             String pid = null;
             String label = null;
-
+            String EquipmentId=null;
             node = new Node();
             Class clazz = t.getClass();
             Field[] fields = clazz.getDeclaredFields();
@@ -45,8 +46,13 @@ public class TreeHelper {
                     field.setAccessible(true);
                     label = (String) field.get(t);
                 }
+                if (field.getAnnotation(TreeNodeEquipmentId.class) != null) {
+                    field.setAccessible(true);
+                    EquipmentId = (String) field.get(t);
+                }
             }
             node = new Node(id, pid, label);
+            node.setEquipmentId(EquipmentId);
             nodes.add(node);
         }// for end
 

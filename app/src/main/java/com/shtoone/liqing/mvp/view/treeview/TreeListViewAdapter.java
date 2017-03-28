@@ -1,6 +1,7 @@
 package com.shtoone.liqing.mvp.view.treeview;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.List;
 public abstract class TreeListViewAdapter<T> extends BaseAdapter {
     protected Context mContext;
     protected List<Node> mAllNodes;
+    protected List<Node> mAllNodes2;
+
     protected List<Node> mVisibleNodes;
     protected LayoutInflater mInflater;
 
@@ -34,20 +37,19 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
         this.mListener = mListener;
     }
 
-    public TreeListViewAdapter(ListView tree, Context context, List<T> datas,
+    public TreeListViewAdapter(ListView tree, Context context, List datas,
                                int defaultExpandLevel) throws IllegalArgumentException,
             IllegalAccessException {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
         mAllNodes = TreeHelper.getSortedNodes(datas, defaultExpandLevel);
         mVisibleNodes = TreeHelper.filterVisibleNodes(mAllNodes);
-
         mTree = tree;
 
         mTree.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                expandOrCollapse(position);
+//                expandOrCollapse(position);//展开或者折叠
                 if (mListener != null) {
                     mListener.onClick(mVisibleNodes.get(position), position);
                 }

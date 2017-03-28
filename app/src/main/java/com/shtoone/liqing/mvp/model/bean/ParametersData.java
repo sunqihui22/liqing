@@ -22,10 +22,17 @@ public class ParametersData implements Cloneable, Serializable {
     public String isQualified = "";
     public String equipmentID = "";
     public String alarmLevel = "0";
-    public String handleType = "";
-    public String currentPage = "1";
+    public String handleType = "0";
+    public String departType="";
+    public int currentPage = 1;
     public String isReal = "";
     public String detailID = "";
+    public String userType = "";
+    public String  biaoshiid = "";
+    public String  biaoduan = "";
+    public String  userposition = "";
+    public String  models = "";
+
     public int fromTo;
     public int getTo;
     public String timeType="2";
@@ -34,7 +41,7 @@ public class ParametersData implements Cloneable, Serializable {
         initParametersData();
     }
 
-    private void initParametersData() {
+    private void initParametersData() {//初始化时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         Calendar rld = Calendar.getInstance();
         endDateTime = sdf.format(rld.getTime());
@@ -58,6 +65,8 @@ public class ParametersData implements Cloneable, Serializable {
                 ", endDateTime='" + endDateTime + '\'' +
                 ", userGroupID='" + userGroupID + '\'' +
                 ", deviceType='" + deviceType + '\'' +
+                ", userType='" + userType + '\'' +
+                ", biaoshiid='" + biaoshiid + '\'' +
                 ", testTypeID='" + testTypeID + '\'' +
                 ", disposition='" + disposition + '\'' +
                 ", level='" + level + '\'' +

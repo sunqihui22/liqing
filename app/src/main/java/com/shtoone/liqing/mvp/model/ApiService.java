@@ -1,32 +1,32 @@
 package com.shtoone.liqing.mvp.model;
 
 import com.shtoone.liqing.mvp.model.bean.CheckUpdateBean;
-import com.shtoone.liqing.mvp.model.bean.DayProduceAmountRes;
-import com.shtoone.liqing.mvp.model.bean.DayProduceAmountResData;
 import com.shtoone.liqing.mvp.model.bean.EquipmentData;
-import com.shtoone.liqing.mvp.model.bean.LaboratoryData;
-import com.shtoone.liqing.mvp.model.bean.MarshallWhenDingDuData;
-import com.shtoone.liqing.mvp.model.bean.MarshallWhenDingDuXqData;
+import com.shtoone.liqing.mvp.model.bean.MaterialStatisticsData;
 import com.shtoone.liqing.mvp.model.bean.MaterialUsageRes;
-import com.shtoone.liqing.mvp.model.bean.OrganizationFragmentBean;
-import com.shtoone.liqing.mvp.model.bean.PendingTreatDetailRes;
-import com.shtoone.liqing.mvp.model.bean.PendingTreatResBean;
-import com.shtoone.liqing.mvp.model.bean.PitchFragmentResponse;
-import com.shtoone.liqing.mvp.model.bean.ProduceDataDetailRes;
-import com.shtoone.liqing.mvp.model.bean.ProduceDataQueryRes;
+import com.shtoone.liqing.mvp.model.bean.PitchDayProductQueryData;
+import com.shtoone.liqing.mvp.model.bean.PitchFragmentData;
+import com.shtoone.liqing.mvp.model.bean.PitchOverProofData;
+import com.shtoone.liqing.mvp.model.bean.PitchOverProofDetailsBean;
+import com.shtoone.liqing.mvp.model.bean.PitchProductQueryData;
+import com.shtoone.liqing.mvp.model.bean.PitchProductqueryDetailDatas;
+import com.shtoone.liqing.mvp.model.bean.PitchStatisticsData;
+import com.shtoone.liqing.mvp.model.bean.ProductionDataQueryBean;
 import com.shtoone.liqing.mvp.model.bean.RegisterBean;
-import com.shtoone.liqing.mvp.model.bean.RuanHuaDianData;
-import com.shtoone.liqing.mvp.model.bean.RuanHuaDianXqData;
-import com.shtoone.liqing.mvp.model.bean.TotalAmountRes;
+import com.shtoone.liqing.mvp.model.bean.UploadResponseBean;
 import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
-import com.shtoone.liqing.mvp.model.bean.ZhenRuDuData;
-import com.shtoone.liqing.mvp.model.bean.ZhenRuDuXqData;
+import com.shtoone.liqing.mvp.model.bean.WaterStabilityData;
+import com.shtoone.liqing.mvp.model.bean.WaterStabilityOverProofBean;
+import com.shtoone.liqing.mvp.model.bean.WaterStabilityOverProofDetailsBean;
+import com.shtoone.liqing.mvp.model.bean.WaterStabilityProductionQueryDetailData;
+import com.shtoone.liqing.mvp.model.bean.WaterstabilityHistoryData;
+import com.shtoone.liqing.mvp.model.bean.WaterstabilityStatisticsBean;
 
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -42,7 +42,7 @@ import rx.Observable;
 public interface ApiService {
 
     //登录
-    @GET("app.do?AppLogin")
+    @GET("app/AppLogin?")
     Call<UserInfoBean> login(@Query("userName") String userName, @Query("userPwd") String userPwd, @Query("OSType") String OSType);
 
 
@@ -54,94 +54,104 @@ public interface ApiService {
     @GET("app.do?checkUpdate")
     Call<CheckUpdateBean> checkUpdate();
 
-    //马歇尔
-    @GET("maxieerChaXun?")
-    Call<MarshallWhenDingDuData> requestMarshall(@Query("biaoduanid") String biaoduanid, @Query("F_SBBH") String F_SBBH, @Query("pageNo") String pageNo, @Query("tartTime") String tartTime, @Query("endTime") String endTime, @Query("isQualified") String isQualified);
-
-
-    //马歇尔详情
-    @GET("maxieerXX?")
-    Call<MarshallWhenDingDuXqData> reuesetMarshallXq(@Query("F_GUID") String F_GUID);
-
-
-    //软化点
-    @GET("ruanhuadianChaXun?")
-    Call<RuanHuaDianData> requestRuanHuaDian(@Query("biaoduanid") String biaoduanid, @Query("F_SBBH") String F_SBBH, @Query("pageNo") String pageNo, @Query("tartTime") String tartTime, @Query("endTime") String endTime, @Query("isQualified") String isQualified);
-
-
-    //软化点详情
-    @GET("ruanhuadianXX?")
-    Call<RuanHuaDianXqData> reuesetRuanHuaDianXq(@Query("F_GUID") String F_GUID);
-
-
-    //针入度
-    @GET("zhenruduChaXun?")
-    Call<ZhenRuDuData> requestZhenRuDu(@Query("biaoduanid") String biaoduanid, @Query("F_SBBH") String F_SBBH, @Query("pageNo") String pageNo, @Query("tartTime") String tartTime, @Query("endTime") String endTime, @Query("isQualified") String isQualified);
-
-
-    //针入度详情
-    @GET("zhenruduXX?")
-    Call<ZhenRuDuXqData> reuesetZhenRuDuXq(@Query("F_GUID") String F_GUID);
-
-
-    //延度
-    @GET("yanduChaXun?")
-    Call<ZhenRuDuData> requestYanDu(@Query("biaoduanid") String biaoduanid, @Query("F_SBBH") String F_SBBH, @Query("pageNo") String pageNo, @Query("tartTime") String tartTime, @Query("endTime") String endTime, @Query("isQualified") String isQualified);
-
-    @GET("shiyanshiMenu?")
-    Call<LaboratoryData> requestLaboratory(@Query("biaoduanid") String biaoduanid);
-
-    //注册
-    @GET("app.do?AppDepartTree")
-    Observable<OrganizationFragmentBean> requestOrganization(@Query("updateDepartTime") String updateDepartTime, @Query("funtype") String funtype, @Query("userGroupId") String userGroupId, @Query("type") String type);
-
-
-    //获取设备列表
-    @GET("lqSysController.do?getLqShebeiList")
-    Call<EquipmentData> requestEquipment(@Query("userGroupId") String userGroupId);
-
-
-    //待处置报警
-    @GET("lqChaoBiaoChuZhiController.do?appLqChaobiaoList")
-    Call<PendingTreatResBean> treatAlarm(@QueryMap Map<String,String> options);
-
     //沥青超标统计
-    @GET("lqChaoBiaoController.do?lqChaoBiaoCount")
-    Call<PitchFragmentResponse> totalCount(@Query("userGroupId") String userGroupId, @Query("startTime") String startTime,@Query("startTime") String endTime);
+    @GET("appLq/lqWarningStatistics?")
+    Call<PitchFragmentData> totalCount(@Query("departType") String departType, @Query("biaoshiid") String biaoshiid, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("shebeibianhao") String shebeibianhao);
 
-    //生产数据查询
-    @GET("lqScsjcxController.do?getScsjcxList")
-//    Call<ProduceDataQueryRes> producrDataQuery(@Query("userGroupId") String userGroupId,@Query("shebeibianhao") String shebeibianhao,@Query("startTime") String startTime,@Query("startTime") String endTime,@Query("pageNo") String pageNo,@Query("maxPageItems") String maxPageItems);
-    Call<ProduceDataQueryRes> producrDataQuery(@QueryMap Map<String,String> options);
+    //沥青超标详情
+    @GET("appLq/lqchaoBiaoXQ?")
+    Call<PitchOverProofDetailsBean> requestPitchOverProofDetail(@QueryMap Map<String, String> map);
 
-    //生产数据详情
-    @GET("lqScsjcxController.do?getScsjcxDetail")
-    Call<ProduceDataDetailRes> getProduceDataDetail(@Query("shebeibianhao") String shebeibianhao,@Query("bianhao") String bianhao);
 
-    //日产量查询
-    @GET("lqclDailyController.do?dayproducecount")
-    Call<DayProduceAmountRes> getDayProduceAmount(@QueryMap Map<String,String> options);
-
-    //待处置报警详情
-    @GET("lqChaoBiaoChuZhiController.do?appLqChaobiaoDetail")
-    Call<PendingTreatDetailRes> getPendingtreatDetail(@Query("shebeibianhao") String shebeibianhao,@Query("xxid") String xxid);
-
-    //总产量统计
-    @GET("lqSCcounController.do?allchangliangcount")
-    Call<TotalAmountRes> getTotalAmount(@QueryMap Map<String,String> options);
+    @GET("appLq/lqgallclList?")
+    Call<PitchProductQueryData> requestPitchProductQueryData(@QueryMap Map<String, String> map);
 
     //材料用量查询
     @GET("lqSCcounController.do?materialcount")
-    Call<MaterialUsageRes> getMaterialUsage(@QueryMap Map<String,String> options);
+    Call<MaterialUsageRes> getMaterialUsage(@QueryMap Map<String, String> options);
 
-    //超标处置提交
+    //沥青超标处置提交
     @Multipart
-    @POST("lqChaoBiaoChuZhiController.do?appLqChaobiaoChuzhi")
-    Observable<Object> uploadPendingTreatResult(@QueryMap Map<String,String> options,@Part MultipartBody.Part params);
+    @POST("appLq/appLQChaobiaoChuzhi")
+    Observable<UploadResponseBean> uploadPitchChuZhi(@QueryMap Map<String, String> options, @Part MultipartBody.Part params);
 
-    //日生产量详情
-    @POST("lqclDailyController.do?dayproducecountadd")
-    Call<Object> uploadDayAmountqueryDetail(@Query("data") String s);
+    //沥青超标审核提交
+    @POST("appLq/appLqChaobiaoShenpi")
+    Observable<UploadResponseBean> uploadPitchShenHe(@QueryMap Map<String, String> options);
 
+    //沥青历史数据详情
+
+    @GET("appLq/liqingxixx?")
+    Call<PitchProductqueryDetailDatas>    requestProductQueryDetails(@QueryMap  Map<String, String> options);
+    //沥青日生产查询
+    @GET("appLq/lqdailylist?")
+    Call<PitchDayProductQueryData> requestDayProductQuery(@QueryMap Map<String, String> map);
+
+    //沥青获取超标查询的数据
+    @GET("appLq/lqchaoBiaoList?")
+    Call<PitchOverProofData> requestPitchOverProofData(@QueryMap Map<String, String> map);
+
+    //沥青材料统计
+    @GET("appLq/lqmaterial?")
+    Call<PitchStatisticsData> requestPitchMaterialStatisticsData(@QueryMap Map<String, String> map);
+
+    //水稳材料统计
+    @GET("app/swmaterial?")
+    Call<MaterialStatisticsData> requestMaterialStatisticsData(@Query("departType") String departType, @Query("biaoshiid") String biaoshiid, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("shebeibianhao") String shebeibianhao);
+
+    //水稳超标统计
+    @GET("app/warningStatistics?")
+    Call<WaterStabilityData> requestWaterstabilityData(@Query("departType") String departType, @Query("biaoshiid") String biaoduan, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("shebeibianhao") String shebeibianhao);
+
+
+    //组织机构
+    @GET("app/departTree?")
+    Call<ResponseBody> requestOrganization(@Query("biaoshiid") String userGroupId, @Query("userType") String type, @Query("modelType") String modelType);
+
+    //获取设备列表
+    @GET("app/machineList?")
+    Call<EquipmentData> requestEquipment(@Query("departType") String departType, @Query("biaoshiid") String biaoshiid, @Query("machineType") String machineType);
+
+
+    //获取型号列表
+    @GET("appLq/usePosition")
+    Call<ResponseBody> requestModels();
+
+
+    //获取设备列表
+    @GET(" app/usePosition")
+    Call<ResponseBody> requestPostitions(@QueryMap Map<String, String> map);
+
+
+    //水稳获取数据统计数据
+    @GET()
+    Call<WaterstabilityStatisticsBean> requestStatisticData(@QueryMap Map<String, String> map);
+
+    //水稳获取超标查询的数据
+    @GET("app/chaoBiaoList?")
+    Call<WaterStabilityOverProofBean> requestOverProofData(@QueryMap Map<String, String> map);
+
+    @GET("app/chaoBiaoXQ?")
+    Call<WaterStabilityOverProofDetailsBean> requestOverProofDetail(@QueryMap Map<String, String> map);
+
+
+    //水稳超标处置提交
+    @Multipart
+    @POST("app/appSWChaobiaoChuzhi")
+    Observable<UploadResponseBean> uploadWaterstabilityChuZhi(@QueryMap Map<String, String> options, @Part MultipartBody.Part params);
+
+
+    //水稳超标审核提交
+    @POST("app/appHntChaobiaoShenpi")
+    Observable<UploadResponseBean> uploadWaterstabilityShenHe(@QueryMap Map<String, String> options);
+
+
+    @GET("app/appSwcllist?")
+    Call<WaterstabilityHistoryData> requestWaterstabilityHistory(@QueryMap Map<String, String> map);
+
+
+    //水稳历史数据详情
+    @GET("app/appSwclXQ?")
+    Call<WaterStabilityProductionQueryDetailData> requestProductionQueryDetail(@QueryMap Map<String, String> map);
 
 }

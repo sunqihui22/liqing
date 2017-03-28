@@ -21,8 +21,8 @@ import com.shtoone.liqing.common.Constants;
 import com.shtoone.liqing.event.EventData;
 import com.shtoone.liqing.mvp.contract.others.MainContract;
 import com.shtoone.liqing.mvp.presenter.others.MainPresenter;
+import com.shtoone.liqing.mvp.view.WaterStability.WaterStabilityFragment;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
-import com.shtoone.liqing.mvp.view.laboratory.LaboratoryFragment;
 import com.shtoone.liqing.mvp.view.pitch.PitchFragment;
 import com.shtoone.liqing.utils.ToastUtils;
 import com.socks.library.KLog;
@@ -60,7 +60,6 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
     @BindView(R.id.bottom_navigation_main_fragment)
     AHBottomNavigation bottomNavigationMainFragment;
 
-
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     private long TOUCH_TIME = 0;
     private int bottomNavigationPreposition = 0;
@@ -83,23 +82,32 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
         if (savedInstanceState == null) {
-            mFragments[0] = LaboratoryFragment.newInstance();
-            mFragments[1] = PitchFragment.newInstance();
-
+            mFragments[0] = PitchFragment.newInstance();
+            mFragments[1] = WaterStabilityFragment.newInstance();
             loadMultipleRootFragment(R.id.fl_container_main_fragment, 0, mFragments[0], mFragments[1]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
             // 这里我们需要拿到mFragments的引用,也可以通过getSupportFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
-            mFragments[0] = findFragment(LaboratoryFragment.class);
-            mFragments[1] = findFragment(PitchFragment.class);
+
+            KLog.e("数据恢复");
+            mFragments[0] = findFragment(PitchFragment.class);
+            mFragments[1] = findFragment(WaterStabilityFragment.class);
+            if (mFragments[0] == null) {
+                mFragments[0] = PitchFragment.newInstance();
+            }
+            if (mFragments[1] == null) {
+                mFragments[1]= WaterStabilityFragment.newInstance();
+            }
         }
         initData();
         return view;
 
     }
 
-
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     public void initData() {
 //        if (null != BaseApplication.mUserInfoData) {
@@ -111,8 +119,8 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
 //            }
 //        }
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.laboratory, R.drawable.ic_lab, R.color.white);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.liqing, R.drawable.ic_android_black_24dp, R.color.material_yellow_100);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.liqing, R.drawable.ic_android_black_24dp, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.waterstability, R.drawable.ic_android_black_24dp, R.color.white);
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);
         bottomNavigationMainFragment.addItems(bottomNavigationItems);
@@ -128,19 +136,20 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
             @Override
             public void onTabSelected(int position, boolean wasSelected) {
                 showHideFragment(mFragments[position], mFragments[bottomNavigationPreposition]);
+                KLog.e(mFragments[bottomNavigationPreposition].toString());
+                KLog.e("bottomNavigationPreposition"+bottomNavigationPreposition);
                 bottomNavigationPreposition = position;
-                if (position == 2) {
-                    KLog.e(TAG, "22222");
-                }
-                if (!wasSelected && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//设置动画
-                    int cx = (flContainerMainFragment.getLeft() + flContainerMainFragment.getRight()) / 2;
-                    int cy = flContainerMainFragment.getBottom();
-                    int radius = Math.max(flContainerMainFragment.getWidth(), flContainerMainFragment.getHeight());
-                    Animator mAnimator = ViewAnimationUtils.createCircularReveal(flContainerMainFragment, cx, cy, 0, radius);
-                    mAnimator.setDuration(300);
-                    mAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-                    mAnimator.start();
-                }
+                KLog.e(mFragments[position].toString());
+                KLog.e("position"+position);
+//                if (!wasSelected && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//设置动画
+//                    int cx = (flContainerMainFragment.getLeft() + flContainerMainFragment.getRight()) / 2;
+//                    int cy = flContainerMainFragment.getBottom();
+//                    int radius = Math.max(flContainerMainFragment.getWidth(), flContainerMainFragment.getHeight());
+//                    Animator mAnimator = ViewAnimationUtils.createCircularReveal(flContainerMainFragment, cx, cy, 0, radius);
+//                    mAnimator.setDuration(300);
+//                    mAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+//                    mAnimator.start();
+//                }
             }
         });
         bottomNavigationMainFragment.setCurrentItem(0);//设置默认显示第1个fragment
@@ -251,7 +260,7 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
     }
 
     @Override
-        public boolean onBackPressedSupport() {
+    public boolean onBackPressedSupport() {
         if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
             _mActivity.finish();
         } else {
@@ -261,7 +270,7 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
         return true;
     }
 
-    public void startFragment(SupportFragment fragment){
+    public void startFragment(SupportFragment fragment) {
         start(fragment);
     }
 

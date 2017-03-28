@@ -34,7 +34,8 @@ public class URL {
 //    public static final String BaseURL = "http://120.27.146.66:8083/nxsy/";
 //    public static final String BaseURL = "http://192.168.11.102:8080/qms/";
 //    public static final String BaseURL = "http://192.168.1.105:8080/zgjjqms/";
-    public static final String BaseURL = "http://192.168.11.108:8081/qhttqms/";
+    public static final String BaseURL = "http://192.168.11.119:8080/jbgsmss/";
+
 
     /**
      * 沥青待处置超标详情处置提交

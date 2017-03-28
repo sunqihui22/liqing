@@ -26,6 +26,7 @@ import com.shtoone.liqing.common.Constants;
 import com.shtoone.liqing.mvp.contract.base.BaseContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
+import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
 import com.shtoone.liqing.mvp.view.base.BaseActivity;
 import com.shtoone.liqing.utils.SharedPreferencesUtils;
 import com.socks.library.KLog;
@@ -90,8 +91,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void initData() {
         if (BaseApplication.mUserInfoBean != null) {
-            tv_username.setText("姓名：" + BaseApplication.mUserInfoBean.getUserFullName());
-            tv_phone_number.setText("电话" + BaseApplication.mUserInfoBean.getUserPhoneNum());
+//            tv_username.setText("姓名：" + BaseApplication.mUserInfoBean.getUserFullName());
+//            tv_phone_number.setText("电话" + BaseApplication.mUserInfoBean.getUserPhoneNum());
         }
         initPopuwindow(popupWindow);
         fragmentManager = getSupportFragmentManager();
@@ -241,14 +242,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
 
-    public void startDrawerActivity(@Nullable ParametersData mParametersData, @Nullable DepartmentBean departmentData) {
+    public void startDrawerActivity(@Nullable ParametersData mParametersData, @Nullable DepartmentBean departmentBean) {
         Intent intent = new Intent(this, DrawerActivity.class);
         Bundle bundle = new Bundle();
-        if (mParametersData != null && departmentData == null) {
+        if (mParametersData != null && departmentBean == null) {
             bundle.putSerializable("mparametersData", mParametersData);
-        } else if (mParametersData == null && departmentData != null) {
+        } else if (mParametersData == null && departmentBean != null) {
             KLog.e(TAG,"---departmentData---");
-            bundle.putSerializable("departmentData", departmentData);
+            bundle.putSerializable("departmentBean", departmentBean);
         }
         flMainActivity.setAlpha(0.3f);
         intent.putExtras(bundle);

@@ -110,7 +110,6 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
 //    }
 
 
-
     @Override
     public void checkLogin() {
         //调试的时候用
@@ -152,16 +151,22 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
             public void onResponse(Call<UserInfoBean> call, Response<UserInfoBean> response) {
                 if (response.isSuccessful()) {
                     if (response.body().isSuccess()) {
-
                         BaseApplication.mUserInfoBean = mUserInfoBean = response.body();
-                        BaseApplication.parametersData.userGroupID=BaseApplication.mUserInfoBean.getDepartId();
-                        BaseApplication.mDepartmentData.departmentName=mUserInfoBean.getDepartName();
-                        BaseApplication.mDepartmentData.departmentID=mUserInfoBean.getDepartId();
+                        BaseApplication.parametersData.biaoshiid = BaseApplication.mUserInfoBean.getBiaoshi();
+                        BaseApplication.parametersData.userType = BaseApplication.mUserInfoBean.getUserType();
+                        BaseApplication.mDepartmentData.departmentID=BaseApplication.mUserInfoBean.getBiaoshi();
+                        BaseApplication.mDepartmentData.departtype=BaseApplication.mUserInfoBean.getUserType();
+//                        BaseApplication.parametersData.userGroupID=BaseApplication.mUserInfoBean.getDepartId();
+//                        BaseApplication.mDepartmentData.departmentName=mUserInfoBean.getDepartName();
+//                        BaseApplication.mDepartmentData.departmentID=mUserInfoBean.getDepartId();
                         //进入管理层界面
                         getView().go2Main();
                     } else {
                         getView().go2LoginOrGuide();
                     }
+                } else {
+
+                    getView().go2LoginOrGuide();
                 }
             }
 
@@ -171,7 +176,6 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
             }
         });
     }
-
 
 
     @Override

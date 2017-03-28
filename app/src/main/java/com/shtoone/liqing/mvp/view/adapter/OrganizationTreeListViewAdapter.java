@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.shtoone.liqing.R;
+import com.shtoone.liqing.mvp.model.bean.OrganizationBean;
 import com.shtoone.liqing.mvp.view.treeview.Node;
 import com.shtoone.liqing.mvp.view.treeview.TreeHelper;
 import com.shtoone.liqing.mvp.view.treeview.TreeListViewAdapter;
@@ -18,8 +19,8 @@ public class OrganizationTreeListViewAdapter<T> extends TreeListViewAdapter<T> {
 
     private Context context;
 
-    public OrganizationTreeListViewAdapter(ListView tree, Context context, List<T> datas, int defaultExpandLevel) throws IllegalArgumentException, IllegalAccessException {
-        super(tree, context, datas, defaultExpandLevel);
+    public OrganizationTreeListViewAdapter(ListView tree, Context context, List<T> list, int defaultExpandLevel) throws IllegalArgumentException, IllegalAccessException {
+        super(tree, context, list, defaultExpandLevel);
         this.context=context;
     }
 

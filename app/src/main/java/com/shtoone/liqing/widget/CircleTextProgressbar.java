@@ -398,7 +398,6 @@ public class CircleTextProgressbar extends TextView {
      * 进度监听。
      */
     public interface OnCountdownProgressListener {
-
         /**
          * 进度通知。
          *

@@ -6,7 +6,10 @@ import android.content.Context;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
 import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
+import com.socks.library.KLog;
 import com.squareup.otto.Bus;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -29,6 +32,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         //日志的开关和全局标签初始化
     //    KLog.init(false, "SHTW沥青");
+        KLog.e("baseapplication:"+BaseApplication.mDepartmentData);
         mContext = this;
         // 程序异常交由AppExceptionHandler来处理
 //        Thread.setDefaultUncaughtExceptionHandler(AppExceptionHandler.getInstance(this));

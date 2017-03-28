@@ -49,20 +49,27 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 //            } catch (GeneralSecurityException e) {
 //                e.printStackTrace();
 //            }
+
+
             HttpHelper.getInstance().initService().login(username, password, Constants.OSTYPE).enqueue(new Callback<UserInfoBean>() {
                 @Override
                 public void onResponse(Call<UserInfoBean> call, Response<UserInfoBean> response) {
                     if (response.isSuccessful()) {
                         if (response.body().isSuccess()) {
                             BaseApplication.mUserInfoBean = mUserInfoBean = response.body();
-                            BaseApplication.parametersData.userGroupID=BaseApplication.mUserInfoBean.getDepartId();
-                            BaseApplication.mDepartmentData.departmentName = mUserInfoBean.getDepartName();
-                            BaseApplication.mDepartmentData.departmentID=mUserInfoBean.getDepartId();
-                            KLog.e(TAG+":"+BaseApplication.mDepartmentData.departmentName );
+                            KLog.e(TAG+mUserInfoBean);
+                            BaseApplication.parametersData.biaoshiid=BaseApplication.mUserInfoBean.getBiaoshi();
+                            BaseApplication.parametersData.userType=BaseApplication.mUserInfoBean.getUserType();
+
+                            BaseApplication.mDepartmentData.departmentID=BaseApplication.mUserInfoBean.getBiaoshi();
+                            BaseApplication.mDepartmentData.departtype=BaseApplication.mUserInfoBean.getUserType();
+
+//                            BaseApplication.mDepartmentData.departmentName = mUserInfoBean.get();
+//                            BaseApplication.mDepartmentData.departmentID=mUserInfoBean.getDepartId();
+//                            KLog.e(TAG+":"+BaseApplication.mDepartmentData.departmentName );
                             getView().savaData(mUserInfoBean);
                             getView().setSuccessMessage();
                             getView().go2Main();
-                      //5
                         } else {
                             getView().setErrorMessage("用户名或密码错误");
                         }
@@ -73,7 +80,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
                 @Override
                 public void onFailure(Call<UserInfoBean> call, Throwable t) {
-                    getView().showError(t);
+                    if (getView() != null) {
+                        getView().showError(t);
+
+                    }
                 }
             });
         }

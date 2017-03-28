@@ -180,6 +180,7 @@ public abstract class BaseFragment<P extends BaseContract.Presenter> extends Sup
     }
 
     public void loadData(){}
+    public void loadMore(){};
 
     public boolean isCanDoRefresh() {
         return true;
@@ -193,6 +194,7 @@ public abstract class BaseFragment<P extends BaseContract.Presenter> extends Sup
 
     @Override
     public void onDestroy() {
+        mPresenter = null;
         if (mPresenter != null) {
             mPresenter.detachView();
             mPresenter = null;

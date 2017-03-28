@@ -12,9 +12,42 @@ public class DepartmentBean implements Cloneable, Serializable {
 
     public String updateDepartTime;
     public String funtype;
-    public String type;
+    public String departtype;
     public String department;
+    public String bianhao;
+    public String userType;
+    public String xmb;
+    public String equipmentID="";
+    public String userpositon="";
 
+
+    public String getBiaoduan() {
+        return biaoduan;
+    }
+
+    public void setBiaoduan(String biaoduan) {
+        this.biaoduan = biaoduan;
+    }
+
+    public  String biaoduan="";
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getBiaoshi() {
+        return biaoshi;
+    }
+
+    public void setBiaoshi(String biaoshi) {
+        this.biaoshi = biaoshi;
+    }
+
+    public String biaoshi;
 
     public DepartmentBean() {
     }
@@ -27,7 +60,7 @@ public class DepartmentBean implements Cloneable, Serializable {
 
     public DepartmentBean(String departmentID, String updateDepartTime,String funtype,String type,String departmentName) {
         this.departmentID = departmentID;
-        this.type = type;
+        this.departtype = type;
         this.updateDepartTime = updateDepartTime;
         this.funtype = funtype;
         this.departmentName=departmentName;

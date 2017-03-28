@@ -1,180 +1,61 @@
 package com.shtoone.liqing.mvp.view.adapter;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.shtoone.liqing.R;
-import com.shtoone.liqing.mvp.model.bean.PitchfragmentResDataBean;
-import com.shtoone.liqing.utils.StringUtils;
-import com.socks.library.KLog;
+import com.shtoone.liqing.mvp.model.bean.PitchFragmentData;
 
-import java.util.List;
 
 /**
- * Created by Administrator on 2016/11/23.
+ * Author： hengzwd on 2017/3/8.
+ * Email：hengzwdhengzwd@qq.com
  */
-public class PitchFragmentRecyclerViewAdapter extends RecyclerView.Adapter {
 
-    private Context context;
-    private Resources mResources;
-    private List<PitchfragmentResDataBean> PitchfragmentResDataList;
-    private OnItemClickListener mOnItemClickListener;
-    private static final int view_type_item = 0;
-    private static final int view_type_footer = 1;
-//    private List<PitchFragmentResponse> pitchFragmentResList;
-//    private PitchFragmentResponse pitchFragmentResponse;
-    private List<List<PitchfragmentResDataBean>> pitchFragmentResponseData;
+public class PitchFragmentRecyclerViewAdapter extends BaseQuickAdapter<PitchFragmentData.DataEntity, BaseViewHolder> {
 
-    public PitchFragmentRecyclerViewAdapter(Context context, List<List<PitchfragmentResDataBean>> pitchFragmentResponseData) {
-        super();
-        KLog.e("---PitchFragmentRecyclerViewAdapter---");
-        this.context = context;
-        this.pitchFragmentResponseData = pitchFragmentResponseData;
-//        pitchFragmentResList=pitchLoadList;
-        this.mResources = context.getResources();
+
+    private OnItemClickListener onItemClickListener;
+
+    public PitchFragmentRecyclerViewAdapter() {
+        super(R.layout.item_recyclerview_pitch_fragment, null);
     }
 
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
-    }
 
     @Override
-    public int getItemViewType(int position) {
-        if (getItemCount() > 4 && position + 1 == getItemCount()) {
-            return view_type_footer;
-        } else {
-            return view_type_item;
-        }
+    protected void convert(final BaseViewHolder holder, PitchFragmentData.DataEntity item) {
+        holder.setText(R.id.tv_organization_item_recyclerview_waterstability_fragment, item.getBanhezhanminchen())
+                .setText(R.id.chaobiaotongji_panshu, item.getTotalPanshu())
+                .setText(R.id.chaobiaotongji_chanliang, item.getTotalFangliang())
+                .setText(R.id.chaobiao_chaobiaopanshu1, item.getCbpanshu())
+                .setText(R.id.chaobiao_chaobiaopanshu2, item.getMcbpanshu())
+                .setText(R.id.chaobiao_chaobiaopanshu3, item.getHcbpanshu())
+                .setText(R.id.chaobiao_chaobiaolv1, item.getCblv())
+                .setText(R.id.chaobiao_chaobiaolv2, item.getMcblv())
+                .setText(R.id.chaobiao_chaobiaolv3, item.getHcblv())
+                .setText(R.id.chaobiao_chuzhilv1, item.getCzlv())
+                .setText(R.id.chaobiao_chuzhilv2, item.getMczlv())
+                .setText(R.id.chaobiao_chuzhilv3, item.getHczlv())
+                .setText(R.id.chaobiao_chuzhipanshu1,item.getCczpanshu())
+                .setText(R.id.chaobiao_chuzhipanshu2,item.getMczpanshu())
+                .setText(R.id.chaobiao_chuzhipanshu3,item.getHczpanshu())
+                .setOnClickListener(R.id.cv_item_recyclerview_waterstability_fragment, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onItemClick(holder.getConvertView(),holder.getLayoutPosition());
+                    }
+                });
+
+
+
 
     }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public void setonitemclickListener(OnItemClickListener onItemClickListener) {
 
-        return new itemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recyclerview_pitch_fragment, parent, false));
-
-    }
-
-    @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (pitchFragmentResponseData != null && pitchFragmentResponseData.size() > 0) {
-            itemViewHolder itemViewHolder = (PitchFragmentRecyclerViewAdapter.itemViewHolder) holder;
-            PitchfragmentResDataList = pitchFragmentResponseData.get(position);
-            if (null != PitchfragmentResDataList && PitchfragmentResDataList.size() > 0) {
-                itemViewHolder.tv_organization.setText(PitchfragmentResDataList.get(0).getDeptName());
-                itemViewHolder.chaobiaotongji_chanliang.setText(PitchfragmentResDataList.get(0).getChangliang());
-                itemViewHolder.chaobiaotongji_panshu.setText(PitchfragmentResDataList.get(0).getPanshu());
-                itemViewHolder.tv_platform.setText(PitchfragmentResDataList.get(0).getBhzCount());
-                itemViewHolder.tv_ji.setText(PitchfragmentResDataList.get(0).getBhjCount());
-
-                itemViewHolder.chaobiao_chaobiaopanshu1.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(1).getCbps())));
-                itemViewHolder.chaobiao_chaobiaolv1.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(1).getCblv())));
-
-                if (!"".equals(PitchfragmentResDataList.get(1).getReallv()) && PitchfragmentResDataList.get(1).getReallv() != null) {  //将""写在前头，这样，不管name是否为null，都不会出错。
-                    itemViewHolder.chaobiao_chuzhilv1.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(1).getReallv() + "%")));
-                } else {
-                    itemViewHolder.chaobiao_chuzhilv1.setText(Html.fromHtml("0.00%"));
-                }
-
-
-                itemViewHolder.chaobiao_chaobiaopanshu2.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(2).getCbps())));
-                itemViewHolder.chaobiao_chaobiaolv2.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(2).getCblv())));
-
-                if (!"".equals(PitchfragmentResDataList.get(2).getReallv()) && PitchfragmentResDataList.get(2).getReallv() != null) {  //将""写在前头，这样，不管name是否为null，都不会出错。
-                    itemViewHolder.chaobiao_chuzhilv2.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(2).getReallv() + "%")));
-                } else {
-                    itemViewHolder.chaobiao_chuzhilv2.setText(Html.fromHtml("0.00%"));
-                }
-
-
-                itemViewHolder.chaobiao_chaobiaopanshu3.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(3).getCbps())));
-                itemViewHolder.chaobiao_chaobiaolv3.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(3).getCblv())));
-
-                if (!"".equals(PitchfragmentResDataList.get(3).getReallv()) && PitchfragmentResDataList.get(3).getReallv() != null) {  //将""写在前头，这样，不管name是否为null，都不会出错。
-                    itemViewHolder.chaobiao_chuzhilv3.setText(Html.fromHtml(StringUtils.IsNull(PitchfragmentResDataList.get(3).getReallv() + "%")));
-                } else {
-                    itemViewHolder.chaobiao_chuzhilv3.setText(Html.fromHtml("0.00%"));
-                }
-
-            }
-        }
-
-        if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = holder.getLayoutPosition();
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
-                }
-            });
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        if (null != pitchFragmentResponseData && pitchFragmentResponseData.size() > 0 ) {
-            return pitchFragmentResponseData.size();
-        }
-        return 0;
-    }
-
-
-
-
-
-    private class itemViewHolder extends RecyclerView.ViewHolder {
-
-        CardView cv;
-        TextView chaobiaotongji_chanliang;
-        TextView chaobiaotongji_panshu;
-
-
-        TextView chaobiao_chaobiaopanshu1;
-        TextView chaobiao_chaobiaolv1;
-        TextView chaobiao_chuzhilv1;
-
-        TextView chaobiao_chaobiaopanshu2;
-        TextView chaobiao_chaobiaolv2;
-        TextView chaobiao_chuzhilv2;
-        TextView chaobiao_chaobiaopanshu3;
-        TextView chaobiao_chaobiaolv3;
-        TextView chaobiao_chuzhilv3;
-        TextView tv_platform;
-        TextView tv_ji;
-        TextView tv_organization;
-
-
-        public itemViewHolder(View view) {
-            super(view);
-
-            tv_organization = (TextView) view.findViewById(R.id.tv_organization_item_recyclerview_concrete_fragment);
-            cv = (CardView) view.findViewById(R.id.cv_item_recyclerview_concrete_fragment);
-            chaobiaotongji_chanliang = (TextView) view.findViewById(R.id.chaobiaotongji_chanliang);
-            chaobiaotongji_panshu = (TextView) view.findViewById(R.id.chaobiaotongji_panshu);                      //拌合站个数
-            chaobiao_chaobiaopanshu1 = (TextView) view.findViewById(R.id.chaobiao_chaobiaopanshu1);     //总方量
-            chaobiao_chaobiaolv1 = (TextView) view.findViewById(R.id.chaobiao_chaobiaolv1);            //初级超标盘数
-            chaobiao_chuzhilv1 = (TextView) view.findViewById(R.id.chaobiao_chuzhilv1);
-
-            chaobiao_chaobiaopanshu2 = (TextView) view.findViewById(R.id.chaobiao_chaobiaopanshu2);     //总方量
-            chaobiao_chaobiaolv2 = (TextView) view.findViewById(R.id.chaobiao_chaobiaolv2);            //初级超标盘数
-            chaobiao_chuzhilv2 = (TextView) view.findViewById(R.id.chaobiao_chuzhilv2);
-
-            chaobiao_chaobiaopanshu3 = (TextView) view.findViewById(R.id.chaobiao_chaobiaopanshu3);     //总方量
-            chaobiao_chaobiaolv3 = (TextView) view.findViewById(R.id.chaobiao_chaobiaolv3);            //初级超标盘数
-            chaobiao_chuzhilv3 = (TextView) view.findViewById(R.id.chaobiao_chuzhilv3);
-
-            tv_platform = (TextView) view.findViewById(R.id.tv_platform);
-            tv_ji = (TextView) view.findViewById(R.id.tv_ji);
-
-
-        }
+        this.onItemClickListener = onItemClickListener;
     }
 
 }

@@ -8,6 +8,7 @@ import com.shtoone.liqing.R;
 import com.shtoone.liqing.mvp.contract.base.BaseContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
+import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
 import com.shtoone.liqing.mvp.view.base.BaseActivity;
 import com.socks.library.KLog;
 
@@ -24,8 +25,8 @@ public class DrawerActivity extends BaseActivity {
     @BindView(R.id.fl_container_drawer_activity)
     FrameLayout flContainerDrawerActivity;
     private ParametersData mParametersData;
-    private DepartmentBean mDepartmentData;
-
+    private UserInfoBean userInfoBean;
+    private  DepartmentBean  departmentBean;
     private SupportFragment mFragment;
 
     @Override
@@ -42,12 +43,12 @@ public class DrawerActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mParametersData = (ParametersData) bundle.getSerializable("mparametersData");
-        mDepartmentData=(DepartmentBean) bundle.getSerializable("departmentData");
+        departmentBean=(DepartmentBean) bundle.getSerializable("departmentBean");
         if (savedInstanceState == null) {
-            if (mParametersData!=null&&mDepartmentData==null) {
+            if (mParametersData!=null&&departmentBean==null) {
                 loadRootFragment(R.id.fl_container_drawer_activity, ParametersFragment.newInstance(mParametersData));
-            } else if (mParametersData==null&&mDepartmentData!=null) {
-                loadRootFragment(R.id.fl_container_drawer_activity, OrganizationFragment.newInstance(mDepartmentData));
+            } else if (mParametersData==null&&departmentBean!=null) {
+                loadRootFragment(R.id.fl_container_drawer_activity, OrganizationFragment.newInstance(departmentBean));
                 KLog.e("---loadRootFragment---");
             }
         }

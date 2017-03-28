@@ -20,7 +20,7 @@
             android:id="@+id/et_starttime_login_fragment"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColorHint="#808080">
+            android:textColorHint="@color/white">
 
             <EditText
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:id="@+id/et_endtime_login_fragment"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColorHint="#808080">
+            android:textColorHint="@color/white">
 
             <EditText
                 android:layout_width="match_parent"
@@ -55,6 +55,20 @@
 
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/ms_select_equipment_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ms_baseColor="@color/black"
+            app:ms_enableErrorLabel="false"
+            app:ms_floatingLabelColor="@color/black"
+            app:ms_highlightColor="@color/material_grey_400"
+            app:ms_hintColor="@color/white"
+            app:ms_multiline="true"
+            app:ms_arrowSize="13dp"
+            app:ms_alignLabels="true"
+            android:visibility="gone"/>
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/ms_select_luserposition_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:ms_baseColor="@color/black"

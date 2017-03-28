@@ -14,6 +14,15 @@ public class Node {
     }
 
 
+    public String getEquipmentId() {
+        return equipmentId;
+    }
+
+    public void setEquipmentId(String equipmentId) {
+        this.equipmentId = equipmentId;
+    }
+
+    private String equipmentId="";
     private String id;
     /**
      * 跟节点的pid=0

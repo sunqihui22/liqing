@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-
     <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位 -->
@@ -60,29 +59,35 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".mvp.view.pitch.PitchDetailActivity"/>
 
-        <activity android:name=".mvp.view.pitch.ProduceDataQueryDetailActivity"/>
+        <!--<activity-->
+            <!--android:name=".mvp.view.WaterStability.TestActivity"-->
+            <!--android:launchMode="singleTop"-->
+            <!--android:theme="@style/AppTheme.LaunchTheme">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-        <activity android:name=".mvp.view.pitch.PendingTreatDetailActivity"
-                  android:windowSoftInputMode="adjustPan"/>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
 
         <activity
             android:name=".mvp.view.others.MainActivity"
-            android:launchMode="singleTop" >
-
-        </activity>
+            android:launchMode="singleTop"></activity>
 
         <activity
             android:name=".mvp.view.others.DrawerActivity"
-            android:theme="@style/AppTheme.Transparent"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />
         <activity
             android:name=".mvp.view.others.RegisterActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Register" />
 
-        <activity android:name=".mvp.view.pitch.DayProduceAmountDetailActivity"/>
+        <activity android:name=".mvp.view.WaterStability.WaterStabilityActivity" />
+        <activity android:name=".mvp.view.others.DetailActivity" />
+        <activity android:name=".mvp.view.pitch.PitchActivity" />
 
     </application>
 
