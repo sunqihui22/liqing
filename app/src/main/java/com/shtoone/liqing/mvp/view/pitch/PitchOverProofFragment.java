@@ -16,18 +16,14 @@ import com.shtoone.liqing.BaseApplication;
 import com.shtoone.liqing.R;
 import com.shtoone.liqing.common.Constants;
 import com.shtoone.liqing.event.EventData;
-import com.shtoone.liqing.mvp.contract.WaterStability.OverProofContract;
 import com.shtoone.liqing.mvp.contract.pitch.PitchOverProofContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
 import com.shtoone.liqing.mvp.model.bean.PitchOverProofData;
 import com.shtoone.liqing.mvp.model.bean.WaterStabilityOverProofBean;
-import com.shtoone.liqing.mvp.presenter.WaterStability.WaterStabilityOverProofPresenter;
 import com.shtoone.liqing.mvp.presenter.pitch.PitchOverProofPresenter;
-import com.shtoone.liqing.mvp.view.WaterStability.WaterStabilityActivity;
 import com.shtoone.liqing.mvp.view.adapter.OnItemClickListener;
 import com.shtoone.liqing.mvp.view.adapter.PitchOverProofFragmentAdapter;
-import com.shtoone.liqing.mvp.view.adapter.WaterStabilityOverProofFragmentAdapter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
 import com.shtoone.liqing.utils.DateUtils;
 import com.shtoone.liqing.utils.DensityUtils;
@@ -112,21 +108,20 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
     }
 
 
-
     private void initDate() {
 
-        parametersData.departType=departmentBean.departtype;
-        parametersData.biaoshiid=departmentBean.departmentID;
-        parametersData.deviceType=Constants.TYPE_PITCH;
-        parametersData.fromTo= Constants.PITCHOVERPROOFFRAGMENT;
-        departmentBean.fromto= Constants.PITCHOVERPROOFFRAGMENT;
+        parametersData.departType = departmentBean.departtype;
+        parametersData.biaoshiid = departmentBean.departmentID;
+        parametersData.deviceType = Constants.TYPE_PITCH;
+        parametersData.fromTo = Constants.PITCHOVERPROOFFRAGMENT;
+        departmentBean.fromto = Constants.PITCHOVERPROOFFRAGMENT;
         pagestatelayout.setPadding(0, 0, 0, DensityUtils.dp2px(_mActivity, 56));
         initPageStateLayout(pagestatelayout);
         initPtrFrameLayout(ptrframelayout);
         initToolbarBackNavigation(toolbarToolbar);
         //mAdapter的实例化要放到最开始，因为在没有数据的时候，滑动会空指针异常，因为  if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItemPosition + 1 == mAdapter.getItemCount()) {
         madapter = new PitchOverProofFragmentAdapter();
-        linearLayoutManager=new LinearLayoutManager(_mActivity);
+        linearLayoutManager = new LinearLayoutManager(_mActivity);
         SlideInLeftAnimationAdapter mSlideInLeftAnimationAdapter = new SlideInLeftAnimationAdapter(madapter);
         mSlideInLeftAnimationAdapter.setDuration(500);
         mSlideInLeftAnimationAdapter.setInterpolator(new OvershootInterpolator(0.5f));
@@ -170,10 +165,12 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
         madapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                departmentBean.bianhao=madapter.getData().get(position).getBianhao();
-                departmentBean.equipmentID=madapter.getData().get(position).getSbbh();
-                departmentBean.fromto=Constants.PITCHOVERPROOFFRAGMENT;
-                ((PitchActivity)_mActivity).startDetailActivity(departmentBean);
+                departmentBean.bianhao = madapter.getData().get(position).getBianhao();
+                departmentBean.equipmentID = madapter.getData().get(position).getSbbh();
+                departmentBean.fromto = Constants.PITCHOVERPROOFFRAGMENT;
+                departmentBean.handleType=madapter.getData().get(position).getChuli();
+                departmentBean.exampleType=madapter.getData().get(position).getShenhe();
+                ((PitchActivity) _mActivity).startDetailActivity(departmentBean);
             }
         });
     }
@@ -181,9 +178,9 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
     @Override
     public void responsePitchOverProofData(PitchOverProofData pitchOverProofData) {
 
-        isLoading=false;
-        parametersData.currentPage=1;
-        list=pitchOverProofData.getData();
+        isLoading = false;
+        parametersData.currentPage = 1;
+        list = pitchOverProofData.getData();
         madapter.removeAllHeaderView();
         madapter.removeAllFooterView();
         madapter.setOverProofData(pitchOverProofData);
@@ -194,17 +191,17 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
     @Override
     public void loadData() {
         super.loadData();
-        Map<String,String> map=new HashMap<>();
-        map.put("departType",departmentBean.departtype);
-        map.put("biaoshiid",departmentBean.departmentID);
+        Map<String, String> map = new HashMap<>();
+        map.put("departType", departmentBean.departtype);
+        map.put("biaoshiid", departmentBean.departmentID);
         map.put("startTime", DateUtils.ChangeTimeToLong(parametersData.startDateTime));
         map.put("endTime", DateUtils.ChangeTimeToLong(parametersData.endDateTime));
-        map.put("shebeibianhao",parametersData.equipmentID);
-        map.put("chaobiaolx",parametersData.alarmLevel);
-        map.put("cllx",parametersData.handleType);
-        parametersData.currentPage=1;
-        map.put("pageNo",parametersData.currentPage+"");
-        map.put("maxPageItems","10");
+        map.put("shebeibianhao", parametersData.equipmentID);
+        map.put("chaobiaolx", parametersData.alarmLevel);
+        map.put("cllx", parametersData.handleType);
+        parametersData.currentPage = 1;
+        map.put("pageNo", parametersData.currentPage + "");
+        map.put("maxPageItems", "10");
         mPresenter.requestPitchOverProofData(map);
     }
 
@@ -212,16 +209,16 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
     @Override
     public void loadMore() {
         super.loadMore();
-        Map<String,String> map=new HashMap<>();
-        map.put("departType",departmentBean.departtype);
-        map.put("biaoshiid",departmentBean.departmentID);
+        Map<String, String> map = new HashMap<>();
+        map.put("departType", departmentBean.departtype);
+        map.put("biaoshiid", departmentBean.departmentID);
         map.put("startTime", DateUtils.ChangeTimeToLong(parametersData.startDateTime));
         map.put("endTime", DateUtils.ChangeTimeToLong(parametersData.endDateTime));
-        map.put("shebeibianhao",parametersData.equipmentID);
-        map.put("chaobiaolx",parametersData.alarmLevel);
-        map.put("cllx",parametersData.handleType);
-        map.put("pageNo",parametersData.currentPage+"");
-        map.put("maxPageItems","10");
+        map.put("shebeibianhao", parametersData.equipmentID);
+        map.put("chaobiaolx", parametersData.alarmLevel);
+        map.put("cllx", parametersData.handleType);
+        map.put("pageNo", parametersData.currentPage +1+ "");
+        map.put("maxPageItems", "10");
         mPresenter.loadMoreData(map);
 
     }
@@ -287,26 +284,30 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
     }
 
 
-
     @OnClick(R.id.fab)
     public void onClick() {
-        ((PitchActivity)_mActivity).startDrawerActivity(parametersData,null);
+        parametersData.fromTo=Constants.PITCHOVERPROOFFRAGMENT;
+        ((PitchActivity) _mActivity).startDrawerActivity(parametersData, null);
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void updateDepartment(EventData eventData) {
         KLog.e("updateDepartment:Subscribe");
+//        KLog.e(eventData.parametersBean.fromTo);
         if (eventData.parametersBean != null && null != this.parametersData) {
             if (eventData.parametersBean.fromTo == Constants.PITCHOVERPROOFFRAGMENT) {
                 this.parametersData.startDateTime = eventData.parametersBean.startDateTime;
                 this.parametersData.endDateTime = eventData.parametersBean.endDateTime;
                 this.parametersData.equipmentID = eventData.parametersBean.equipmentID;
-                this.parametersData.handleType=eventData.parametersBean.handleType;
-                this.parametersData.alarmLevel=eventData.parametersBean.alarmLevel;
+                this.parametersData.handleType = eventData.parametersBean.handleType;
+                this.parametersData.alarmLevel = eventData.parametersBean.alarmLevel;
                 ptrframelayout.autoRefresh(true);
             }
+        }
+        if (eventData.position == Constants.PITCHOVERPROOFDETAILFRAGEMENT) {
+            ptrframelayout.autoRefresh(true);
+            KLog.e("ptrframelayout.autoRefresh");
         }
     }
 
@@ -315,6 +316,7 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @NonNull
     @Override
     protected PitchOverProofContract.Presenter createPresenter() {
@@ -324,12 +326,12 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.liqing) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
     }
-
 
 
     @Override
@@ -349,7 +351,7 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
 
     @Override
     public void showLoadMoreError(Throwable throwable) {
-        isLoading=false;
+        isLoading = false;
         if (throwable instanceof ConnectException) {
             ToastUtils.showToast(BaseApplication.mContext, "网络异常,请检测网络");
             madapter.removeAllFooterView();
@@ -378,17 +380,19 @@ public class PitchOverProofFragment extends BaseFragment<PitchOverProofContract.
                 madapter.removeAllFooterView();
                 madapter.notifyDataSetChanged();
             }
-        },2000);
+        }, 2000);
     }
 
     @Override
     public void responseLoadMore(PitchOverProofData pitchOverProofData) {
-            isLoading = false;
+        isLoading = false;
+        if (pitchOverProofData.getData().size()>0) {
             parametersData.currentPage++;
-            list.addAll(pitchOverProofData.getData());
-            madapter.removeAllFooterView();
-            madapter.addData(pitchOverProofData.getData());
-            madapter.notifyDataSetChanged();
+        }
+        list.addAll(pitchOverProofData.getData());
+        madapter.removeAllFooterView();
+        madapter.addData(pitchOverProofData.getData());
+        madapter.notifyDataSetChanged();
     }
 
 }

@@ -12,6 +12,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,8 @@ import com.shtoone.liqing.mvp.contract.pitch.PitchProductQueryDetailContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
 import com.shtoone.liqing.mvp.model.bean.PitchProductqueryDetailDatas;
-import com.shtoone.liqing.mvp.model.bean.WaterStabilityProductionQueryDetailData;
 import com.shtoone.liqing.mvp.presenter.pitch.PitchProductQueryDetailPresenter;
-import com.shtoone.liqing.mvp.view.adapter.PitchAccountingTableAdapter;
 import com.shtoone.liqing.mvp.view.adapter.PitchProductAccountingTableAdapter;
-import com.shtoone.liqing.mvp.view.adapter.WaterStabilityAccountingTableAdapter;
-import com.shtoone.liqing.mvp.view.adapter.WaterstabilityChartTableAdapter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
 import com.shtoone.liqing.utils.DensityUtils;
 import com.shtoone.liqing.utils.ToastUtils;
@@ -93,6 +90,8 @@ public class PitchProductQueryDetailFragement extends BaseFragment<PitchProductQ
     PageStateLayout pslProduceQuery;
     @BindView(R.id.ptr_produce_query_detail_fragment)
     PtrFrameLayout ptrProduceQuery;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private PitchProductAccountingTableAdapter madapter;
     private LinearLayoutManager linearLayoutManager;
@@ -104,6 +103,7 @@ public class PitchProductQueryDetailFragement extends BaseFragment<PitchProductQ
     private ParametersData parametersData = new ParametersData();
     private int lastVisibleItemPosition;
     private boolean isLoading;
+
     public static PitchProductQueryDetailFragement newInstance(DepartmentBean departmentBean) {
 
         PitchProductQueryDetailFragement fragment = new PitchProductQueryDetailFragement();
@@ -167,6 +167,7 @@ public class PitchProductQueryDetailFragement extends BaseFragment<PitchProductQ
 
     private void setData2View(PitchProductqueryDetailDatas.LqHeadEntity headEntity, List<PitchProductqueryDetailDatas.LqChartDataListEntity> swjgEntity) {
 
+        tvTitle.setText(headEntity.getBhjName());
         scchaxunXqBhjname.setText(headEntity.getBhjName());
         scchaxunXqChuliaoshijian.setText(headEntity.getChuliaoshijian());
         scchaxunXqDate.setText(headEntity.getCaijishijian());
@@ -211,7 +212,8 @@ public class PitchProductQueryDetailFragement extends BaseFragment<PitchProductQ
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.liqing) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -316,7 +318,7 @@ public class PitchProductQueryDetailFragement extends BaseFragment<PitchProductQ
 
         for (int i = 0; i < chartDataListEntity.size(); i++) {
 
-            yVals2.add(new Entry(Float.parseFloat(chartDataListEntity.get(i).getStandPassper()), i));
+            yVals2.add(new Entry(Float.parseFloat(TextUtils.isEmpty(chartDataListEntity.get(i).getStandPassper()) ? "0" : chartDataListEntity.get(i).getStandPassper()), i));
         }
 
         ArrayList<Entry> yVals3 = new ArrayList<Entry>();

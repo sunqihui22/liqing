@@ -68,6 +68,13 @@
                                     android:orientation="vertical" >
                                     <!-- 保存时间 -->
 
+
+                                    <TextView
+                                        style="@style/DetailTextTheme"
+
+                                        android:text="基本数据"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -179,7 +186,12 @@
                                 android:layout_height="match_parent"
                                 android:orientation="vertical"
                                 android:padding="3dp">
-
+                                <TextView
+                                    style="@style/DetailTextTheme"
+                                    android:id="@+id/tv_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="核算表" />
                                 <TextView
                                     style="@style/DetailTextTheme"
                                     android:layout_width="match_parent"
@@ -233,7 +245,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:gravity="center"
-                                        android:text="@string/deviation" />
+                                        android:text="@string/deviation_rate" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.RecyclerView
@@ -260,7 +272,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="30dp"
                                 android:orientation="vertical">
-
+                                <TextView
+                                    style="@style/DetailTextTheme"
+                                    android:layout_marginBottom="5dp"
+                                    android:id="@+id/tv_title_handle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="超标处置" />
                                 <TextView
                                     style="@style/DetailTextTheme"
                                     android:layout_width="match_parent"
@@ -439,6 +457,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="30dp"
                                 android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/DetailTextTheme"
+                                    android:id="@+id/tv_title_example"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="监理审批" />
 
                                 <TextView
                                     style="@style/DetailTextTheme"

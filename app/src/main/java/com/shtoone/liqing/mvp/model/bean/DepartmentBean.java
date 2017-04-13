@@ -16,7 +16,8 @@ public class DepartmentBean implements Cloneable, Serializable {
     public String department;
     public String bianhao;
     public String userType;
-    public String xmb;
+    public String exampleType;
+    public String handleType;
     public String equipmentID="";
     public String userpositon="";
 
@@ -73,5 +74,26 @@ public class DepartmentBean implements Cloneable, Serializable {
         } catch (CloneNotSupportedException e) {
             return null;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "DepartmentBean{" +
+                "departmentID='" + departmentID + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", fromto=" + fromto +
+                ", updateDepartTime='" + updateDepartTime + '\'' +
+                ", funtype='" + funtype + '\'' +
+                ", departtype='" + departtype + '\'' +
+                ", department='" + department + '\'' +
+                ", bianhao='" + bianhao + '\'' +
+                ", userType='" + userType + '\'' +
+                ", exampleType='" + exampleType + '\'' +
+                ", handleType='" + handleType + '\'' +
+                ", equipmentID='" + equipmentID + '\'' +
+                ", userpositon='" + userpositon + '\'' +
+                ", biaoduan='" + biaoduan + '\'' +
+                ", biaoshi='" + biaoshi + '\'' +
+                '}';
     }
 }

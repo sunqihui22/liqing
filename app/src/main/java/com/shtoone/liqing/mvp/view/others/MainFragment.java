@@ -1,16 +1,12 @@
 package com.shtoone.liqing.mvp.view.others;
 
-import android.animation.Animator;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -76,10 +72,13 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
         return new MainPresenter(this);
     }
 
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+       View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
         if (savedInstanceState == null) {
             mFragments[0] = PitchFragment.newInstance();
@@ -88,16 +87,9 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
             // 这里我们需要拿到mFragments的引用,也可以通过getSupportFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
-
             KLog.e("数据恢复");
             mFragments[0] = findFragment(PitchFragment.class);
             mFragments[1] = findFragment(WaterStabilityFragment.class);
-            if (mFragments[0] == null) {
-                mFragments[0] = PitchFragment.newInstance();
-            }
-            if (mFragments[1] == null) {
-                mFragments[1]= WaterStabilityFragment.newInstance();
-            }
         }
         initData();
         return view;
@@ -119,8 +111,8 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
 //            }
 //        }
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.liqing, R.drawable.ic_android_black_24dp, R.color.white);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.waterstability, R.drawable.ic_android_black_24dp, R.color.white);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.liqing, R.drawable.factory, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.waterstability, R.drawable.resizeapi, R.color.white);
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);
         bottomNavigationMainFragment.addItems(bottomNavigationItems);
@@ -135,6 +127,9 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
         bottomNavigationMainFragment.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, boolean wasSelected) {
+
+//                _mActivity.logFragmentStackHierarchy(TAG);
+//                _mActivity.showFragmentStackHierarchyView();
                 showHideFragment(mFragments[position], mFragments[bottomNavigationPreposition]);
                 KLog.e(mFragments[bottomNavigationPreposition].toString());
                 KLog.e("bottomNavigationPreposition"+bottomNavigationPreposition);

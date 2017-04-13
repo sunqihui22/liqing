@@ -3,13 +3,12 @@ package com.shtoone.liqing;
 import android.app.Application;
 import android.content.Context;
 
+import com.shtoone.liqing.exception.AppExceptionHandler;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
 import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
 import com.socks.library.KLog;
 import com.squareup.otto.Bus;
-
-import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -35,6 +34,6 @@ public class BaseApplication extends Application {
         KLog.e("baseapplication:"+BaseApplication.mDepartmentData);
         mContext = this;
         // 程序异常交由AppExceptionHandler来处理
-//        Thread.setDefaultUncaughtExceptionHandler(AppExceptionHandler.getInstance(this));
+       Thread.setDefaultUncaughtExceptionHandler(AppExceptionHandler.getInstance(this));
     }
 }

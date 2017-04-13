@@ -20,12 +20,10 @@ import com.shtoone.liqing.mvp.contract.pitch.DayProductQueryContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
 import com.shtoone.liqing.mvp.model.bean.PitchDayProductQueryData;
-import com.shtoone.liqing.mvp.model.bean.PitchOverProofData;
 import com.shtoone.liqing.mvp.model.bean.WaterStabilityOverProofBean;
 import com.shtoone.liqing.mvp.presenter.pitch.DayProductQueryPresenter;
 import com.shtoone.liqing.mvp.view.adapter.OnItemClickListener;
 import com.shtoone.liqing.mvp.view.adapter.PitchDayproductFragmentAdapter;
-import com.shtoone.liqing.mvp.view.adapter.PitchOverProofFragmentAdapter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
 import com.shtoone.liqing.utils.DateUtils;
 import com.shtoone.liqing.utils.DensityUtils;
@@ -200,7 +198,7 @@ public class DayProductQueryFragment extends BaseFragment<DayProductQueryContrac
         map.put("startTime", DateUtils.ChangeTimeToLong(parametersData.startDateTime));
         map.put("endTime", DateUtils.ChangeTimeToLong(parametersData.endDateTime));
         map.put("shebeibianhao", parametersData.equipmentID);
-        map.put("pageNo", parametersData.currentPage + "");
+        map.put("pageNo", parametersData.currentPage +1+ "");
         map.put("maxPageItems", "10");
         mPresenter.loadMoreData(map);
 
@@ -317,7 +315,8 @@ public class DayProductQueryFragment extends BaseFragment<DayProductQueryContrac
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.liqing) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -376,7 +375,9 @@ public class DayProductQueryFragment extends BaseFragment<DayProductQueryContrac
     @Override
     public void responseLoadMore(PitchDayProductQueryData pitchDayProductQueryData) {
         isLoading = false;
-        parametersData.currentPage++;
+        if (pitchDayProductQueryData.getData().size()>0) {
+            parametersData.currentPage++;
+        }
         list.addAll(pitchDayProductQueryData.getData());
         madapter.removeAllFooterView();
         madapter.addData(pitchDayProductQueryData.getData());

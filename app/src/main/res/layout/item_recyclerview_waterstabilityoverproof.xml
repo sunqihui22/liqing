@@ -12,13 +12,6 @@
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white_70_percent_alpha"
-        android:orientation="vertical"
-        android:paddingLeft="5dp">
-
         <LinearLayout
             android:id="@+id/chaobiaochaxun_item_do"
             android:layout_width="match_parent"
@@ -29,14 +22,12 @@
                 android:id="@+id/chaobiaochaxun_bhzname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:singleLine="true"
                 android:text="拌合站名称" />
             <TextView
                 android:id="@+id/chaobiaochaxun_shijian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:singleLine="true"
                 android:text="时间" />
 
@@ -44,8 +35,6 @@
                 android:id="@+id/chaobiaochaxun_bianhao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="编号" />
@@ -59,68 +48,55 @@
             <!--android:gravity="right"-->
             <!--android:textColor="@color/black" />-->
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/chaobiaochaxun_item_lines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!-- 第一行 -->
-            <LinearLayout
-                android:id="@+id/chaobiaochaxun_item_lineone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <!--<TextView-->
+            <!--android:id="@+id/tv_chaobiao_item"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
 
 
-                <TextView
+                <com.shtoone.liqing.widget.ui.MoreIconsTextView
                     android:id="@+id/chaobiaochaxun_item_sj1_z1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="粉料1" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/material_blue_400"
+
+                    android:singleLine="true" />
 
 
-                <TextView
+            <com.shtoone.liqing.widget.ui.MoreIconsTextView
                     android:id="@+id/chaobiaochaxun_item_sj2_z2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="粉料2" />
+                    android:layout_width="match_parent"
+                    android:textColor="@color/material_blue_400"
+
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
 
 
-                <TextView
+            <com.shtoone.liqing.widget.ui.MoreIconsTextView
                     android:id="@+id/chaobiaochaxun_item_sj3_z3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="石料1" />
+                    android:layout_width="match_parent"
+                    android:textColor="@color/material_blue_400"
+
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
 
 
-                <TextView
+            <com.shtoone.liqing.widget.ui.MoreIconsTextView
                     android:id="@+id/chaobiaochaxun_item_sj4_z4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="石料2" />
+                    android:layout_width="match_parent"
+                    android:textColor="@color/material_blue_400"
 
-                <TextView
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
+
+            <com.shtoone.liqing.widget.ui.MoreIconsTextView
                     android:id="@+id/chaobiaochaxun_item_sj5_z5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="石料3" />
+                    android:layout_width="match_parent"
+                    android:textColor="@color/material_blue_400"
+
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
 
                 <!--<TextView-->
                     <!--android:id="@+id/chaobiaochaxun_item_sj6_z6"-->
@@ -131,68 +107,36 @@
                     <!--android:singleLine="true"-->
                     <!--android:text="石料4" />-->
 
-            </LinearLayout>
-
-            <!-- 第二行 -->
-            <LinearLayout
-                android:id="@+id/chaobiaochaxun_item_linetwo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-                android:orientation="vertical">
 
 
-                <TextView
+
+            <com.shtoone.liqing.widget.ui.MoreIconsTextView
                     android:id="@+id/chaobiaochaxun_item_sj7_z7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="石料5" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/material_blue_400"
+
+                    android:singleLine="true" />
 
 
-                <TextView
+            <com.shtoone.liqing.widget.ui.MoreIconsTextView
                     android:id="@+id/chaobiaochaxun_item_sj8_z8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="石料6" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/material_blue_400"
+
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/chaobiaochaxun_item_sj9_z9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="石料7" />
+                    android:layout_width="match_parent"
 
-                <TextView
-                    android:id="@+id/chaobiaochaxun_item_sj10_z10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:singleLine="true" />
 
 
-                <TextView
-                    android:id="@+id/chaobiaochaxun_item_sj11_z11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true" />
 
-                <TextView
-                    android:id="@+id/chaobiaochaxun_item_sj12_z12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:singleLine="true" />
-            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
     <com.shtoone.liqing.widget.SlantedTextView
         android:id="@+id/stv_chuzhi"
         android:layout_width="60dp"

@@ -26,7 +26,7 @@ public class DrawerActivity extends BaseActivity {
     FrameLayout flContainerDrawerActivity;
     private ParametersData mParametersData;
     private UserInfoBean userInfoBean;
-    private  DepartmentBean  departmentBean;
+    private DepartmentBean departmentBean;
     private SupportFragment mFragment;
 
     @Override
@@ -43,11 +43,11 @@ public class DrawerActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mParametersData = (ParametersData) bundle.getSerializable("mparametersData");
-        departmentBean=(DepartmentBean) bundle.getSerializable("departmentBean");
+        departmentBean = (DepartmentBean) bundle.getSerializable("departmentBean");
         if (savedInstanceState == null) {
-            if (mParametersData!=null&&departmentBean==null) {
+            if (mParametersData != null && departmentBean == null) {
                 loadRootFragment(R.id.fl_container_drawer_activity, ParametersFragment.newInstance(mParametersData));
-            } else if (mParametersData==null&&departmentBean!=null) {
+            } else if (mParametersData == null && departmentBean != null) {
                 loadRootFragment(R.id.fl_container_drawer_activity, OrganizationFragment.newInstance(departmentBean));
                 KLog.e("---loadRootFragment---");
             }

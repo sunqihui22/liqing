@@ -1,12 +1,18 @@
 package com.shtoone.liqing.exception;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.util.Log;
+
+import com.shtoone.liqing.mvp.view.others.LaunchActivity;
+import com.shtoone.liqing.utils.ActivityManagerUtils;
+import com.socks.library.KLog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -110,15 +116,21 @@ public class AppExceptionHandler implements Thread.UncaughtExceptionHandler {
             if (!isSuccess) {
                 return false;
             } else {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        Looper.prepare();
-                        //弹出Dialog提示用户退出App或重启App
-                        showDialog();
-                        Looper.loop();
-                    }
-                }.start();
+//                new Thread() {
+//                    @Override
+//                    public void run() {
+//                        Looper.prepare();
+//                        //弹出Dialog提示用户退出App或重启App
+//                        showDialog();
+//                        Looper.loop();
+//                    }
+//                }.start();
+
+                Intent intent = new Intent(mContext, LaunchActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+                ActivityManagerUtils.getInstance().appExit();
+                KLog.e("重启");
             }
         }
         return true;

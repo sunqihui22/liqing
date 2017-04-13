@@ -31,7 +31,7 @@
                 android:paddingBottom="2dp"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@drawable/bg_input_cursor"
-                android:textSize="16sp" />
+                android:textSize="18dp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -49,7 +49,7 @@
                 android:paddingBottom="2dp"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@drawable/bg_input_cursor"
-                android:textSize="16sp" />
+                android:textSize="18dp" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -156,26 +156,38 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableLeft="@drawable/radiobutton_all_selector"
+                android:button="@null"
+                android:textColor="@color/black"
                 android:checked="true"
                 android:text="全部" />
 
-            <RadioButton
-                android:id="@+id/rb_low_level_dialog"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="低级" />
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_low_level_dialog"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:drawableLeft="@drawable/radiobutton_low_selector"-->
+                <!--android:button="@null"-->
+                <!--android:textColor="@color/material_green_400"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="低级" />-->
 
             <RadioButton
                 android:id="@+id/rb_middle_level_dialog"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/material_green_400"
+                android:drawableLeft="@drawable/radiobutton_low_selector"
+                android:button="@null"
                 android:layout_weight="1"
-                android:text="中级" />
+                android:text="低级" />
 
             <RadioButton
                 android:id="@+id/rb_high_level_dialog"
                 android:layout_width="0dp"
+                android:textColor="@color/material_red_400"
+                android:drawableLeft="@drawable/radiobutton_high_selector"
+                android:button="@null"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="高级" />
@@ -211,6 +223,7 @@
                 android:layout_weight="1"
                 android:text="已审批" />
         </RadioGroup>
+
 
         <RadioGroup
             android:id="@+id/rg_time_type_dialog"

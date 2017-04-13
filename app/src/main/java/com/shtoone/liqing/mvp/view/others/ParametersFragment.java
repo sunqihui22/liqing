@@ -17,7 +17,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
-import com.google.gson.Gson;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -28,7 +27,6 @@ import com.shtoone.liqing.event.EventData;
 import com.shtoone.liqing.mvp.contract.others.ParametersContract;
 import com.shtoone.liqing.mvp.model.bean.EquipmentData;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
-import com.shtoone.liqing.mvp.model.bean.UserPositionData;
 import com.shtoone.liqing.mvp.presenter.others.ParametersPresenter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
 import com.shtoone.liqing.utils.DateUtils;
@@ -37,7 +35,6 @@ import com.socks.library.KLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -47,7 +44,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,8 +95,8 @@ public class ParametersFragment extends BaseFragment<ParametersContract.Presente
     @BindView(R.id.ms_select_luserposition_dialog)
     MaterialSpinner msSelectLuserpositionDialog;
     @BindView(R.id.rb_all_level_dialog)
-    RadioButton rbAllLevelDialog;
-    @BindView(R.id.rb_low_level_dialog)
+//    RadioButton rbAllLevelDialog;
+//    @BindView(R.id.rb_low_level_dialog)
     RadioButton rbLowLevelDialog;
     @BindView(R.id.rb_middle_level_dialog)
     RadioButton rbMiddleLevelDialog;
@@ -174,6 +170,7 @@ public class ParametersFragment extends BaseFragment<ParametersContract.Presente
 
             case Constants.MaterialStatisticsFragment:
             case Constants.PITCHDAYPROCTFRAGMENT:
+            case  Constants.PitchMaterialStatisticsFragment:
                 msSelectEquipmentDialog.setVisibility(View.VISIBLE);
                 break;
 
@@ -263,9 +260,9 @@ public class ParametersFragment extends BaseFragment<ParametersContract.Presente
                     case R.id.rb_middle_level_dialog:
                         mparameterData.alarmLevel = "2";
                         break;
-                    case R.id.rb_low_level_dialog:
-                        mparameterData.alarmLevel = "1";
-                        break;
+//                    case R.id.rb_low_level_dialog:
+//                        mparameterData.alarmLevel = "1";
+//                        break;
                     case R.id.rb_all_level_dialog:
                         mparameterData.alarmLevel = "0";
                         break;
@@ -361,9 +358,11 @@ public class ParametersFragment extends BaseFragment<ParametersContract.Presente
 
         if (mparameterData.alarmLevel.equals("0")) {
             rgLevelDialog.check(R.id.rb_all_level_dialog);
-        } else if (mparameterData.alarmLevel.equals("1")) {
-            rgLevelDialog.check(R.id.rb_low_level_dialog);
-        } else if (mparameterData.alarmLevel.equals("2")) {
+        }
+//        else if (mparameterData.alarmLevel.equals("1")) {
+//            rgLevelDialog.check(R.id.rb_low_level_dialog);
+//        }
+        else if (mparameterData.alarmLevel.equals("2")) {
             rgLevelDialog.check(R.id.rb_middle_level_dialog);
         } else if (mparameterData.alarmLevel.equals("3")) {
             rgLevelDialog.check(R.id.rb_high_level_dialog);
@@ -414,7 +413,7 @@ public class ParametersFragment extends BaseFragment<ParametersContract.Presente
         msSelectLuserpositionDialog.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mparameterData.userposition = responses.get(i);
+                mparameterData.models = responses.get(i);
             }
 
             @Override
@@ -646,5 +645,8 @@ public class ParametersFragment extends BaseFragment<ParametersContract.Presente
         return sf.format(d);
     }
 
-
+    @Override
+    public boolean onBackPressedSupport() {
+        return super.onBackPressedSupport();
+    }
 }

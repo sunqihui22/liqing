@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -30,16 +31,13 @@ import com.shtoone.liqing.BaseApplication;
 import com.shtoone.liqing.R;
 import com.shtoone.liqing.common.Constants;
 import com.shtoone.liqing.event.EventData;
+import com.shtoone.liqing.mvp.contract.pitch.PitchStatisticsContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
-import com.shtoone.liqing.mvp.model.bean.MaterialStatisticsData;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
 import com.shtoone.liqing.mvp.model.bean.PitchStatisticsData;
 import com.shtoone.liqing.mvp.presenter.pitch.PitchStatisticsPresenter;
-import com.shtoone.liqing.mvp.view.WaterStability.WaterStabilityActivity;
-import com.shtoone.liqing.mvp.view.adapter.MaterialStatisticsRecycleViewAdapter;
 import com.shtoone.liqing.mvp.view.adapter.PitchMaterialStatisticsRecycleViewAdapter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
-import com.shtoone.liqing.mvp.contract.pitch.PitchStatisticsContract;
 import com.shtoone.liqing.mvp.view.others.MainActivity;
 import com.shtoone.liqing.utils.DateUtils;
 import com.shtoone.liqing.utils.DensityUtils;
@@ -72,6 +70,7 @@ import retrofit2.adapter.rxjava.HttpException;
 public  class PitchStatisticsFragment extends BaseFragment<PitchStatisticsContract.Presenter> implements  PitchStatisticsContract.View {
 
     private static final String TAG = PitchStatisticsFragment.class.getSimpleName();
+    private TextView tittle;
 
     private Toolbar mToolbar;
     private NestedScrollView mNestedScrollView;
@@ -101,6 +100,7 @@ public  class PitchStatisticsFragment extends BaseFragment<PitchStatisticsContra
     @Override
     public void responsePitchStatisticsData(PitchStatisticsData pitchStatisticsData) {
         data = pitchStatisticsData;
+        tittle.setText(pitchStatisticsData.getTableName());
         mMsAdapter.removeAllHeaderView();
         mMsAdapter.setNewData(pitchStatisticsData.getData());
         //通知adapter数据已更改
@@ -214,6 +214,7 @@ public  class PitchStatisticsFragment extends BaseFragment<PitchStatisticsContra
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar_toolbar);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        tittle= (TextView) view.findViewById( R.id.tv_title);
         mNestedScrollView = (NestedScrollView) view.findViewById(R.id.nsv_material_statistic_fragment);
         mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.ptr_material_statistic_fragment);
         mPageStateLayout = (PageStateLayout) view.findViewById(R.id.psl_material_statistic_fragment);
@@ -287,7 +288,8 @@ public  class PitchStatisticsFragment extends BaseFragment<PitchStatisticsContra
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.liqing) + " > ");
         mToolbar.setTitle(sb.toString());
 //        }

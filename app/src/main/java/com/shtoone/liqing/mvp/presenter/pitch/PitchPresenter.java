@@ -39,8 +39,15 @@ public class PitchPresenter extends BasePresenter<PitchContract.View> implements
                     @Override
                     public void onResponse(Call<PitchFragmentData> call, Response<PitchFragmentData> response) {
                         if (response.isSuccessful()) {
-                            subscriber.onNext(response.body());
-                            subscriber.onCompleted();
+                            PitchFragmentData pitchFragmentData = response.body();
+                            if(pitchFragmentData.isSuccess()){
+                                if(pitchFragmentData.getData().size()>0){
+                                    subscriber.onNext(pitchFragmentData);
+                                    subscriber.onCompleted();
+                                }else{
+                                    getView().showEmpty();
+                                }
+                            }
                         } else {
                             subscriber.onError(new IOException());
                         }

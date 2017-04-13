@@ -6,18 +6,15 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.LinearGradient;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.util.TimeUtils;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +46,7 @@ import com.sdsmdg.tastytoast.TastyToast;
 import com.shtoone.liqing.BaseApplication;
 import com.shtoone.liqing.R;
 import com.shtoone.liqing.common.Constants;
+import com.shtoone.liqing.event.EventData;
 import com.shtoone.liqing.mvp.contract.WaterStability.WaterStabilityOverProofDetailContrant;
 import com.shtoone.liqing.mvp.model.HttpHelper;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
@@ -58,7 +56,6 @@ import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
 import com.shtoone.liqing.mvp.model.bean.WaterStabilityOverProofDetailsBean;
 import com.shtoone.liqing.mvp.presenter.WaterStability.WaterStabilityOverProofDetailPresenter;
 import com.shtoone.liqing.mvp.view.adapter.AccountingTableAdapter;
-import com.shtoone.liqing.mvp.view.adapter.OnItemClickListener;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
 import com.shtoone.liqing.utils.DateUtils;
 import com.shtoone.liqing.utils.DensityUtils;
@@ -67,8 +64,8 @@ import com.shtoone.liqing.utils.ToastUtils;
 import com.shtoone.liqing.widget.PageStateLayout;
 import com.socks.library.KLog;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -85,7 +82,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -93,6 +89,7 @@ import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 /**
  * Author： hengzwd on 2017/3/15.
@@ -162,6 +159,16 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
     PageStateLayout pslProduceQuery;
     @BindView(R.id.ptr_produce_query_detail_fragment)
     PtrFrameLayout ptrProduceQuery;
+    @BindView(R.id.textView2)
+    TextView textView2;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.textView)
+    TextView textView;
+    @BindView(R.id.tv_title_handle)
+    TextView tvTitleHandle;
+    @BindView(R.id.tv_title_example)
+    TextView tvTitleExample;
 
     private UserInfoBean mUserInfoData;
     private String examinePerson;
@@ -184,6 +191,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
     private ParametersData parametersData = new ParametersData();
     private int lastVisibleItemPosition;
     private boolean isLoading;
+    private MaterialDialog progressDialog;
 
     private TimePickerDialog enSureTimePickerDialog;
     private TimePickerDialog handleTimePickerDialog;
@@ -225,7 +233,12 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
         rvProduceQuery.setLayoutManager(linearLayoutManager);
         rvProduceQuery.setAdapter(madapter);
         initTimePickerDialog();
+        toolbarToolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
 
+            }
+        });
         etHandleTimeOverproof.getEditText().setInputType(InputType.TYPE_NULL);
         etHandlePersonOverproof.getEditText().setInputType(InputType.TYPE_NULL);
         etExaminePersonOverproof.getEditText().setInputType(InputType.TYPE_NULL);
@@ -236,7 +249,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
 
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        handleTimePickerDialog.show(getFragmentManager(), "处置时间");
+//                        handleTimePickerDialog.show(getFragmentManager(), "处置时间");
                         break;
                 }
                 return true;
@@ -248,7 +261,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        enSureTimePickerDialog.show(getFragmentManager(), "确认时间");
+//                        enSureTimePickerDialog.show(getFragmentManager(), "确认时间");
                         break;
                 }
                 return true;
@@ -260,7 +273,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        ExamineTimePickerDialog.show(getFragmentManager(), "审批时间");
+//                        ExamineTimePickerDialog.show(getFragmentManager(), "审批时间");
                         break;
                 }
                 return true;
@@ -460,8 +473,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
                 examineApprove = etExamineApproveOverproof.getEditText().getText().toString().trim();
                 confirmTime = etConfirmTimeOverproof.getEditText().getText().toString().trim();
                 approveTime = etApproveTimeOverproof.getEditText().getText().toString().trim();
-
-                if (!TextUtils.isEmpty(examinePerson) && !TextUtils.isEmpty(examineApprove) && !TextUtils.isEmpty(confirmTime) && !TextUtils.isEmpty(approveTime)) {
+                if (!TextUtils.isEmpty(examinePerson) && !TextUtils.isEmpty(examineApprove) && !TextUtils.isEmpty(confirmTime)) {
                     //弹出对话框，确定提交
                     new MaterialDialog.Builder(_mActivity)
                             .title("确认")
@@ -530,7 +542,8 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.waterstability) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -554,6 +567,9 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
 
     private void setData2View(WaterStabilityOverProofDetailsBean.SwHeadEntity headEntity, WaterStabilityOverProofDetailsBean.SwjgEntity swjgEntity) {
 
+        tvTitle.setText(headEntity.getBhjName());
+        tvTitleHandle.setText(headEntity.getBhjName());
+        tvTitleExample.setText(headEntity.getBhjName());
         scchaxunXqBhjname.setText(headEntity.getBhjName());
         scchaxunXqChuliaoshijian.setText(headEntity.getChuliaoshijian());
         scchaxunXqDate.setText(headEntity.getBaocunshijian());
@@ -568,8 +584,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
         etHandleTimeOverproof.getEditText().setText(swjgEntity.getShenpidate());
         etHandleReasonOverproof.getEditText().setText(swjgEntity.getWentiyuanyin());
 
-        if (TextUtils.isEmpty(etHandlePersonOverproof.getEditText().getText()))
-        {
+        if (TextUtils.isEmpty(etHandlePersonOverproof.getEditText().getText())) {
             etHandlePersonOverproof.getEditText().setText(examinePerson = mUserInfoData.getUserFullName());
 
         }
@@ -578,26 +593,41 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         if (TextUtils.isEmpty(etHandleTimeOverproof.getEditText().getText())) {
-            etHandleTimeOverproof. getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
-        }if (TextUtils.isEmpty(etConfirmTimeOverproof.getEditText().getText()))
-        {
+            etHandleTimeOverproof.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
+        }
+        if (TextUtils.isEmpty(etConfirmTimeOverproof.getEditText().getText())) {
             etConfirmTimeOverproof.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
         }
 
-        if (0==mUserInfoData.getChuzhi()) {
-            btHandleSubmitOverproof.setEnabled(false);
-            btHandleResetOverproof.setEnabled(false);
-        } else if (1==mUserInfoData.getChuzhi()) {
+//        if (0 == mUserInfoData.getChuzhi()) {
+//            btHandleSubmitOverproof.setEnabled(false);
+//            btHandleResetOverproof.setEnabled(false);
+//        } else if (1 == mUserInfoData.getChuzhi()) {
+//            btHandleSubmitOverproof.setEnabled(true);
+//            btHandleResetOverproof.setEnabled(true);
+//        }
+//
+//        if (0 == mUserInfoData.getShenehe()) {
+//            btExamineSubmitOverproof.setEnabled(false);
+//            btExamineResetOverproof.setEnabled(false);
+//        } else if (1 == mUserInfoData.getShenehe()) {
+//            btExamineSubmitOverproof.setEnabled(true);
+//            btExamineResetOverproof.setEnabled(true);
+//        }
+
+        if (departmentBean.handleType.equals("0") && 1 == mUserInfoData.getChuzhi()) {
             btHandleSubmitOverproof.setEnabled(true);
             btHandleResetOverproof.setEnabled(true);
+        } else {
+            btHandleSubmitOverproof.setEnabled(false);
+            btHandleResetOverproof.setEnabled(false);
         }
-
-        if (0==mUserInfoData.getShenehe()) {
-            btExamineSubmitOverproof.setEnabled(false);
-            btExamineResetOverproof.setEnabled(false);
-        } else if (1==mUserInfoData.getShenehe()) {
+        if (departmentBean.exampleType.equals("0") && 1 == mUserInfoData.getShenehe()) {
             btExamineSubmitOverproof.setEnabled(true);
             btExamineResetOverproof.setEnabled(true);
+        } else {
+            btExamineSubmitOverproof.setEnabled(false);
+            btExamineResetOverproof.setEnabled(false);
         }
 
         if (!TextUtils.isEmpty(swjgEntity.getFilePath())) {
@@ -686,7 +716,6 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
                     public void onCompleted() {
                         progressDialog.dismiss();
 //                        TastyToast.makeText(BaseApplication.mContext, "审核成功!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
-
                     }
 
                     @Override
@@ -700,13 +729,12 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
 
                         if (!o.isSuccess()) {
                             TastyToast.makeText(BaseApplication.mContext, "提交失败!", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-                        }else {
+                        } else {
                             TastyToast.makeText(BaseApplication.mContext, "提交成功!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                         }
 
                     }
                 });
-
     }
 
 
@@ -717,6 +745,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
 //        options.put("xxid",xxid+"");
         options.put("chuzhiren", handlePerson);
         options.put("chuzhishijian", DateUtils.ChangeTimeToLong(handleTime));
+        KLog.e(DateUtils.ChangeTimeToLong(handleTime));
         options.put("chaobiaoyuanyin", handleReason);
         options.put("chuzhifangshi", handleWay);
         options.put("chuzhijieguo", handleResult);
@@ -738,8 +767,7 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
                     .subscribe(new Subscriber<UploadResponseBean>() {
                         @Override
                         public void onCompleted() {
-//                            progressDialog.dismiss();
-//                            TastyToast.makeText(BaseApplication.mContext, "上传成功!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+                            progressDialog.dismiss();
                         }
 
                         @Override
@@ -761,10 +789,12 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
 
                             if (!o.isSuccess()) {
                                 TastyToast.makeText(BaseApplication.mContext, "上传失败!", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-                            }else {
+                                progressDialog.dismiss();
+                            } else {
                                 TastyToast.makeText(BaseApplication.mContext, "上传成功!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+                                EventBus.getDefault().postSticky(new EventData(Constants.WATERSTABILITYOVERPROOFDETAIL));
+                                _mActivity.onBackPressedSupport();
                             }
-
                             KLog.e("上传————onnext");
                         }
                     });
@@ -883,7 +913,6 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
             TastyToast.makeText(BaseApplication.mContext, photoName, TastyToast.LENGTH_SHORT, TastyToast.INFO);
             Bundle bundle = data.getExtras();
             bitmap = (Bitmap) bundle.get("data");
-
             FileOutputStream b = null;
             File file = new File("/sdcard/shtw/");
             file.mkdirs();
@@ -902,13 +931,56 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
                 } catch (Exception e2) {
                 }
             }
+
         } else if (requestCode == Constants.ALBUM) { // 表示是从相册选择图片返回
             Uri uri = data.getData(); //得到图片 uri
             ContentResolver resolver = _mActivity.getContentResolver(); //处理器
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(resolver, uri); //  将对应 uri 通过处理器转化为 bitmap
-            } catch (Exception e) {
-                e.printStackTrace();
+            String strPath = uri.getPath();
+            KLog.e("path:" + strPath);
+            File file = new File(strPath);
+            KLog.e("filelength:" + file.length());
+            if (file.length() > 1024 * 1024) {
+                Luban.get(_mActivity).load(file)
+                        .putGear(Luban.THIRD_GEAR)
+                        .asObservable()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<File>() {
+                            @Override
+                            public void onCompleted() {
+                                progressDialog.dismiss();
+                                if (bitmap != null) {
+                                    llCameraAlbumOverproof.setVisibility(View.GONE);
+                                    ivPhotoSelectOverproof.setVisibility(View.VISIBLE);
+                                    ivPhotoSelectOverproof.setImageBitmap(bitmap);
+                                }
+                            }
+
+                            @Override
+                            public void onStart() {
+                                super.onStart();
+                                progressDialog = new MaterialDialog.Builder(_mActivity).content("图片太大，压缩中。。。").build();
+                                progressDialog.show();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                progressDialog.dismiss();
+                                ToastUtils.showErrorToast(_mActivity, "图片加载失败");
+                            }
+
+                            @Override
+                            public void onNext(File file) {
+                                bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                            }
+                        });
+            } else {
+
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(resolver, uri); //  将对应 uri 通过处理器转化为 bitmap
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         if (bitmap != null) {
@@ -917,4 +989,5 @@ public class WaterStabilityOverProofDetailFragment extends BaseFragment<WaterSta
             ivPhotoSelectOverproof.setImageBitmap(bitmap);
         }
     }
+
 }

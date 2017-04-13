@@ -12,16 +12,24 @@ public class WaterStabilityOverProofDetailsBean implements Serializable {
 
 
     /**
-     * swHead : {"baocunshijian":"2017-02-24 06:41:51","bhjName":"LM1标水稳1#机","chuliaoshijian":"2017-02-23 17:22:10","zcl":"44224.90"}
-     * swData : [{"mbpeibi":"5.0","name":"实际粉料1","scpeibi":"4.04","sgpeibi":"4.00","wucha":"-0.96","yongliang":"1788.07"},{"mbpeibi":"","name":"实际粉料2","scpeibi":"0.00","sgpeibi":"0.00","wucha":"0.00","yongliang":"0.00"},{"mbpeibi":"11","name":"实际骨料1","scpeibi":"9.94","sgpeibi":"10.00","wucha":"-1.06","yongliang":"4394.25"},{"mbpeibi":"27","name":"实际骨料2","scpeibi":"25.02","sgpeibi":"25.00","wucha":"-1.98","yongliang":"11066.74"},{"mbpeibi":"27","name":"实际骨料3","scpeibi":"25.11","sgpeibi":"25.00","wucha":"-1.89","yongliang":"11104.45"},{"mbpeibi":"35","name":"实际骨料4","scpeibi":"19.89","sgpeibi":"20.00","wucha":"4.93","yongliang":"8796.45"},{"mbpeibi":"","name":"实际骨料5","scpeibi":"20.04","sgpeibi":"20.00","wucha":"4.93","yongliang":"8863.01"}]
-     * swjg : {"beizhu":"","chulifangshi":"无需处理","chulijieguo":"无需处理","chuliren":"郭胜伟","confirmdate":"","filePath":"","shenpidate":"","wentiyuanyin":"系统错误，目标配合比未转换，实际不影响施工。","yezhuren":"","yezhuyijian":""}
      * success : true
+     * swData : [{"cblx":"","mbpeibi":"5.0","name":"水泥1","scpeibi":"4.10","sgpeibi":"4.00","wucha":"-0.90","yongliang":"1803.54"},{"cblx":"","mbpeibi":"","name":"水泥2","scpeibi":"0.00","sgpeibi":"0.00","wucha":"0.00","yongliang":"0.00"},{"cblx":"","mbpeibi":"11","name":"5-10mm","scpeibi":"9.79","sgpeibi":"10.00","wucha":"-1.21","yongliang":"4308.74"},{"cblx":"","mbpeibi":"27","name":"10-20mm","scpeibi":"25.10","sgpeibi":"25.00","wucha":"-1.90","yongliang":"11043.85"},{"cblx":"","mbpeibi":"27","name":"10-30mm","scpeibi":"24.78","sgpeibi":"25.00","wucha":"-2.22","yongliang":"10902.53"},{"cblx":"6","mbpeibi":"35","name":"石粉1","scpeibi":"20.45","sgpeibi":"20.00","wucha":"5.34","yongliang":"9000.16"},{"cblx":"","mbpeibi":"","name":"石粉2","scpeibi":"19.89","sgpeibi":"20.00","wucha":"5.34","yongliang":"8750.87"}]
+     * swHead : {"baocunshijian":"2017-02-24 06:47:47:478","bhjName":"LM1标水稳1#机","chuliaoshijian":"2017-02-23 17:27:10","zcl":"44006.15"}
+     * swjg : {"beizhu":"bbb","chulifangshi":"无需处理","chulijieguo":"无需处理","chuliren":"admin","confirmdate":"2017-03-14 17:27:38","filePath":"hntChaobiaoAttachment/24965-1490771100196.png","shenpidate":"2017-03-29 15:08:00","wentiyuanyin":"系统错误，目标配合比未转换，实际不影响施工。","yezhuren":"admin","yezhuyijian":"aaaa"}
      */
 
+    private boolean success;
     private SwHeadEntity swHead;
     private SwjgEntity swjg;
-    private boolean success;
     private List<SwDataEntity> swData;
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
     public SwHeadEntity getSwHead() {
         return swHead;
@@ -39,14 +47,6 @@ public class WaterStabilityOverProofDetailsBean implements Serializable {
         this.swjg = swjg;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
     public List<SwDataEntity> getSwData() {
         return swData;
     }
@@ -57,10 +57,10 @@ public class WaterStabilityOverProofDetailsBean implements Serializable {
 
     public static class SwHeadEntity {
         /**
-         * baocunshijian : 2017-02-24 06:41:51
+         * baocunshijian : 2017-02-24 06:47:47:478
          * bhjName : LM1标水稳1#机
-         * chuliaoshijian : 2017-02-23 17:22:10
-         * zcl : 44224.90
+         * chuliaoshijian : 2017-02-23 17:27:10
+         * zcl : 44006.15
          */
 
         private String baocunshijian;
@@ -103,16 +103,16 @@ public class WaterStabilityOverProofDetailsBean implements Serializable {
 
     public static class SwjgEntity {
         /**
-         * beizhu :
+         * beizhu : bbb
          * chulifangshi : 无需处理
          * chulijieguo : 无需处理
-         * chuliren : 郭胜伟
-         * confirmdate :
-         * filePath :
-         * shenpidate :
+         * chuliren : admin
+         * confirmdate : 2017-03-14 17:27:38
+         * filePath : hntChaobiaoAttachment/24965-1490771100196.png
+         * shenpidate : 2017-03-29 15:08:00
          * wentiyuanyin : 系统错误，目标配合比未转换，实际不影响施工。
-         * yezhuren :
-         * yezhuyijian :
+         * yezhuren : admin
+         * yezhuyijian : aaaa
          */
 
         private String beizhu;
@@ -209,20 +209,30 @@ public class WaterStabilityOverProofDetailsBean implements Serializable {
 
     public static class SwDataEntity {
         /**
+         * cblx :
          * mbpeibi : 5.0
-         * name : 实际粉料1
-         * scpeibi : 4.04
+         * name : 水泥1
+         * scpeibi : 4.10
          * sgpeibi : 4.00
-         * wucha : -0.96
-         * yongliang : 1788.07
+         * wucha : -0.90
+         * yongliang : 1803.54
          */
 
+        private String cblx;
         private String mbpeibi;
         private String name;
         private String scpeibi;
         private String sgpeibi;
         private String wucha;
         private String yongliang;
+
+        public String getCblx() {
+            return cblx;
+        }
+
+        public void setCblx(String cblx) {
+            this.cblx = cblx;
+        }
 
         public String getMbpeibi() {
             return mbpeibi;

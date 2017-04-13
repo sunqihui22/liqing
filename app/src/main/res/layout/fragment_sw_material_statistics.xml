@@ -4,7 +4,6 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/material_grey_50">
 
     <LinearLayout
@@ -118,6 +117,12 @@
 
                                 <TextView
                                     style="@style/DetailTextTheme"
+                                    android:id="@+id/tv_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="核算表" />
+                                <TextView
+                                    style="@style/DetailTextTheme"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="核算表" />
@@ -154,7 +159,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:gravity="center"
-                                        android:text="@string/deviation" />
+                                        android:text="@string/deviation_rate" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.RecyclerView

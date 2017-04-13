@@ -40,7 +40,6 @@ public class HttpHelper {
     private HttpHelper() {
         initRetrofit();
     }
-
     //获取单例
     public static HttpHelper getInstance() {
         if (INSTANCE == null) {

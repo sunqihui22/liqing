@@ -69,6 +69,11 @@
                                     android:background="@color/white_70_percent_alpha"
                                     android:orientation="vertical">
                                     <!-- 保存时间 -->
+                                    <TextView
+                                        style="@style/DetailTextTheme"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="基本数据" />
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -182,6 +187,12 @@
                                 android:orientation="vertical"
                                 android:padding="3dp">
 
+                                <TextView
+                                    style="@style/DetailTextTheme"
+                                    android:id="@+id/tv_title"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
                                 <TextView
                                     style="@style/DetailTextTheme"
                                     android:layout_width="match_parent"

@@ -77,6 +77,7 @@ public class PitchProductQueryFragment extends BaseFragment<PitchProductQueryCon
     private int lastVisibleItemPosition;
     private boolean isLoading;
     private List<PitchProductQueryData.DataEntity> list;
+    private String TAG = PitchProductQueryFragment.class.getSimpleName();
 
     public static PitchProductQueryFragment newInstance(DepartmentBean departmentBean) {
 
@@ -184,6 +185,7 @@ public class PitchProductQueryFragment extends BaseFragment<PitchProductQueryCon
         map.put("pageNo", parametersData.currentPage + "");
         map.put("maxPageItems", "10");
         map.put("peifan", parametersData.models);
+        KLog.e(TAG,"map=:"+map.toString());
         mPresenter.requestPitchProductQueryData(map);
     }
 
@@ -197,7 +199,7 @@ public class PitchProductQueryFragment extends BaseFragment<PitchProductQueryCon
         map.put("startTime", DateUtils.ChangeTimeToLong(parametersData.startDateTime));
         map.put("endTime", DateUtils.ChangeTimeToLong(parametersData.endDateTime));
         map.put("shebeibianhao", parametersData.equipmentID);
-        map.put("pageNo", parametersData.currentPage + "");
+        map.put("pageNo", parametersData.currentPage +1+ "");
         map.put("maxPageItems", "10");
         map.put("peifan", parametersData.models);
         mPresenter.loadMoreData(map);
@@ -206,7 +208,8 @@ public class PitchProductQueryFragment extends BaseFragment<PitchProductQueryCon
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.liqing) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -264,7 +267,9 @@ public class PitchProductQueryFragment extends BaseFragment<PitchProductQueryCon
     @Override
     public void responseLoadMore(PitchProductQueryData pitchProductQueryData) {
         isLoading = false;
-        parametersData.currentPage++;
+        if (pitchProductQueryData.getData().size()>0) {
+            parametersData.currentPage++;
+        }
         list.addAll(pitchProductQueryData.getData());
         madapter.removeAllFooterView();
         madapter.addData(pitchProductQueryData.getData());
@@ -370,6 +375,7 @@ public class PitchProductQueryFragment extends BaseFragment<PitchProductQueryCon
 
     @OnClick(R.id.fab)
     public void onClick() {
+        parametersData.deviceType=Constants.TYPE_PITCH;
         ((PitchActivity) _mActivity).startDrawerActivity(parametersData, null);
     }
 

@@ -57,7 +57,6 @@ public class GuideFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         fl.post(new Runnable() {
             @Override
             public void run() {
@@ -71,6 +70,15 @@ public class GuideFragment extends BaseFragment {
     private void initData() {
         vp.setAdapter(new GuideViewPagerAdapter());
 
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferencesUtils.put(_mActivity, Constants.ISFIRSTENTRY, false);
+                // 页面跳转
+                start(LoginFragment.newInstance(Constants.FROM_GUIDE));
+//        startActivity(new Intent(_mActivity, MainActivity.class));
+            }
+        });
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -78,7 +86,7 @@ public class GuideFragment extends BaseFragment {
                 switch (position) {
                     case 0:
                         bt.setVisibility(View.GONE);
-                        evaluate = (Integer) mArgbEvaluator.evaluate(positionOffset, 0XFF76C5F0, 0XFF052CB8);
+                        evaluate = (Integer) mArgbEvaluator.evaluate(positionOffset, 0XFF76C5F0, 0XFF052CB8);//滑动实时改变背景色
                         fl.setBackgroundColor(evaluate);
                         break;
                     case 1:

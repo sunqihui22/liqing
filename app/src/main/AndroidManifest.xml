@@ -42,7 +42,7 @@
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/applable"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
@@ -59,22 +59,24 @@
             </intent-filter>
         </activity>
 
-
         <!--<activity-->
-            <!--android:name=".mvp.view.WaterStability.TestActivity"-->
-            <!--android:launchMode="singleTop"-->
-            <!--android:theme="@style/AppTheme.LaunchTheme">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--android:name=".mvp.view.WaterStability.TestActivity"-->
+        <!--android:launchMode="singleTop"-->
+        <!--android:theme="@style/AppTheme.LaunchTheme">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
-
 
         <activity
             android:name=".mvp.view.others.MainActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".mvp.view.others.SubmitScannedDataActivity"
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".mvp.view.others.DrawerActivity"
@@ -86,7 +88,9 @@
             android:theme="@style/AppTheme.Register" />
 
         <activity android:name=".mvp.view.WaterStability.WaterStabilityActivity" />
-        <activity android:name=".mvp.view.others.DetailActivity" />
+        <activity
+            android:name=".mvp.view.others.DetailActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".mvp.view.pitch.PitchActivity" />
 
     </application>

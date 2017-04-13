@@ -33,8 +33,14 @@ public class WaterStabilityProductionQueryDetailPresenter extends BasePresenter<
             public void onResponse(Call<WaterStabilityProductionQueryDetailData> call, Response<WaterStabilityProductionQueryDetailData> response) {
 
                 if (response.isSuccessful()) {
-                    getView().responseProductionQueryDetail(response.body());
-                    getView().showContent();
+                    WaterStabilityProductionQueryDetailData data=response.body();
+                    if (data.isSuccess()) {
+                        getView().responseProductionQueryDetail(data);
+                        getView().showContent();
+                    }else {
+                        getView().showError(new IOException());
+
+                    }
                 }else {
                     getView().showError(new IOException());
                 }

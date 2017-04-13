@@ -12,9 +12,9 @@ public class WaterStabilityOverProofBean implements Serializable {
 
 
     /**
-     * data : [{"bianhao":"24965","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-02-23 17:27:10","shenhe":"1","sjf1":"1803.54","sjf2":"","sjg1":"4308.7","sjg2":"11043.8","sjg3":"10902.5","sjg4":"9000.2","sjg5":"8750.9","zcl":"44006.15"},{"bianhao":"24964","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-02-23 17:22:10","shenhe":"0","sjf1":"1788.07","sjf2":"","sjg1":"4394.3","sjg2":"11066.7","sjg3":"11104.5","sjg4":"8796.5","sjg5":"8863.0","zcl":"44224.90"},{"bianhao":"24963","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-02-23 17:17:10","shenhe":"0","sjf1":"1758.68","sjf2":"","sjg1":"4452.0","sjg2":"11167.9","sjg3":"11094.3","sjg4":"8765.7","sjg5":"8963.7","zcl":"44443.51"}]
-     * field : {"bianhao":"编号","bzhName":"拌合站名称","chuli":"","clTime":"出料时间","shenhe":"","sjf1":"水泥1","sjf2":"水泥2","sjg1":"5-10mm","sjg2":"10-20mm","sjg3":"10-30mm","sjg4":"石粉1","sjg5":"石粉2","zcl":"总产量"}
-     * isShow : {"bianhao":"","bzhName":"","chuli":"","clTime":"1","shenhe":"","sjf1":"1","sjf2":"1","sjg1":"1","sjg2":"1","sjg3":"1","sjg4":"1","sjg5":"1","zcl":"1"}
+     * data : [{"bianhao":"24965","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-02-23 17:27:10","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"44006.15"},{"bianhao":"15710","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 22:04:29","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"39229.90"},{"bianhao":"15709","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 21:59:29","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"38667.62"},{"bianhao":"15708","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 21:54:29","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"38930.35"},{"bianhao":"15706","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 21:49:29","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"38650.92"},{"bianhao":"15705","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 21:44:29","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"39305.90"},{"bianhao":"15704","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 21:39:29","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"39255.76"},{"bianhao":"15703","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 21:29:23","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"37612.20"},{"bianhao":"15702","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 21:24:23","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"37184.86"},{"bianhao":"15700","bzhName":"LM1标水稳1#机","chuli":"1","clTime":"2017-01-13 20:57:09","sbbh":"nhgssw0101","shenhe":"0","sjf1":"","sjf2":"","sjg1":"","sjg2":"","sjg3":"","sjg4":"6","sjg5":"","sjshui":"","usePosition":"","zcl":"37430.68"}]
+     * field : {"bianhao":"编号","bzhName":"拌合站名称","chuli":"","clTime":"出料时间","sbbh":"","shenhe":"","sjf1":"水泥1","sjf2":"水泥2","sjg1":"5-10mm","sjg2":"10-20mm","sjg3":"10-30mm","sjg4":"石粉1","sjg5":"石粉2","sjshui":"","usePosition":"","zcl":"总产量"}
+     * isShow : {"bianhao":"","bzhName":"1","chuli":"","clTime":"1","sbbh":"","shenhe":"","sjf1":"1","sjf2":"1","sjg1":"1","sjg2":"1","sjg3":"1","sjg4":"1","sjg5":"1","sjshui":"","usePosition":"1","zcl":"1"}
      * success : true
      */
 
@@ -61,6 +61,7 @@ public class WaterStabilityOverProofBean implements Serializable {
          * bzhName : 拌合站名称
          * chuli :
          * clTime : 出料时间
+         * sbbh :
          * shenhe :
          * sjf1 : 水泥1
          * sjf2 : 水泥2
@@ -69,6 +70,8 @@ public class WaterStabilityOverProofBean implements Serializable {
          * sjg3 : 10-30mm
          * sjg4 : 石粉1
          * sjg5 : 石粉2
+         * sjshui :
+         * usePosition :
          * zcl : 总产量
          */
 
@@ -76,6 +79,7 @@ public class WaterStabilityOverProofBean implements Serializable {
         private String bzhName;
         private String chuli;
         private String clTime;
+        private String sbbh;
         private String shenhe;
         private String sjf1;
         private String sjf2;
@@ -84,6 +88,8 @@ public class WaterStabilityOverProofBean implements Serializable {
         private String sjg3;
         private String sjg4;
         private String sjg5;
+        private String sjshui;
+        private String usePosition;
         private String zcl;
 
         public String getBianhao() {
@@ -116,6 +122,14 @@ public class WaterStabilityOverProofBean implements Serializable {
 
         public void setClTime(String clTime) {
             this.clTime = clTime;
+        }
+
+        public String getSbbh() {
+            return sbbh;
+        }
+
+        public void setSbbh(String sbbh) {
+            this.sbbh = sbbh;
         }
 
         public String getShenhe() {
@@ -180,6 +194,22 @@ public class WaterStabilityOverProofBean implements Serializable {
 
         public void setSjg5(String sjg5) {
             this.sjg5 = sjg5;
+        }
+
+        public String getSjshui() {
+            return sjshui;
+        }
+
+        public void setSjshui(String sjshui) {
+            this.sjshui = sjshui;
+        }
+
+        public String getUsePosition() {
+            return usePosition;
+        }
+
+        public void setUsePosition(String usePosition) {
+            this.usePosition = usePosition;
         }
 
         public String getZcl() {
@@ -194,9 +224,10 @@ public class WaterStabilityOverProofBean implements Serializable {
     public static class IsShowEntity {
         /**
          * bianhao :
-         * bzhName :
+         * bzhName : 1
          * chuli :
          * clTime : 1
+         * sbbh :
          * shenhe :
          * sjf1 : 1
          * sjf2 : 1
@@ -205,6 +236,8 @@ public class WaterStabilityOverProofBean implements Serializable {
          * sjg3 : 1
          * sjg4 : 1
          * sjg5 : 1
+         * sjshui :
+         * usePosition : 1
          * zcl : 1
          */
 
@@ -212,6 +245,7 @@ public class WaterStabilityOverProofBean implements Serializable {
         private String bzhName;
         private String chuli;
         private String clTime;
+        private String sbbh;
         private String shenhe;
         private String sjf1;
         private String sjf2;
@@ -220,6 +254,8 @@ public class WaterStabilityOverProofBean implements Serializable {
         private String sjg3;
         private String sjg4;
         private String sjg5;
+        private String sjshui;
+        private String usePosition;
         private String zcl;
 
         public String getBianhao() {
@@ -252,6 +288,14 @@ public class WaterStabilityOverProofBean implements Serializable {
 
         public void setClTime(String clTime) {
             this.clTime = clTime;
+        }
+
+        public String getSbbh() {
+            return sbbh;
+        }
+
+        public void setSbbh(String sbbh) {
+            this.sbbh = sbbh;
         }
 
         public String getShenhe() {
@@ -316,6 +360,22 @@ public class WaterStabilityOverProofBean implements Serializable {
 
         public void setSjg5(String sjg5) {
             this.sjg5 = sjg5;
+        }
+
+        public String getSjshui() {
+            return sjshui;
+        }
+
+        public void setSjshui(String sjshui) {
+            this.sjshui = sjshui;
+        }
+
+        public String getUsePosition() {
+            return usePosition;
+        }
+
+        public void setUsePosition(String usePosition) {
+            this.usePosition = usePosition;
         }
 
         public String getZcl() {
@@ -333,14 +393,17 @@ public class WaterStabilityOverProofBean implements Serializable {
          * bzhName : LM1标水稳1#机
          * chuli : 1
          * clTime : 2017-02-23 17:27:10
-         * shenhe : 1
-         * sjf1 : 1803.54
+         * sbbh : nhgssw0101
+         * shenhe : 0
+         * sjf1 :
          * sjf2 :
-         * sjg1 : 4308.7
-         * sjg2 : 11043.8
-         * sjg3 : 10902.5
-         * sjg4 : 9000.2
-         * sjg5 : 8750.9
+         * sjg1 :
+         * sjg2 :
+         * sjg3 :
+         * sjg4 : 6
+         * sjg5 :
+         * sjshui :
+         * usePosition :
          * zcl : 44006.15
          */
 
@@ -348,6 +411,7 @@ public class WaterStabilityOverProofBean implements Serializable {
         private String bzhName;
         private String chuli;
         private String clTime;
+        private String sbbh;
         private String shenhe;
         private String sjf1;
         private String sjf2;
@@ -356,6 +420,8 @@ public class WaterStabilityOverProofBean implements Serializable {
         private String sjg3;
         private String sjg4;
         private String sjg5;
+        private String sjshui;
+        private String usePosition;
         private String zcl;
 
         public String getBianhao() {
@@ -388,6 +454,14 @@ public class WaterStabilityOverProofBean implements Serializable {
 
         public void setClTime(String clTime) {
             this.clTime = clTime;
+        }
+
+        public String getSbbh() {
+            return sbbh;
+        }
+
+        public void setSbbh(String sbbh) {
+            this.sbbh = sbbh;
         }
 
         public String getShenhe() {
@@ -452,6 +526,22 @@ public class WaterStabilityOverProofBean implements Serializable {
 
         public void setSjg5(String sjg5) {
             this.sjg5 = sjg5;
+        }
+
+        public String getSjshui() {
+            return sjshui;
+        }
+
+        public void setSjshui(String sjshui) {
+            this.sjshui = sjshui;
+        }
+
+        public String getUsePosition() {
+            return usePosition;
+        }
+
+        public void setUsePosition(String usePosition) {
+            this.usePosition = usePosition;
         }
 
         public String getZcl() {

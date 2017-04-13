@@ -10,11 +10,10 @@ import java.util.List;
 
 public class PitchOverProofDetailsBean implements Serializable {
 
-
     /**
-     * lqData : [{"name":"1#仓","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"name":"2#仓","scpeibi":"20.63","sgpeibi":"20.92","wucha":"-0.29","yongliang":"416.00"},{"name":"3#仓","scpeibi":"30.26","sgpeibi":"32.43","wucha":"-2.17","yongliang":"610.00"},{"name":"4#仓","scpeibi":"13.69","sgpeibi":"14.64","wucha":"-0.95","yongliang":"276.00"},{"name":"5#仓","scpeibi":"6.20","sgpeibi":"5.23","wucha":"0.97","yongliang":"125.00"},{"name":"6#仓","scpeibi":"25.35","sgpeibi":"27.20","wucha":"-1.85","yongliang":"511.00"},{"name":"7#仓","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"name":"矿粉1","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"name":"矿粉2","scpeibi":"3.87","sgpeibi":"4.18","wucha":"-0.31","yongliang":"78.00"},{"name":"沥青","scpeibi":"4.41","sgpeibi":"4.40","wucha":"0.01","yongliang":"93.00"},{"name":"添加剂","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"name":"油石比(%)","scpeibi":"0.00","sgpeibi":"4.60","wucha":"0.01","yongliang":"4.61"}]
      * lqHead : {"bhjName":"test1","caijishijian":"2016-07-31 18:08:17:195","chuliaoshijian":"2016-07-23 10:17:32","cl":"2109.00"}
-     * lqjg : {"beizhu":"","chulifangshi":"","chulijieguo":"","chuliren":"","confirmdate":"","filePath":"","shenpidate":"","wentiyuanyin":"","yezhuren":"","yezhuyijian":""}
+     * lqData : [{"cblx":"","mbpeibi":"","name":"1#仓","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"cblx":"","mbpeibi":"","name":"2#仓","scpeibi":"20.63","sgpeibi":"20.92","wucha":"-0.29","yongliang":"416.00"},{"cblx":"","mbpeibi":"","name":"3#仓","scpeibi":"30.26","sgpeibi":"32.43","wucha":"-2.17","yongliang":"610.00"},{"cblx":"","mbpeibi":"","name":"4#仓","scpeibi":"13.69","sgpeibi":"14.64","wucha":"-0.95","yongliang":"276.00"},{"cblx":"6","mbpeibi":"","name":"5#仓","scpeibi":"6.20","sgpeibi":"5.23","wucha":"0.97","yongliang":"125.00"},{"cblx":"","mbpeibi":"","name":"6#仓","scpeibi":"25.35","sgpeibi":"27.20","wucha":"-1.85","yongliang":"511.00"},{"cblx":"","mbpeibi":"","name":"7#仓","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"cblx":"","mbpeibi":"","name":"矿粉1","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"cblx":"","mbpeibi":"","name":"矿粉2","scpeibi":"3.87","sgpeibi":"4.18","wucha":"-0.31","yongliang":"78.00"},{"cblx":"","mbpeibi":"","name":"沥青","scpeibi":"4.41","sgpeibi":"4.40","wucha":"0.01","yongliang":"93.00"},{"cblx":"","mbpeibi":"","name":"添加剂","scpeibi":"0.00","sgpeibi":"0.00","wucha":"","yongliang":"0.00"},{"cblx":"","mbpeibi":"","name":"油石比(%)","scpeibi":"0.00","sgpeibi":"4.60","wucha":"0.01","yongliang":"4.61"}]
+     * lqjg : {"beizhu":"测试备注","chulifangshi":"测试处理方式","chulijieguo":"测试处理结果","chuliren":"admin","confirmdate":"2017-03-01 14:34:34","filePath":"","shenpidate":"2017-1-1","wentiyuanyin":"测试处置内容","yezhuren":"admin","yezhuyijian":"没意见"}
      * success : true
      */
 
@@ -103,16 +102,16 @@ public class PitchOverProofDetailsBean implements Serializable {
 
     public static class LqjgEntity {
         /**
-         * beizhu :
-         * chulifangshi :
-         * chulijieguo :
-         * chuliren :
-         * confirmdate :
+         * beizhu : 测试备注
+         * chulifangshi : 测试处理方式
+         * chulijieguo : 测试处理结果
+         * chuliren : admin
+         * confirmdate : 2017-03-01 14:34:34
          * filePath :
-         * shenpidate :
-         * wentiyuanyin :
-         * yezhuren :
-         * yezhuyijian :
+         * shenpidate : 2017-1-1
+         * wentiyuanyin : 测试处置内容
+         * yezhuren : admin
+         * yezhuyijian : 没意见
          */
 
         private String beizhu;
@@ -209,6 +208,8 @@ public class PitchOverProofDetailsBean implements Serializable {
 
     public static class LqDataEntity {
         /**
+         * cblx :
+         * mbpeibi :
          * name : 1#仓
          * scpeibi : 0.00
          * sgpeibi : 0.00
@@ -216,11 +217,29 @@ public class PitchOverProofDetailsBean implements Serializable {
          * yongliang : 0.00
          */
 
+        private String cblx;
+        private String mbpeibi;
         private String name;
         private String scpeibi;
         private String sgpeibi;
         private String wucha;
         private String yongliang;
+
+        public String getCblx() {
+            return cblx;
+        }
+
+        public void setCblx(String cblx) {
+            this.cblx = cblx;
+        }
+
+        public String getMbpeibi() {
+            return mbpeibi;
+        }
+
+        public void setMbpeibi(String mbpeibi) {
+            this.mbpeibi = mbpeibi;
+        }
 
         public String getName() {
             return name;

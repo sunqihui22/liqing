@@ -9,6 +9,7 @@ import com.shtoone.liqing.event.EventData;
 import com.shtoone.liqing.mvp.contract.base.BaseContract;
 import com.shtoone.liqing.mvp.view.base.BaseActivity;
 import com.shtoone.liqing.utils.ToastUtils;
+import com.socks.library.KLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,6 +36,7 @@ public class LaunchActivity extends BaseActivity {
             if (fromTo == Constants.FROM_SPLASH) {
                 loadRootFragment(R.id.fl_launch_activity, SplashFragment.newInstance());
             } else {
+                KLog.d("进入Fragment");
                 loadRootFragment(R.id.fl_launch_activity, LoginFragment.newInstance(Constants.FROM_MAIN));
             }
         }

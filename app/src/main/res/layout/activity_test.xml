@@ -2,12 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fl_container_drawer_activity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="100dp">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/bt"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+    <com.shtoone.liqing.widget.ui.MoreIconsTextView
+        android:layout_gravity="center"
+        android:id="@+id/mitv_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </FrameLayout>

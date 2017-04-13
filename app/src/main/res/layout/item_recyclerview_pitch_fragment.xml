@@ -194,7 +194,60 @@
             android:layout_height="1dp"
             android:background="@color/secondary_text_default_material_light" />
 
-        <!-- 初级 -->
+        <!--&lt;!&ndash; 初级 &ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="2dp"-->
+            <!--android:layout_marginTop="2dp"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/elementary_ranking"-->
+                <!--android:textColor="@color/green"-->
+                <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/chaobiao_chaobiaopanshu1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/green"-->
+                <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/chaobiao_chaobiaolv1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/green"-->
+                <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/chaobiao_chuzhipanshu1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/green"-->
+                <!--android:textStyle="bold" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/chaobiao_chuzhilv1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/green"-->
+                <!--android:textStyle="bold" />-->
+        <!--</LinearLayout>-->
+
+        <!-- 中级 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -212,65 +265,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/chaobiao_chaobiaopanshu1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/green"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/chaobiao_chaobiaolv1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/green"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/chaobiao_chuzhipanshu1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/green"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/chaobiao_chuzhilv1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/green"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- 中级 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/middle_ranking"
-                android:textColor="@color/orange"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/chaobiao_chaobiaopanshu2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/orange"
+                android:textColor="@color/green"
                 android:textStyle="bold" />
 
             <TextView
@@ -279,7 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/orange"
+                android:textColor="@color/green"
                 android:textStyle="bold" />
 
             <TextView
@@ -296,7 +296,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/orange"
+                android:textColor="@color/green"
                 android:textStyle="bold" />
         </LinearLayout>
 

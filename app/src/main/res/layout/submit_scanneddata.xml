@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="30sp"
-    android:layout_marginRight="30sp"
-    android:layout_marginTop="120sp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/highlighted_text_material_light">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
+        android:layout_marginTop="120sp"
         android:orientation="horizontal">
 
         <TextView
@@ -30,14 +31,16 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/primary_text_default_material_light"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="008"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <RadioGroup
         android:id="@+id/rg_pitch_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
         android:layout_marginTop="6sp"
         android:orientation="horizontal">
 
@@ -67,6 +70,8 @@
         android:id="@+id/rg_lay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
         android:layout_marginTop="6sp"
         android:orientation="horizontal">
 
@@ -85,14 +90,14 @@
             android:text="上面" />
 
         <RadioButton
-            android:id="@+id/center"
+            android:id="@+id/rb_center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="中间" />
 
         <RadioButton
-            android:id="@+id/below"
+            android:id="@+id/rb_below"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -100,7 +105,7 @@
     </RadioGroup>
 
     <com.dd.CircularProgressButton
-        android:id="@+id/btn_go"
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"

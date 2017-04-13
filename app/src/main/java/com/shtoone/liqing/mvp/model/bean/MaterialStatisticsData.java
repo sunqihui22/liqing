@@ -12,20 +12,13 @@ public class MaterialStatisticsData {
 
 
     /**
-     * data : [{"mbpeibi":"26627.8","name":"实际粉料1","scpeibi":"","sgpeibi":"","wucha":"53.78","yongliang":"40947.01"},{"mbpeibi":"7.8","name":"实际粉料2","scpeibi":"","sgpeibi":"","wucha":"193.97","yongliang":"22.93"},{"mbpeibi":"214939.1","name":"实际骨料1","scpeibi":"","sgpeibi":"","wucha":"-26.45","yongliang":"158087.73"},{"mbpeibi":"426915.8","name":"实际骨料2","scpeibi":"","sgpeibi":"","wucha":"-33.48","yongliang":"283978.09"},{"mbpeibi":"399507.5","name":"实际骨料3","scpeibi":"","sgpeibi":"","wucha":"-35.78","yongliang":"256570.73"},{"mbpeibi":"327165.5","name":"实际骨料4","scpeibi":"","sgpeibi":"","wucha":"-34.96","yongliang":"212800.05"},{"mbpeibi":"328721.9","name":"实际骨料5","scpeibi":"","sgpeibi":"","wucha":"-34.78","yongliang":"214378.63"}]
+     * data : [{"cblx":"","mbpeibi":"11325.3","name":"实际粉料1","scpeibi":"","sgpeibi":"","wucha":"11.65","yongliang":"12645.12"},{"cblx":"","mbpeibi":"0.0","name":"实际粉料2","scpeibi":"","sgpeibi":"","wucha":"0.00","yongliang":"0.00"},{"cblx":"","mbpeibi":"78296.6","name":"实际骨料1","scpeibi":"","sgpeibi":"","wucha":"-55.56","yongliang":"34795.55"},{"cblx":"","mbpeibi":"195695.8","name":"实际骨料2","scpeibi":"","sgpeibi":"","wucha":"-55.70","yongliang":"86694.03"},{"cblx":"","mbpeibi":"195778.0","name":"实际骨料3","scpeibi":"","sgpeibi":"","wucha":"-55.71","yongliang":"86700.86"},{"cblx":"","mbpeibi":"149230.1","name":"实际骨料4","scpeibi":"","sgpeibi":"","wucha":"-58.51","yongliang":"61911.85"},{"cblx":"","mbpeibi":"149940.8","name":"实际骨料5","scpeibi":"","sgpeibi":"","wucha":"-58.24","yongliang":"62618.51"}]
      * success : true
+     * tableName : 兴华高速LM1标
      */
 
     private boolean success;
-    /**
-     * mbpeibi : 26627.8
-     * name : 实际粉料1
-     * scpeibi :
-     * sgpeibi :
-     * wucha : 53.78
-     * yongliang : 40947.01
-     */
-
+    private String tableName;
     private List<DataBean> data;
 
     public boolean isSuccess() {
@@ -34,6 +27,14 @@ public class MaterialStatisticsData {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     public List<DataBean> getData() {
@@ -45,12 +46,31 @@ public class MaterialStatisticsData {
     }
 
     public static class DataBean {
+        /**
+         * cblx :
+         * mbpeibi : 11325.3
+         * name : 实际粉料1
+         * scpeibi :
+         * sgpeibi :
+         * wucha : 11.65
+         * yongliang : 12645.12
+         */
+
+        private String cblx;
         private String mbpeibi;
         private String name;
         private String scpeibi;
         private String sgpeibi;
         private String wucha;
         private String yongliang;
+
+        public String getCblx() {
+            return cblx;
+        }
+
+        public void setCblx(String cblx) {
+            this.cblx = cblx;
+        }
 
         public String getMbpeibi() {
             return mbpeibi;

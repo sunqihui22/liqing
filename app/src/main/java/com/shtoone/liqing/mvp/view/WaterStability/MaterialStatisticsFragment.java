@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -53,6 +54,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
@@ -64,11 +66,13 @@ import retrofit2.adapter.rxjava.HttpException;
  * @email 770164810@qq.com
  */
 
-public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsContract.Presenter> implements MaterialStatisticsContract.View{
+public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsContract.Presenter> implements MaterialStatisticsContract.View {
 
     private static final String TAG = MaterialStatisticsFragment.class.getSimpleName();
 
+
     private Toolbar mToolbar;
+    private TextView  tittle;
     private NestedScrollView mNestedScrollView;
     private PageStateLayout mPageStateLayout;
     private PtrFrameLayout mPtrFrameLayout;
@@ -103,26 +107,28 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sw_material_statistics, container, false);
         EventBus.getDefault().register(this);
+
         if (savedInstanceState == null) {
-            Bundle bundle=getArguments();
-            mDepartmentBean= (DepartmentBean) bundle.getSerializable("depatmentdate");
+            Bundle bundle = getArguments();
+            mDepartmentBean = (DepartmentBean) bundle.getSerializable("depatmentdate");
         } else {
             mDepartmentBean = (DepartmentBean) savedInstanceState.getSerializable("departmentData");
         }
 
         initView(view);
+        initStateBar(mToolbar);
         initData();
+        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("departmentData",mDepartmentBean);
+        outState.putSerializable("departmentData", mDepartmentBean);
     }
 
     private void initData() {
-
 
 
         mLinearLayoutManager = new LinearLayoutManager(BaseApplication.mContext);
@@ -167,6 +173,7 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
     @Override
     public void responseMaterialStatisticsData(MaterialStatisticsData materialStatisticsData) {
         data = materialStatisticsData;
+        tittle.setText(materialStatisticsData.getTableName());
         mMsAdapter.removeAllHeaderView();
         mMsAdapter.setNewData(materialStatisticsData.getData());
         //通知adapter数据已更改
@@ -180,6 +187,7 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
         mNestedScrollView.fullScroll(ScrollView.FOCUS_UP);
         String startTime = DateUtils.ChangeTimeToLong(mParametersData.startDateTime);
         String endTime = DateUtils.ChangeTimeToLong(mParametersData.endDateTime);
+        KLog.e(TAG,"departtype=:"+mDepartmentBean.departtype);
         mPresenter.requestMaterialStatisticsData(mDepartmentBean.departtype, mDepartmentBean.departmentID, startTime, endTime, mParametersData.equipmentID);
     }
 
@@ -190,8 +198,8 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
         List<MaterialStatisticsData.DataBean> mList = data.getData();
         for (int i = 0; i < mList.size(); i++) {
             String name = mList.get(i).getName();
-            if(name.indexOf("实际") != -1){
-                name = name.substring(2,name.length());
+            if (name.indexOf("实际") != -1) {
+                name = name.substring(2, name.length());
             }
             x.add(name);
             y0.add(new BarEntry(Float.parseFloat(mList.get(i).getYongliang()), i));
@@ -211,6 +219,7 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
         mNestedScrollView = (NestedScrollView) view.findViewById(R.id.nsv_material_statistic_fragment);
         mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.ptr_material_statistic_fragment);
         mPageStateLayout = (PageStateLayout) view.findViewById(R.id.psl_material_statistic_fragment);
+        tittle= (TextView) view.findViewById( R.id.tv_title);
         mBarChart0 = (BarChart) view.findViewById(R.id.barchart0_material_statistic_fragment);
         mBarChart1 = (BarChart) view.findViewById(R.id.barchart1_material_statistic_fragment);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_material_statistic_fragment);
@@ -281,7 +290,8 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.waterstability) + " > ");
         mToolbar.setTitle(sb.toString());
 //        }
@@ -328,7 +338,7 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
             ToastUtils.showToast(BaseApplication.mContext, "解析异常");
             mPageStateLayout.showError();
         } else {
-            KLog.e("updateDepartment:Subscribe","333333333333");
+            KLog.e("updateDepartment:Subscribe", "333333333333");
             ToastUtils.showToast(BaseApplication.mContext, "数据异常");
             mPageStateLayout.showError();
         }
@@ -346,7 +356,7 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
 
     @Override
     public boolean isCanDoRefresh() {
-        if(mPageStateLayout.isShowLoading){
+        if (mPageStateLayout.isShowLoading) {
             return false;
         }
         return mNestedScrollView.getScrollY() == 0;
@@ -365,9 +375,9 @@ public class MaterialStatisticsFragment extends BaseFragment<MaterialStatisticsC
             }
         }
         if (eventData.parametersBean != null && null != this.mParametersData) {
-            KLog.e("updateDepartment:Subscribe","1111111111111");
+            KLog.e("updateDepartment:Subscribe", "1111111111111");
             if (eventData.parametersBean.fromTo == Constants.MaterialStatisticsFragment) {
-                KLog.e("updateDepartment:Subscribe","222222222222");
+                KLog.e("updateDepartment:Subscribe", "222222222222");
                 this.mParametersData.startDateTime = eventData.parametersBean.startDateTime;
                 this.mParametersData.endDateTime = eventData.parametersBean.endDateTime;
                 this.mParametersData.equipmentID = eventData.parametersBean.equipmentID;

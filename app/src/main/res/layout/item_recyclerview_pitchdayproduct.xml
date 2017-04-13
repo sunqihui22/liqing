@@ -23,84 +23,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="2">
-
 
             <TextView
                 android:id="@+id/tv_dayproduct_riqi"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:singleLine="true" />
 
             <TextView
                 android:id="@+id/tv_dayproduct_shigongzhuanghao"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:singleLine="true" />
 
 
             <TextView
                 android:id="@+id/tv_dayproduct_xinghao"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:singleLine="true" />
 
             <TextView
                 android:id="@+id/tv_dayproduct_chanliang"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:singleLine="true" />
-
-
-            <TextView
-                android:id="@+id/tv_dayproduct_xiuzhengchanliang"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/tv_dayproduct_shejihoudu"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/tv_dayproduct_houdu"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:singleLine="true" />
-
-
-            <TextView
-                android:id="@+id/tv_dayproduct_changdu"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:singleLine="true" />
-
-
-            <TextView
-                android:id="@+id/tv_dayproduct_kuandu"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/tv_dayproduct_midu"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/tv_dayproduct_panshu"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:singleLine="true" />
-
-        </GridLayout>
-
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

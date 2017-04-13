@@ -1,58 +1,41 @@
 package com.shtoone.liqing.mvp.view.WaterStability;
 
-import android.animation.Animator;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.PopupWindow;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.shtoone.liqing.BaseApplication;
 import com.shtoone.liqing.R;
-import com.shtoone.liqing.event.EventData;
-import com.shtoone.liqing.mvp.contract.base.BaseContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
-import com.shtoone.liqing.mvp.model.bean.ParametersData;
-import com.shtoone.liqing.mvp.view.adapter.OnItemClickListener;
-import com.shtoone.liqing.mvp.view.base.BaseActivity;
-import com.shtoone.liqing.mvp.view.others.DetailActivity;
-import com.shtoone.liqing.mvp.view.others.DrawerActivity;
+import com.shtoone.liqing.widget.ui.MoreIconsTextView;
 import com.socks.library.KLog;
-
-import java.util.ArrayList;
-
-import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by Administrator on 2016/11/24.
  */
 public class TestActivity extends Activity {
 
-    private  Button button;
-    private myinterface myinterface ;
+    private Button button;
+    private MoreIconsTextView moreIconsTextView;
+    private myinterface myinterface;
     private Handler mHandler;
+
     private DepartmentBean departmentBean = new DepartmentBean();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-       button=((Button) findViewById(R.id.bt));
-         button.setOnClickListener(new View.OnClickListener() {
+        button = ((Button) findViewById(R.id.bt));
+        moreIconsTextView = (MoreIconsTextView) findViewById(R.id.mitv_test);
+        moreIconsTextView.setText("hahhjahha");
+        moreIconsTextView.setBitmapRescource(R.drawable.ic_yellow_arrow_top, 3);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Thread(new Runnable() {
@@ -70,7 +53,7 @@ public class TestActivity extends Activity {
         });
 
 
-        myinterface=new myinterface() {
+        myinterface = new myinterface() {
             @Override
             public void getAstring(String s) {
 
@@ -93,19 +76,15 @@ public class TestActivity extends Activity {
 
             }
         };
-
-
     }
 
 
-   private  interface  myinterface
-   {
-       void   getAstring(String s);
-   }
+    private interface myinterface {
+        void getAstring(String s);
+    }
 
 
-    public void  setstring (String s)
-    {
+    public void setstring(String s) {
         KLog.e("当前线程是：：" + Thread.currentThread().getName());
 
         button.setText(s);

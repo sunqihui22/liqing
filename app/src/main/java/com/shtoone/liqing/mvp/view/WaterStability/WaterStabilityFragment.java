@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.util.TimeUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -45,7 +44,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
@@ -84,7 +82,6 @@ public class WaterStabilityFragment extends BaseFragment<WaterStabilityContract.
         return new WaterStabilityFragment();
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -93,11 +90,10 @@ public class WaterStabilityFragment extends BaseFragment<WaterStabilityContract.
         EventBus.getDefault().register(this);
         if (savedInstanceState == null) {
             mDepartmentBean = (DepartmentBean) BaseApplication.mDepartmentData.clone();
-            mDepartmentBean.fromto=Constants.WATERSTABILITYFRAGMENT;
+            mDepartmentBean.fromto = Constants.WATERSTABILITYFRAGMENT;
         } else {
             mDepartmentBean = (DepartmentBean) savedInstanceState.getSerializable("departmentData");
         }
-
         initData();
         return view;
     }
@@ -154,6 +150,8 @@ public class WaterStabilityFragment extends BaseFragment<WaterStabilityContract.
                 } else if (mDepartmentBean.departtype.equals(Constants.DEPARTTYPE_SECTION)) {
                     departmentBeanItem.departtype = Constants.DEPARTTYPE_PROJECT;
                 } else if (mDepartmentBean.departtype.equals(Constants.DEPARTTYPE_PROJECT)) {
+                    departmentBeanItem.departtype = Constants.DEPARTTYPE_BHZ;
+                }else if(mDepartmentBean.departtype.equals(Constants.DEPARTTYPE_BHZ)){
                     departmentBeanItem.departtype = Constants.DEPARTTYPE_BHZ;
                 }
                 Bundle bundle = new Bundle();
@@ -244,8 +242,8 @@ public class WaterStabilityFragment extends BaseFragment<WaterStabilityContract.
                 KLog.e("---onMenuItemClick---");
                 switch (item.getItemId()) {
                     case R.id.action_hierarchy:
-                    BaseApplication.mDepartmentData.fromto = Constants.WATERSTABILITYFRAGMENT;
-                        BaseApplication.mDepartmentData.funtype=Constants.TYPE_WATERSTABILITY;
+                        BaseApplication.mDepartmentData.fromto = Constants.WATERSTABILITYFRAGMENT;
+                        BaseApplication.mDepartmentData.funtype = Constants.TYPE_WATERSTABILITY;
                         ((MainActivity) _mActivity).startDrawerActivity(null, BaseApplication.mDepartmentData);
                         break;
                 }
@@ -278,7 +276,8 @@ public class WaterStabilityFragment extends BaseFragment<WaterStabilityContract.
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.waterstability) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -290,4 +289,29 @@ public class WaterStabilityFragment extends BaseFragment<WaterStabilityContract.
         EventBus.getDefault().unregister(this);
 
     }
+
+    @Override
+    public boolean isCanDoRefresh() {
+        //判断是哪种状态的页面，都让其可下拉
+        if (pagestatelayout.isShowContent) {
+            //判断RecyclerView是否在在顶部，在顶部则允许滑动下拉刷新
+            if (null != recyclerview) {
+                if (recyclerview.getLayoutManager() instanceof LinearLayoutManager) {
+                    LinearLayoutManager lm = (LinearLayoutManager) recyclerview.getLayoutManager();
+                    int position = lm.findFirstVisibleItemPosition();
+                    if (position >= 0) {
+                        if (lm.findViewByPosition(position).getTop() > 0 && position == 0) {
+                            return true;
+                        }
+                    }
+                }
+            } else {
+                return true;
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

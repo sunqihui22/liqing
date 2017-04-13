@@ -72,7 +72,12 @@ public class DetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         KLog.e("ondestroy++1");
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        super.onBackPressedSupport();
+        KLog.e("detailactivity:onBackPressedSupport");
     }
 }

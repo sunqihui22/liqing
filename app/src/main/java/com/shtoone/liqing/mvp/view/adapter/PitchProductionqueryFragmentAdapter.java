@@ -40,15 +40,15 @@ public class PitchProductionqueryFragmentAdapter extends BaseQuickAdapter<PitchP
 //                .setText(R.id.chaobiaochaxun_userPosition, fieldEntity.getUsePosition()+":" + item.getUsePosition())
 //                .setText(R.id.chaobiaochaxun_sjshui, fieldEntity.getSjshui() + ":" + item.getSjshui())
 //                .setText(R.id.chaobiaochaxun_zcl, fieldEntity.getZcl() + ":" + item.getZcl())
-                .setText(R.id.chaobiaochaxun_item_sj1_z1, fieldEntity.getSjf1() + ":" + item.getSjf1())
-                .setText(R.id.chaobiaochaxun_item_sj2_z2, fieldEntity.getSjf2() + ":" + item.getSjf2())
-                .setText(R.id.chaobiaochaxun_item_sj1, fieldEntity.getSjg1() + ":" + item.getSjg1())
-                .setText(R.id.chaobiaochaxun_item_sj2, fieldEntity.getSjg2() + ":" + item.getSjg2())
-                .setText(R.id.chaobiaochaxun_item_sj3, fieldEntity.getSjg3() + ":" + item.getSjg3())
-                .setText(R.id.chaobiaochaxun_item_sj4, fieldEntity.getSjg4() + ":" + item.getSjg4())
-                .setText(R.id.chaobiaochaxun_item_sj5, fieldEntity.getSjg5() + ":" + item.getSjg5())
-                .setText(R.id.chaobiaochaxun_item_sj6, fieldEntity.getSjg6() + ":" + item.getSjg6())
-                .setText(R.id.chaobiaochaxun_item_sj7, fieldEntity.getSjg7() + ":" + item.getSjg7())
+//                .setText(R.id.chaobiaochaxun_item_sj1_z1, fieldEntity.getSjf1() + ":" + item.getSjf1())
+//                .setText(R.id.chaobiaochaxun_item_sj2_z2, fieldEntity.getSjf2() + ":" + item.getSjf2())
+//                .setText(R.id.chaobiaochaxun_item_sj1, fieldEntity.getSjg1() + ":" + item.getSjg1())
+//                .setText(R.id.chaobiaochaxun_item_sj2, fieldEntity.getSjg2() + ":" + item.getSjg2())
+//                .setText(R.id.chaobiaochaxun_item_sj3, fieldEntity.getSjg3() + ":" + item.getSjg3())
+//                .setText(R.id.chaobiaochaxun_item_sj4, fieldEntity.getSjg4() + ":" + item.getSjg4())
+//                .setText(R.id.chaobiaochaxun_item_sj5, fieldEntity.getSjg5() + ":" + item.getSjg5())
+//                .setText(R.id.chaobiaochaxun_item_sj6, fieldEntity.getSjg6() + ":" + item.getSjg6())
+//                .setText(R.id.chaobiaochaxun_item_sj7, fieldEntity.getSjg7() + ":" + item.getSjg7())
                 .setText(R.id.chaobiaochaxun_item_sjlq, fieldEntity.getSjlq() + ":" + item.getSjlq())
                 .setText(R.id.chaobiaochaxun_item_sjysb, fieldEntity.getSjysb() + ":" + item.getSjysb())
                 .setText(R.id.chaobiaochaxun_item_sjtjj, fieldEntity.getSjtjj() + ":" + item.getSjtjj())
@@ -59,18 +59,18 @@ public class PitchProductionqueryFragmentAdapter extends BaseQuickAdapter<PitchP
                     }
                 });
 
-        ((TextView) holder.getView(R.id.chaobiaochaxun_chuliaowendu)).setVisibility(isShowEntity.getClwd().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_shiliaowendu)).setVisibility(isShowEntity.getGlwd().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_liqingwendu)).setVisibility(isShowEntity.getLqwd().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj1_z1)).setVisibility(isShowEntity.getSjf1().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj2_z2)).setVisibility(isShowEntity.getSjf2().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj1)).setVisibility(isShowEntity.getSjg1().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj2)).setVisibility(isShowEntity.getSjg2().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj3)).setVisibility(isShowEntity.getSjg3().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj4)).setVisibility(isShowEntity.getSjg4().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj5)).setVisibility(isShowEntity.getSjg5().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj6)).setVisibility(isShowEntity.getSjg6().equals("1") ? View.VISIBLE : View.GONE);
-        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj7)).setVisibility(isShowEntity.getSjg7().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_chuliaowendu)).setVisibility(isShowEntity.getClwd().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_shiliaowendu)).setVisibility(isShowEntity.getGlwd().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_liqingwendu)).setVisibility(isShowEntity.getLqwd().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj1_z1)).setVisibility(isShowEntity.getSjf1().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj2_z2)).setVisibility(isShowEntity.getSjf2().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj1)).setVisibility(isShowEntity.getSjg1().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj2)).setVisibility(isShowEntity.getSjg2().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj3)).setVisibility(isShowEntity.getSjg3().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj4)).setVisibility(isShowEntity.getSjg4().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj5)).setVisibility(isShowEntity.getSjg5().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj6)).setVisibility(isShowEntity.getSjg6().equals("1") ? View.VISIBLE : View.GONE);
+//        ((TextView) holder.getView(R.id.chaobiaochaxun_item_sj7)).setVisibility(isShowEntity.getSjg7().equals("1") ? View.VISIBLE : View.GONE);
 
     }
 

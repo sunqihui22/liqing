@@ -77,6 +77,7 @@ public class WaterStabilityProductionQueryFragemnt extends BaseFragment<Producti
     private int lastVisibleItemPosition;
     private boolean isLoading;
     private List<WaterstabilityHistoryData.DataEntity> list;
+    private String TAG = WaterStabilityProductionQueryFragemnt.class.getSimpleName();
 
     public static WaterStabilityProductionQueryFragemnt newInstance(DepartmentBean departmentBean) {
 
@@ -185,6 +186,7 @@ public class WaterStabilityProductionQueryFragemnt extends BaseFragment<Producti
         map.put("pageNo", parametersData.currentPage + "");
         map.put("maxPageItems", "10");
         map.put("usePosition", parametersData.userposition);
+        KLog.e(TAG,"map=:"+map.toString());
         mPresenter.requestProductionDataQueryBean(map);
     }
 
@@ -198,7 +200,7 @@ public class WaterStabilityProductionQueryFragemnt extends BaseFragment<Producti
         map.put("startTime", DateUtils.ChangeTimeToLong(parametersData.startDateTime));
         map.put("endTime", DateUtils.ChangeTimeToLong(parametersData.endDateTime));
         map.put("shebeibianhao", parametersData.equipmentID);
-        map.put("pageNo", parametersData.currentPage + "");
+        map.put("pageNo", parametersData.currentPage +1+ "");
         map.put("maxPageItems", "10");
         map.put("usePosition", parametersData.userposition);
         mPresenter.loadMoreData(map);
@@ -207,7 +209,8 @@ public class WaterStabilityProductionQueryFragemnt extends BaseFragment<Producti
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.waterstability) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -265,7 +268,9 @@ public class WaterStabilityProductionQueryFragemnt extends BaseFragment<Producti
     @Override
     public void responseLoadMore(WaterstabilityHistoryData waterstabilityHistoryData) {
         isLoading = false;
-        parametersData.currentPage++;
+        if (waterstabilityHistoryData.getData().size()>0) {
+            parametersData.currentPage++;
+        }
         list.addAll(waterstabilityHistoryData.getData());
         madapter.removeAllFooterView();
         madapter.addData(waterstabilityHistoryData.getData());

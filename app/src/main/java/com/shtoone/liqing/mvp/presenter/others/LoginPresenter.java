@@ -1,6 +1,7 @@
 package com.shtoone.liqing.mvp.presenter.others;
 
 
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.shtoone.liqing.BaseApplication;
@@ -9,6 +10,7 @@ import com.shtoone.liqing.mvp.contract.others.LoginContract;
 import com.shtoone.liqing.mvp.model.HttpHelper;
 import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
 import com.shtoone.liqing.mvp.presenter.base.BasePresenter;
+import com.shtoone.liqing.mvp.view.others.SubmitScannedDataActivity;
 import com.shtoone.liqing.utils.AESCryptUtils;
 import com.shtoone.liqing.utils.SharedPreferencesUtils;
 import com.socks.library.KLog;
@@ -69,6 +71,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 //                            KLog.e(TAG+":"+BaseApplication.mDepartmentData.departmentName );
                             getView().savaData(mUserInfoBean);
                             getView().setSuccessMessage();
+                            KLog.e("登录逻辑处理");
                             getView().go2Main();
                         } else {
                             getView().setErrorMessage("用户名或密码错误");

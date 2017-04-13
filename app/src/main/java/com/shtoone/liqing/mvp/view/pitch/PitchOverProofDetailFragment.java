@@ -6,12 +6,12 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -26,7 +26,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -46,6 +45,7 @@ import com.sdsmdg.tastytoast.TastyToast;
 import com.shtoone.liqing.BaseApplication;
 import com.shtoone.liqing.R;
 import com.shtoone.liqing.common.Constants;
+import com.shtoone.liqing.event.EventData;
 import com.shtoone.liqing.mvp.contract.pitch.PitchOverProofDetailContract;
 import com.shtoone.liqing.mvp.model.HttpHelper;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
@@ -63,6 +63,7 @@ import com.shtoone.liqing.utils.ToastUtils;
 import com.shtoone.liqing.widget.PageStateLayout;
 import com.socks.library.KLog;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
@@ -74,7 +75,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.Locale;
 import java.util.Map;
 
@@ -88,6 +88,7 @@ import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 /**
  * Author： hengzwd on 2017/3/17.
@@ -156,6 +157,12 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
     PageStateLayout pslProduceQuery;
     @BindView(R.id.ptr_produce_query_detail_fragment)
     PtrFrameLayout ptrProduceQuery;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_title_handle)
+    TextView tvTitleHandle;
+    @BindView(R.id.tv_title_example)
+    TextView tvTitleExample;
 
 
     private UserInfoBean mUserInfoData;
@@ -174,7 +181,7 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
     private LinearLayoutManager linearLayoutManager;
     private PitchOverProofDetailsBean.LqHeadEntity headEntity;
     private PitchOverProofDetailsBean.LqjgEntity lqjgEntity;
-
+    private MaterialDialog progressDialog;
     private DepartmentBean departmentBean;
     private ParametersData parametersData = new ParametersData();
     private int lastVisibleItemPosition;
@@ -273,7 +280,7 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             super.onAnimationEnd(animation);
-                            llCameraAlbum.setVisibility(View.INVISIBLE);
+                            ivPhotoSelect.setVisibility(View.INVISIBLE);
                         }
                     });
                     mAnimator.start();
@@ -524,7 +531,9 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
 
 
     private void setData2View(PitchOverProofDetailsBean.LqHeadEntity headEntity, PitchOverProofDetailsBean.LqjgEntity swjgEntity) {
-
+        tvTitle.setText(headEntity.getBhjName());
+        tvTitleHandle.setText(headEntity.getBhjName());
+        tvTitleExample.setText(headEntity.getBhjName());
         scchaxunXqBhjname.setText(headEntity.getBhjName());
         scchaxunXqChuliaoshijian.setText(headEntity.getChuliaoshijian());
         scchaxunXqDate.setText(headEntity.getCaijishijian());
@@ -537,25 +546,40 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
         etHandleWay.getEditText().setText(swjgEntity.getChulifangshi());
         etHandleTime.getEditText().setText(swjgEntity.getShenpidate());
         etHandleReason.getEditText().setText(swjgEntity.getWentiyuanyin());
+//
+//        if (0 == mUserInfoData.getChuzhi()) {
+//            btHandleSubmit.setEnabled(false);
+//            btHandleReset.setEnabled(false);
+//        } else if (1 == mUserInfoData.getChuzhi()) {
+//            btHandleSubmit.setEnabled(true);
+//            btHandleReset.setEnabled(true);
+//        }
+//
+//        if (0 == mUserInfoData.getShenehe()) {
+//            btExamineSubmit.setEnabled(false);
+//            btExamineReset.setEnabled(false);
+//        } else if (1 == mUserInfoData.getShenehe()) {
+//            btExamineSubmit.setEnabled(true);
+//            btExamineReset.setEnabled(true);
+//        }
 
-        if (0==mUserInfoData.getChuzhi()) {
-            btHandleSubmit.setEnabled(false);
-            btHandleReset.setEnabled(false);
-        } else if (1==mUserInfoData.getChuzhi()) {
+
+        if (departmentBean.handleType.equals("0")&&1 == mUserInfoData.getChuzhi()) {
             btHandleSubmit.setEnabled(true);
             btHandleReset.setEnabled(true);
+        } else  {
+            btHandleSubmit.setEnabled(false);
+            btHandleReset.setEnabled(false);
         }
-
-        if (0==mUserInfoData.getShenehe()) {
-            btExamineSubmit.setEnabled(false);
-            btExamineReset.setEnabled(false);
-        } else if (1==mUserInfoData.getShenehe()) {
+        if (departmentBean.exampleType.equals("0")&&1 == mUserInfoData.getShenehe()) {
             btExamineSubmit.setEnabled(true);
             btExamineReset.setEnabled(true);
+        } else {
+            btExamineSubmit.setEnabled(false);
+            btExamineReset.setEnabled(false);
         }
 
-        if (TextUtils.isEmpty(etHandlePerson.getEditText().getText()))
-        {
+        if (TextUtils.isEmpty(etHandlePerson.getEditText().getText())) {
             etHandlePerson.getEditText().setText(examinePerson = mUserInfoData.getUserFullName());
 
         }
@@ -564,9 +588,9 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         if (TextUtils.isEmpty(etHandleTime.getEditText().getText())) {
-            etHandleTime. getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
-        }if (TextUtils.isEmpty(etConfirmTime.getEditText().getText()))
-        {
+            etHandleTime.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
+        }
+        if (TextUtils.isEmpty(etConfirmTime.getEditText().getText())) {
             etConfirmTime.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
         }
 
@@ -576,6 +600,7 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
         }
 
     }
+
     @Override
     public void showContent() {
         pslProduceQuery.showContent();
@@ -620,7 +645,8 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.liqing) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -631,11 +657,9 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
     private void examineSubmit(final MaterialDialog progressDialog) {
         Map<String, String> paramsMap = new HashMap<String, String>();
         paramsMap.put("jieguobianhao", departmentBean.bianhao);
-        paramsMap.put("jianliresult", examineResult);
-        paramsMap.put("jianlishenpi", examineApprove);
+        paramsMap.put("yezhuyijian", examineApprove);
         paramsMap.put("confirmdate", DateUtils.ChangeTimeToLong(confirmTime));
         paramsMap.put("shenpiren", examinePerson);
-        paramsMap.put("shenpidate", DateUtils.ChangeTimeToLong(approveTime));
         progressDialog.show();
         HttpHelper.getInstance().initService().uploadPitchShenHe(paramsMap)
                 .subscribeOn(Schedulers.io())
@@ -659,7 +683,7 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
 
                         if (!o.isSuccess()) {
                             TastyToast.makeText(BaseApplication.mContext, "提交失败!", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-                        }else {
+                        } else {
                             TastyToast.makeText(BaseApplication.mContext, "提交成功!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                         }
 
@@ -718,8 +742,11 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
                         public void onNext(UploadResponseBean o) {
                             if (!o.isSuccess()) {
                                 TastyToast.makeText(BaseApplication.mContext, "上传失败!", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-                            }else {
+                            } else {
                                 TastyToast.makeText(BaseApplication.mContext, "上传成功!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+
+                                EventBus.getDefault().postSticky(new EventData(Constants.PITCHOVERPROOFDETAILFRAGEMENT));
+                                _mActivity.onBackPressedSupport();
                             }
                             KLog.e("上传————onnext");
                         }
@@ -858,10 +885,52 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
         } else if (requestCode == Constants.ALBUM) { // 表示是从相册选择图片返回
             Uri uri = data.getData(); //得到图片 uri
             ContentResolver resolver = _mActivity.getContentResolver(); //处理器
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(resolver, uri); //  将对应 uri 通过处理器转化为 bitmap
-            } catch (Exception e) {
-                e.printStackTrace();
+            String strPath = uri.getPath();
+            KLog.e("path:" + strPath);
+            File file = new File(strPath);
+            KLog.e("filelength:" + file.length());
+            if (file.length() > 1024 * 1024) {
+                Luban.get(_mActivity).load(file)
+                        .putGear(Luban.THIRD_GEAR)
+                        .asObservable()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<File>() {
+                            @Override
+                            public void onCompleted() {
+                                progressDialog.dismiss();
+                                if (bitmap != null) {
+                                    llCameraAlbum.setVisibility(View.GONE);
+                                    ivPhotoSelect.setVisibility(View.VISIBLE);
+                                    ivPhotoSelect.setImageBitmap(bitmap);
+                                }
+                            }
+
+                            @Override
+                            public void onStart() {
+                                super.onStart();
+                                progressDialog = new MaterialDialog.Builder(_mActivity).content("图片太大，压缩中。。。").build();
+                                progressDialog.show();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                progressDialog.dismiss();
+                                ToastUtils.showErrorToast(_mActivity, "图片加载失败");
+                            }
+
+                            @Override
+                            public void onNext(File file) {
+                                bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                            }
+                        });
+            } else {
+
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(resolver, uri); //  将对应 uri 通过处理器转化为 bitmap
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         if (bitmap != null) {
@@ -879,10 +948,9 @@ public class PitchOverProofDetailFragment extends BaseFragment<PitchOverProofDet
             //判断RecyclerView是否在在顶部，在顶部则允许滑动下拉刷新
             if (null != rvProduceQuery) {
                 if (rvProduceQuery.getLayoutManager() instanceof LinearLayoutManager) {
-                    if (nsvProduceQuery.getScrollY()==0) {
+                    if (nsvProduceQuery.getScrollY() == 0) {
                         return true;
                     }
-
                 }
             } else {
                 return true;

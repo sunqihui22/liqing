@@ -1,5 +1,6 @@
 package com.shtoone.liqing.widget.LoadingDrawable;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -59,6 +60,7 @@ public class LoadingView extends ImageView {
             stopAnimation();
         }
     }
+
 
     private void startAnimation() {
         if (mLoadingDrawable != null) {

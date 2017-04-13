@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +79,8 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
     private int lastVisibleItemPosition;
     private boolean isLoading;
     private List<WaterStabilityOverProofBean.DataEntity> list;
+    private String TAG = WaterStabilityOverProofFragment.class.getSimpleName();
+
     public static WaterStabilityOverProofFragment newInstance(DepartmentBean departmentBean) {
 
         WaterStabilityOverProofFragment fragment = new WaterStabilityOverProofFragment();
@@ -142,7 +143,9 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
     @Override
     public void responseLoadMore(WaterStabilityOverProofBean mWaterStabilityOverProofBean) {
         isLoading = false;
-        parametersData.currentPage++;
+        if (mWaterStabilityOverProofBean.getData().size()>0) {
+            parametersData.currentPage++;
+        }
         list.addAll(mWaterStabilityOverProofBean.getData());
         madapter.removeAllFooterView();
         madapter.addData(mWaterStabilityOverProofBean.getData());
@@ -239,6 +242,9 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
             public void onItemClick(View view, int position) {
                 departmentBean.bianhao=madapter.getData().get(position).getBianhao();
                 departmentBean.fromto=Constants.WATERSTABILITYOVERPROOFFRAGMENT;
+                departmentBean.equipmentID = madapter.getData().get(position).getSbbh();
+                departmentBean.handleType=madapter.getData().get(position).getChuli();
+                departmentBean.exampleType=madapter.getData().get(position).getShenhe();
                 ((WaterStabilityActivity)_mActivity).startDetailActivity(departmentBean);
             }
         });
@@ -247,7 +253,8 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.waterstability) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -266,6 +273,7 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
         parametersData.currentPage=1;
         map.put("pageNo",parametersData.currentPage+"");
         map.put("maxPageItems","10");
+        KLog.e(TAG,"map=:"+map.toString());
         mPresenter.requestWaterStabilityOverProofBean(map);
     }
 
@@ -281,7 +289,7 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
         map.put("shebeibianhao",parametersData.equipmentID);
         map.put("chaobiaolx",parametersData.alarmLevel);
         map.put("cllx",parametersData.handleType);
-        map.put("pageNo",parametersData.currentPage+"");
+        map.put("pageNo",parametersData.currentPage+1+"");
         map.put("maxPageItems","10");
         mPresenter.loadMoreData(map);
 
@@ -355,7 +363,7 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
 
     @OnClick(R.id.fab)
     public void onClick() {
-
+        parametersData.fromTo=Constants.WATERSTABILITYOVERPROOFFRAGMENT;
         ((WaterStabilityActivity)_mActivity).startDrawerActivity(parametersData,null);
     }
 
@@ -364,6 +372,7 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void updateDepartment(EventData eventData) {
         KLog.e("updateDepartment:Subscribe");
+        KLog.e(eventData.parametersBean.fromTo);
         if (eventData.parametersBean != null && null != this.parametersData) {
             if (eventData.parametersBean.fromTo == Constants.WATERSTABILITYOVERPROOFFRAGMENT) {
                 this.parametersData.startDateTime = eventData.parametersBean.startDateTime;
@@ -373,6 +382,9 @@ public class WaterStabilityOverProofFragment extends BaseFragment<OverProofContr
                 this.parametersData.alarmLevel=eventData.parametersBean.alarmLevel;
                 ptrframelayout.autoRefresh(true);
             }
+        }
+        if (eventData.position == Constants.WATERSTABILITYOVERPROOFDETAIL) {
+            ptrframelayout.autoRefresh(true);
         }
     }
 

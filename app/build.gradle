@@ -10,7 +10,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.0"   //2017/4/7 发布版本1.0
     }
     buildTypes {
         release {
@@ -90,4 +90,7 @@ dependencies {
 
 
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+
+    //luban
+    compile 'top.zibin:Luban:1.0.9'
 }

@@ -1,6 +1,5 @@
 package com.shtoone.liqing.mvp.view.others;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.afollestad.materialdialogs.internal.MDAdapter;
 import com.shtoone.liqing.BaseApplication;
 import com.shtoone.liqing.R;
 import com.shtoone.liqing.common.Constants;
@@ -198,8 +196,11 @@ public class OrganizationFragment extends BaseFragment<OrganizationContract.Pres
                         mDepartmentData.departtype = Constants.DEPARTTYPE_PROJECT;
                     } else if (node.getLevel() == 2) {
                         mDepartmentData.departtype = Constants.DEPARTTYPE_BHZ;
-                        mDepartmentData.equipmentID=node.getEquipmentId();                }
+                        mDepartmentData.equipmentID=node.getEquipmentId();
+                    }
                 }
+
+                //通过eventbus将选择的mDepartmentData传递给Pitchfragment
                 EventBus.getDefault().postSticky(new EventData(mDepartmentData));
                 _mActivity.onBackPressedSupport();
             }

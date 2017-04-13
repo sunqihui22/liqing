@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.util.TimeUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +23,6 @@ import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
 import com.shtoone.liqing.mvp.model.bean.PitchFragmentData;
 import com.shtoone.liqing.mvp.presenter.pitch.PitchPresenter;
-import com.shtoone.liqing.mvp.view.WaterStability.WaterStabilityActivity;
 import com.shtoone.liqing.mvp.view.adapter.OnItemClickListener;
 import com.shtoone.liqing.mvp.view.adapter.PitchFragmentRecyclerViewAdapter;
 import com.shtoone.liqing.mvp.view.base.BaseFragment;
@@ -93,6 +91,7 @@ public class PitchFragment extends BaseFragment<PitchContract.Presenter> impleme
         EventBus.getDefault().register(this);
         if (savedInstanceState == null) {
             mDepartmentBean = (DepartmentBean) BaseApplication.mDepartmentData.clone();
+            KLog.e(TAG,"mDepartmentBean=:"+mDepartmentBean.toString());
             mDepartmentBean.fromto=Constants.PITCHFRAGMENT;
         } else {
             mDepartmentBean = (DepartmentBean) savedInstanceState.getSerializable("departmentData");
@@ -121,6 +120,7 @@ public class PitchFragment extends BaseFragment<PitchContract.Presenter> impleme
                 mParametersData.departType = mDepartmentBean.departtype;
                 mParametersData.biaoshiid = mDepartmentBean.departmentID;
                 mParametersData.deviceType = Constants.TYPE_PITCH;
+                KLog.e(TAG,"departType=:"+mParametersData.departType);
                 ((MainActivity) _mActivity).startDrawerActivity(mParametersData, null);
             }
         });
@@ -157,12 +157,16 @@ public class PitchFragment extends BaseFragment<PitchContract.Presenter> impleme
                 } else if (mDepartmentBean.departtype.equals(Constants.DEPARTTYPE_PROJECT)) {
                     departmentBeanItem.departtype = Constants.DEPARTTYPE_BHZ;
                 }
+                else if(mDepartmentBean.departtype.equals(Constants.DEPARTTYPE_BHZ)){
+                    departmentBeanItem.departtype = Constants.DEPARTTYPE_BHZ;
+                }
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("departmentData", departmentBeanItem);
                 Intent intent = new Intent(_mActivity, PitchActivity.class);
                 intent.putExtra("departmentData", bundle);
                 startActivity(intent);
-
+                KLog.e(TAG,"---------initData-------");
 //                startActivity(new Intent(_mActivity, PitchDetailActivity.class));
             }
         });
@@ -182,6 +186,7 @@ public class PitchFragment extends BaseFragment<PitchContract.Presenter> impleme
         String startTime = DateUtils.ChangeTimeToLong(mParametersData.startDateTime);
         String endTime = DateUtils.ChangeTimeToLong(mParametersData.endDateTime);
         mPresenter.requestTotalProductData(mDepartmentBean.departtype, mDepartmentBean.departmentID, startTime, endTime, mParametersData.equipmentID);
+        KLog.e(TAG,"departtype=:"+mDepartmentBean.departtype);
     }
 
     @Override
@@ -255,18 +260,22 @@ public class PitchFragment extends BaseFragment<PitchContract.Presenter> impleme
         });
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void updateDepartment(EventData eventData) {
         KLog.e("updateDepartment:Subscribe");
+        //订阅从OrganizationFragment传递过来的参数的变化
         if (null != eventData.departmentData && null != this.mDepartmentBean) {
             if (eventData.departmentData.fromto == Constants.PITCHFRAGMENT) {
                 this.mDepartmentBean.departmentName = eventData.departmentData.departmentName;
                 this.mDepartmentBean.departmentID = eventData.departmentData.departmentID;
                 this.mDepartmentBean.departtype = eventData.departmentData.departtype;
                 this.mParametersData.equipmentID = eventData.departmentData.equipmentID;
+                KLog.e(TAG,"mDepartmentBean.departtype=:"+mDepartmentBean.departtype);
                 ptrframelayout.autoRefresh(true);
             }
         }
+        //订阅从Parametersfragment传递过来的参数的变化
         if (eventData.parametersBean != null && null != this.mParametersData) {
             if (eventData.parametersBean.fromTo == Constants.PITCHFRAGMENT) {
                 this.mParametersData.startDateTime = eventData.parametersBean.startDateTime;
@@ -279,7 +288,9 @@ public class PitchFragment extends BaseFragment<PitchContract.Presenter> impleme
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+//        StringBuffer sb = new StringBuffer("广东云湛高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.liqing) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }
@@ -289,6 +300,30 @@ public class PitchFragment extends BaseFragment<PitchContract.Presenter> impleme
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
     }
+
+    @Override
+    public boolean isCanDoRefresh() {
+        //判断是哪种状态的页面，都让其可下拉
+        if (pagestatelayout.isShowContent) {
+            //判断RecyclerView是否在在顶部，在顶部则允许滑动下拉刷新
+            if (null != recyclerview) {
+                if (recyclerview.getLayoutManager() instanceof LinearLayoutManager) {
+                    LinearLayoutManager lm = (LinearLayoutManager) recyclerview.getLayoutManager();
+                    int position = lm.findFirstVisibleItemPosition();
+                    if (position >= 0) {
+                        if (lm.findViewByPosition(position).getTop() > 0 && position == 0) {
+                            return true;
+                        }
+                    }
+                }
+            } else {
+                return true;
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

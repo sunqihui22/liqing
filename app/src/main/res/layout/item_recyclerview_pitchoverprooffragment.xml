@@ -15,7 +15,6 @@
         android:id="@+id/tv_shengchanyongliang_item_recyclerview__fragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/material_blue_400"
         android:layout_weight="1"
         android:gravity="center" />
 
@@ -25,16 +24,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/material_green_300" />
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/tv_sgpeibi_item_recyclerview_fragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/material_red_300" />
+        android:gravity="center" />
 
 
     <TextView
@@ -42,7 +39,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/material_red_300" />
+        android:gravity="center" />
 
 </LinearLayout>

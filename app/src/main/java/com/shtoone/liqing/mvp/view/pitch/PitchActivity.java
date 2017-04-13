@@ -39,13 +39,13 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 public class PitchActivity extends BaseActivity {
 
-
+    private String TAG = PitchActivity.class.getSimpleName();
     private AHBottomNavigation bottomNavigation;
     private SupportFragment[] mFragments = new SupportFragment[5];
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     private int bottomNavigationPreposition = 0;
     private FrameLayout fl_container;
-    private DepartmentBean departmentBean ;
+    private DepartmentBean departmentBean;
     private static PopupWindow mPopupWindow;
     public FrameLayout fl_popupwindow;
 
@@ -53,15 +53,15 @@ public class PitchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pitch_detail);
-        Intent intent =getIntent();
-        Bundle bundle=intent.getBundleExtra("departmentData");
-        departmentBean= (DepartmentBean) bundle.getSerializable("departmentData");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("departmentData");
+        departmentBean = (DepartmentBean) bundle.getSerializable("departmentData");
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_pitch_detail);
         fl_container = (FrameLayout) findViewById(R.id.fl_container_pitch_detail);
         if (savedInstanceState == null) {
 //            mFragments[0] = OutletTemperatureFragment.newInstance();
             mFragments[0] = PitchProductQueryFragment.newInstance(departmentBean);
-            mFragments[1]=DayProductQueryFragment.newInstance(departmentBean);
+            mFragments[1] = DayProductQueryFragment.newInstance(departmentBean);
 
             mFragments[2] = PitchOverProofFragment.newInstance(departmentBean);
             mFragments[3] = PitchStatisticsFragment.newInstance(departmentBean);
@@ -71,7 +71,7 @@ public class PitchActivity extends BaseActivity {
         } else {
 //            mFragments[0] = findFragment(OutletTemperatureFragment.class);
             mFragments[0] = findFragment(PitchProductQueryFragment.class);
-            mFragments[1]=findFragment(DayProductQueryFragment.class);
+            mFragments[1] = findFragment(DayProductQueryFragment.class);
 
             mFragments[2] = findFragment(PitchOverProofFragment.class);
             mFragments[3] = findFragment(PitchStatisticsFragment.class);
@@ -92,11 +92,11 @@ public class PitchActivity extends BaseActivity {
 
 //        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.OutletTemperature, R.drawable.ic_favorites, R.color.material_green_100);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.HistoryData, R.drawable.ic_search_white_18dp, R.color.white);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.DayProductQuery, R.drawable.ic_bhz, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.DayProductQuery, R.drawable.ic_dayquery_black, R.color.white);
 
-        AHBottomNavigationItem  item3= new AHBottomNavigationItem(R.string.PendingTreatment, R.drawable.ic_friends, R.color.white);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.PendingTreatment, R.drawable.ic_overproof, R.color.white);
 
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.material_statistic, R.drawable.ic_nearby, R.color.white);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.material_statistic, R.drawable.ic_statistic, R.color.white);
 
 //        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.PitchProductMonitor, R.drawable.ic_nearby, R.color.material_green_100);
 
@@ -146,7 +146,10 @@ public class PitchActivity extends BaseActivity {
         int currentItem = 0;
 
         bottomNavigation.setCurrentItem(currentItem);
+
+        KLog.e(TAG, "========initData========");
     }
+
 
     private void initPopuwindow(PopupWindow mPopupWindow) {
         mPopupWindow.setHeight(getWindowManager().getDefaultDisplay().getHeight());
@@ -182,11 +185,10 @@ public class PitchActivity extends BaseActivity {
         } else if (mParametersData == null && departmentData != null) {
             bundle.putSerializable("departmentData", departmentData);
         }
+
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
-
 
     public void startDetailActivity(@Nullable DepartmentBean departmentData) {
         Intent intent = new Intent(this, DetailActivity.class);
@@ -194,5 +196,11 @@ public class PitchActivity extends BaseActivity {
         bundle.putSerializable("departmentData", departmentData);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        super.onBackPressedSupport();
+        KLog.e("pitchactivity:onBackPressedSupport");
     }
 }

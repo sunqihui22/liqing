@@ -29,6 +29,7 @@ import com.shtoone.liqing.utils.AESCryptUtils;
 import com.shtoone.liqing.utils.KeyBoardUtils;
 import com.shtoone.liqing.utils.SharedPreferencesUtils;
 import com.shtoone.liqing.widget.processbutton.iml.ActionProcessButton;
+import com.socks.library.KLog;
 
 import org.json.JSONException;
 
@@ -78,7 +79,7 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
         if (args != null) {
             fromTo = args.getInt(Constants.FROM_TO);
         }
-        Log.i("LoginFragment","--LoginFragment--");
+        Log.i("LoginFragment", "--LoginFragment--");
     }
 
     @NonNull
@@ -166,8 +167,8 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
         password = etPassword.getEditText().getText().toString().trim();
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
             btLogin.setProgress(50);
+            KLog.d("执行点击");
             mPresenter.login(username, password);
-
         } else if (TextUtils.isEmpty(username)) {
             etUsername.setErrorEnabled(true);
             etUsername.setError("");
@@ -213,13 +214,13 @@ public class LoginFragment extends BaseFragment<LoginContract.Presenter> impleme
         btLogin.postDelayed(new Runnable() {
             @Override
             public void run() {
-                _mActivity.startActivity(new Intent(_mActivity, MainActivity.class));
+                _mActivity.startActivity(new Intent(_mActivity, SubmitScannedDataActivity.class));
+                KLog.e("zouzou33");
                 _mActivity.finish();
             }
         }, 300);
 
     }
-
 
 
     @Override

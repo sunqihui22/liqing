@@ -15,7 +15,6 @@
         android:id="@+id/tv_biaozhun_item_recyclerview__fragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/material_blue_400"
         android:layout_weight="1"
         android:gravity="center" />
 
@@ -26,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/material_yellow_800" />
+        />
 
     <TextView
         android:id="@+id/tv_wucha_item_recyclerview_fragment"
@@ -34,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/material_green_300" />
+      />
 
     <TextView
         android:id="@+id/tv_yujing_item_recyclerview_fragment"
@@ -42,6 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/material_red_300" />
+      />
 
 </LinearLayout>

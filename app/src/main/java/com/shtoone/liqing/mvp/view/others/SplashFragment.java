@@ -91,8 +91,6 @@ public class SplashFragment extends BaseFragment<SplashContract.Presenter> imple
 
     @OnClick(R.id.ctp_skip)
     public void onClick() {
-
-
     }
 
     @Override

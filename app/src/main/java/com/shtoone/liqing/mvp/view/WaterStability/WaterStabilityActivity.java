@@ -65,7 +65,7 @@ public class WaterStabilityActivity extends BaseActivity {
         } else {
             mFragments[0] = findFragment(WaterStabilityProductionQueryFragemnt.class);
             mFragments[1] = findFragment(WaterStabilityOverProofFragment.class);
-            mFragments[2] = findFragment(WaterStabilityStatisticsFragment.class);
+            mFragments[2] = findFragment(MaterialStatisticsFragment.class);
 
         }
         initData();
@@ -80,8 +80,8 @@ public class WaterStabilityActivity extends BaseActivity {
     public void initData() {
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.HistoryData, R.drawable.ic_search_white_18dp, R.color.white);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.PendingTreatment, R.drawable.ic_friends, R.color.white);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.matrial_Stastics, R.drawable.ic_nearby, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.PendingTreatment, R.drawable.ic_overproof, R.color.white);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.matrial_Stastics, R.drawable.ic_statistic, R.color.white);
 
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);

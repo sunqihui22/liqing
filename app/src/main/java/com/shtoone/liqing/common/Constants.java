@@ -1,10 +1,7 @@
 package com.shtoone.liqing.common;
 
-import android.app.NotificationManager;
-import android.telephony.TelephonyManager;
 
 import com.shtoone.liqing.BaseApplication;
-import com.shtoone.liqing.mvp.view.pitch.PitchProductQueryFragment;
 import com.shtoone.liqing.utils.DirectoryUtils;
 
 import java.io.File;
@@ -31,14 +28,14 @@ public class Constants {
 
 
     //基地址
-    public static final String BASE_URL = "http://192.168.11.123:8080/jbgsmss/";
+    public static final String BASE_URL = "http://114.215.239.38:8082/yzgsmss/";
 
 
     //登录地址
     public static final String LOGIN_URL = BASE_URL + "app.do?AppLogin&userName=%1&userPwd=%2&OSType=3";
 
-    public static final String DOMAIN_1 = "shtoone.com";
-    public static final String DOMAIN_2 = "sh-toone";
+    public static final String DOMAIN_1 = "refreshing...";
+    public static final String DOMAIN_2 = "refreshing...";
     public static final String ISFIRSTENTRY = "is_first_entry";
     public static final String ISFIRSTGUIDE = "is_first_guide";
     public static final String USERNAME = "username";
@@ -82,14 +79,14 @@ public class Constants {
     public static final int PRODUCTQUERYFRAGMENT = 14;
     public static final int TOTALAMOUNTFRAGMENT = 15;
     public static final int PITCHPRODUCTQUERYFRAGMENT = 16;
-
+    public static final int PITCHOVERPROOFDETAILFRAGEMENT=17;
     public static final int TOTALAMOUNTSTATISTICFRAGMENT = 23;
 
 
     public static final int  WATERSTABILITYFRAGMENT=24;
     public static final int  WATERSTABILITYOVERPROOFFRAGMENT=25;
     public static final int  PITCHOVERPROOFFRAGMENT=26;
-
+    public static final int  WATERSTABILITYOVERPROOFDETAIL=28;
     public static final int  MaterialStatisticsFragment=27;
     public static final int PitchMaterialStatisticsFragment=29;
     public static final int  WATERSTABILITYPRODUCTIONQUERYFRAGMENT=28;
@@ -127,7 +124,8 @@ public class Constants {
 
 
 
-   // 组织机构类型
+
+    // 组织机构类型
     public  static final  String  DEPARTTYPE_OWNER="1";
     public  static final  String  DEPARTTYPE_SECTION="2";
 

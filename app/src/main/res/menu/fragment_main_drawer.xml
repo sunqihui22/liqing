@@ -14,10 +14,10 @@
 
     <item android:title="About">
         <menu>
-            <item
-                android:id="@+id/about_drawer_main_activity"
-                android:icon="@drawable/ic_menu_share"
-                android:title="关于" />
+            <!--<item-->
+                <!--android:id="@+id/about_drawer_main_activity"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="关于" />-->
             <item
                 android:id="@+id/version_drawer_main_activity"
                 android:icon="@drawable/ic_menu_send"

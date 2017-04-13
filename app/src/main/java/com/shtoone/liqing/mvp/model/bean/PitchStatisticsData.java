@@ -11,20 +11,13 @@ import java.util.List;
 public class PitchStatisticsData implements Serializable {
 
     /**
-     * data : [{"mbpeibi":"90.2","name":"2#仓","scpeibi":"","sgpeibi":"","wucha":"-5.10","yongliang":"85.6"},{"mbpeibi":"143.2","name":"3#仓","scpeibi":"","sgpeibi":"","wucha":"-4.47","yongliang":"136.8"},{"mbpeibi":"72.0","name":"4#仓","scpeibi":"","sgpeibi":"","wucha":"-4.03","yongliang":"69.1"},{"mbpeibi":"17.1","name":"5#仓","scpeibi":"","sgpeibi":"","wucha":"-1.17","yongliang":"16.9"},{"mbpeibi":"128.0","name":"6#仓","scpeibi":"","sgpeibi":"","wucha":"-4.14","yongliang":"122.7"},{"mbpeibi":"8.0","name":"矿粉1","scpeibi":"","sgpeibi":"","wucha":"-5.00","yongliang":"7.6"},{"mbpeibi":"11.3","name":"矿粉2","scpeibi":"","sgpeibi":"","wucha":"-7.08","yongliang":"10.5"},{"mbpeibi":"20.9","name":"沥青","scpeibi":"","sgpeibi":"","wucha":"0.48","yongliang":"21.0"}]
+     * data : [{"cblx":"","mbpeibi":"89.7","name":"2#仓","scpeibi":"","sgpeibi":"","wucha":"-5.02","yongliang":"85.2"},{"cblx":"","mbpeibi":"142.5","name":"3#仓","scpeibi":"","sgpeibi":"","wucha":"-4.56","yongliang":"136.0"},{"cblx":"","mbpeibi":"71.5","name":"4#仓","scpeibi":"","sgpeibi":"","wucha":"-4.06","yongliang":"68.6"},{"cblx":"","mbpeibi":"17.1","name":"5#仓","scpeibi":"","sgpeibi":"","wucha":"-1.17","yongliang":"16.9"},{"cblx":"","mbpeibi":"127.1","name":"6#仓","scpeibi":"","sgpeibi":"","wucha":"-4.09","yongliang":"121.9"},{"cblx":"","mbpeibi":"7.8","name":"矿粉1","scpeibi":"","sgpeibi":"","wucha":"-3.85","yongliang":"7.5"},{"cblx":"","mbpeibi":"11.3","name":"矿粉2","scpeibi":"","sgpeibi":"","wucha":"-7.08","yongliang":"10.5"},{"cblx":"","mbpeibi":"20.8","name":"沥青","scpeibi":"","sgpeibi":"","wucha":"0.48","yongliang":"20.9"}]
      * success : true
+     * tableName : 兴华高速LM1标
      */
 
     private boolean success;
-    /**
-     * mbpeibi : 90.2
-     * name : 2#仓
-     * scpeibi :
-     * sgpeibi :
-     * wucha : -5.10
-     * yongliang : 85.6
-     */
-
+    private String tableName;
     private List<DataBean> data;
 
     public boolean isSuccess() {
@@ -33,6 +26,14 @@ public class PitchStatisticsData implements Serializable {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     public List<DataBean> getData() {
@@ -44,12 +45,31 @@ public class PitchStatisticsData implements Serializable {
     }
 
     public static class DataBean {
+        /**
+         * cblx :
+         * mbpeibi : 89.7
+         * name : 2#仓
+         * scpeibi :
+         * sgpeibi :
+         * wucha : -5.02
+         * yongliang : 85.2
+         */
+
+        private String cblx;
         private String mbpeibi;
         private String name;
         private String scpeibi;
         private String sgpeibi;
         private String wucha;
         private String yongliang;
+
+        public String getCblx() {
+            return cblx;
+        }
+
+        public void setCblx(String cblx) {
+            this.cblx = cblx;
+        }
 
         public String getMbpeibi() {
             return mbpeibi;

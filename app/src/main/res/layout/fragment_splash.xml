@@ -6,8 +6,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_splash" />
+        android:layout_height="match_parent"/>
 
     <com.shtoone.liqing.widget.CircleTextProgressbar
         android:id="@+id/ctp_skip"

@@ -96,6 +96,8 @@ public class WaterStabilityProductionQueryDetailFragment extends BaseFragment<Wa
     TextView textView;
     @BindView(R.id.tv_linchart_head)
     TextView tvLinchartHead;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private WaterStabilityAccountingTableAdapter madapter;
     private WaterstabilityChartTableAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
@@ -138,7 +140,7 @@ public class WaterStabilityProductionQueryDetailFragment extends BaseFragment<Wa
         madapter = new WaterStabilityAccountingTableAdapter();
         adapter = new WaterstabilityChartTableAdapter();
         pslProduceQuery.setPadding(0, 0, 0, DensityUtils.dp2px(_mActivity, 0));
-        tvLinchartHead.setText(departmentBean.userpositon+"合成级配曲线图");
+        tvLinchartHead.setText(departmentBean.userpositon + "合成级配曲线图");
         initPageStateLayout(pslProduceQuery);
         initPtrFrameLayout(ptrProduceQuery);
         linearLayoutManager = new LinearLayoutManager(_mActivity);
@@ -163,6 +165,7 @@ public class WaterStabilityProductionQueryDetailFragment extends BaseFragment<Wa
 
     private void setData2View(WaterStabilityProductionQueryDetailData.SwHeadEntity headEntity, List<WaterStabilityProductionQueryDetailData.SwChartDataListEntity> swjgEntity) {
 
+        tvTitle.setText(headEntity.getBhjName());
         scchaxunXqBhjname.setText(headEntity.getBhjName());
         scchaxunXqChuliaoshijian.setText(headEntity.getChuliaoshijian());
         scchaxunXqDate.setText(headEntity.getBaocunshijian());
@@ -207,7 +210,8 @@ public class WaterStabilityProductionQueryDetailFragment extends BaseFragment<Wa
 
     private void setToolbarTitle() {
 //        if (null != toolbarToolbar && null != BaseApplication.mDepartmentData && !TextUtils.isEmpty(BaseApplication.mDepartmentData.departmentName)) {
-        StringBuffer sb = new StringBuffer("广东揭博高速公路" + " > ");
+        String toolBarName = getResources().getString(R.string.toolbar_name);
+        StringBuffer sb = new StringBuffer( toolBarName+ " > ");
         sb.append(getString(R.string.waterstability) + " > ");
         toolbarToolbar.setTitle(sb.toString());
 //        }

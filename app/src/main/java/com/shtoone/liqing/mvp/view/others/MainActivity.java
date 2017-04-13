@@ -26,7 +26,6 @@ import com.shtoone.liqing.common.Constants;
 import com.shtoone.liqing.mvp.contract.base.BaseContract;
 import com.shtoone.liqing.mvp.model.bean.DepartmentBean;
 import com.shtoone.liqing.mvp.model.bean.ParametersData;
-import com.shtoone.liqing.mvp.model.bean.UserInfoBean;
 import com.shtoone.liqing.mvp.view.base.BaseActivity;
 import com.shtoone.liqing.utils.SharedPreferencesUtils;
 import com.socks.library.KLog;
@@ -146,9 +145,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
            // start(LoginFragment.newInstance(Constants.FROM_MAIN));
 //            startActivity(new Intent(this,LaunchActivity.class));
             go2Login();
-        } else if (id == R.id.about_drawer_main_activity) {
-           // start(AboutFragment.newInstance());
-            startFragmentSingleTask(AboutFragment.class);
+//        } else if (id == R.id.about_drawer_main_activity) {
+//           // start(AboutFragment.newInstance());
+//            startFragmentSingleTask(AboutFragment.class);
         } else if (id == R.id.version_drawer_main_activity) {
             startFragmentSingleTask(VersionFragment.class);
         }

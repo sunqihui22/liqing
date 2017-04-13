@@ -14,7 +14,7 @@
     </style>
 
     <style name="AppTheme.LaunchTheme">
-        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <!--<item name="android:windowBackground">@drawable/bg_splash1</item>-->
         <item name="android:windowFullscreen">true</item>
     </style>
 
